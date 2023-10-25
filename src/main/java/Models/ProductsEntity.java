@@ -19,15 +19,24 @@ public class ProductsEntity implements Serializable {
     @Basic
     @Column(name = "description", nullable = false)
     private String description;
+
+    public String getUrlImg() {
+        return urlImg;
+    }
+
+    public void setUrlImg(String urlImg) {
+        this.urlImg = urlImg;
+    }
+
     @Basic
     @Column(name = "price", nullable = false)
     private BigDecimal price;
     @Basic
     @Column(name = "stock_quantity", nullable = false)
     private int stockQuantity;
-//    @Basic
-//    @Column(name = "category_id", insertable=false, updatable=false)
-//    private Integer categoryId;
+    @Basic
+    @Column(name = "url_img", nullable = false)
+    private String urlImg;
     @OneToMany(mappedBy = "productsByProductId")
     private Collection<OrderdetailsEntity> orderdetailsByProductId;
     @ManyToOne
@@ -54,6 +63,18 @@ public class ProductsEntity implements Serializable {
 
     public String getDescription() {
         return description;
+    }
+
+    public ProductsEntity() {
+    }
+
+
+    public ProductsEntity(String productName, String description, BigDecimal price, int stockQuantity, String urlImg) {
+        this.productName = productName;
+        this.description = description;
+        this.price = price;
+        this.stockQuantity = stockQuantity;
+        this.urlImg = urlImg;
     }
 
     public void setDescription(String description) {

@@ -40,4 +40,17 @@ public class TestData {
         hibernateUtils.saveEntity();
         System.out.println((CategoriesEntity)hibernateUtils.getEntityById(1));
     }
+
+    public static void createData() {
+        CategoriesEntity categoriesIphone = new CategoriesEntity();
+        categoriesIphone.setCategoryName("iphone");
+        CategoriesEntity categoriesSamsung = new CategoriesEntity();
+        categoriesSamsung.setCategoryName("samsung");
+        //
+        HibernateUtils hibernateUtils = new HibernateUtils(categoriesIphone);
+        hibernateUtils.saveEntity();
+        hibernateUtils = new HibernateUtils(categoriesSamsung);
+
+
+    }
 }

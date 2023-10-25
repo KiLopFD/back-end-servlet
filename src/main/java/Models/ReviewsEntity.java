@@ -3,6 +3,7 @@ package Models;
 import jakarta.persistence.*;
 
 import java.io.Serializable;
+import java.sql.Timestamp;
 
 @Entity
 @Table(name = "reviews", schema = "public", catalog = "backend-servlet")
@@ -11,7 +12,9 @@ public class ReviewsEntity implements Serializable {
     @Id
     @Column(name = "review_id")
     private int reviewId;
-//    @Basic
+
+
+    //    @Basic
 //    @Column(name = "product_id", insertable=false, updatable=false)
 //    private Integer productId;
 //    @Basic
@@ -20,6 +23,18 @@ public class ReviewsEntity implements Serializable {
     @Basic
     @Column(name = "rating")
     private int rating;
+
+    public Timestamp getReviewDate() {
+        return reviewDate;
+    }
+
+    public void setReviewDate(Timestamp reviewDate) {
+        this.reviewDate = reviewDate;
+    }
+
+    @Basic
+    @Column(name = "review_date", nullable = false)
+    private Timestamp reviewDate;
     @Basic
     @Column(name = "comment")
     private String comment;
@@ -30,6 +45,15 @@ public class ReviewsEntity implements Serializable {
     @JoinColumn(name = "user_id", nullable = false)
     private UsersEntity usersByUserId;
 
+
+    public ReviewsEntity(int rating, String comment) {
+        this.rating = rating;
+        this.comment = comment;
+    }
+
+    public ReviewsEntity() {
+    }
+
     public int getReviewId() {
         return reviewId;
     }
@@ -37,22 +61,6 @@ public class ReviewsEntity implements Serializable {
     public void setReviewId(int reviewId) {
         this.reviewId = reviewId;
     }
-
-//    public Integer getProductId() {
-//        return productId;
-//    }
-
-//    public void setProductId(Integer productId) {
-//        this.productId = productId;
-//    }
-
-//    public Integer getUserId() {
-//        return userId;
-//    }
-
-//    public void setUserId(Integer userId) {
-//        this.userId = userId;
-//    }
 
     public int getRating() {
         return rating;
@@ -79,8 +87,6 @@ public class ReviewsEntity implements Serializable {
 
         if (reviewId != that.reviewId) return false;
         if (rating != that.rating) return false;
-//        if (productId != null ? !productId.equals(that.productId) : that.productId != null) return false;
-//        if (userId != null ? !userId.equals(that.userId) : that.userId != null) return false;
         if (comment != null ? !comment.equals(that.comment) : that.comment != null) return false;
 
         return true;
@@ -89,8 +95,6 @@ public class ReviewsEntity implements Serializable {
     @Override
     public int hashCode() {
         int result = reviewId;
-//        result = 31 * result + (productId != null ? productId.hashCode() : 0);
-//        result = 31 * result + (userId != null ? userId.hashCode() : 0);
         result = 31 * result + rating;
         result = 31 * result + (comment != null ? comment.hashCode() : 0);
         return result;
