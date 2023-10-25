@@ -2,12 +2,13 @@ package Models;
 
 import jakarta.persistence.*;
 
+import java.io.Serializable;
 import java.sql.Timestamp;
 import java.util.Collection;
 
 @Entity
 @Table(name = "orders", schema = "public", catalog = "backend-servlet")
-public class OrdersEntity {
+public class OrdersEntity implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
     @Column(name = "order_id")

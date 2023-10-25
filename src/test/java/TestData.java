@@ -1,3 +1,4 @@
+import Models.CategoriesEntity;
 import Models.UsersEntity;
 import Utils.HibernateUtils;
 import Utils.Serializers.UserSerializer;
@@ -6,12 +7,12 @@ import com.google.gson.Gson;
 public class TestData {
     public static void main(String[] args) {
         UsersEntity usersEntity = new UsersEntity();
-        usersEntity.setAddress("Tphcm");
-        usersEntity.setEmail("hello@gmail.com");
-        usersEntity.setFullName("Nguyen Van A");
-        usersEntity.setPhoneNumber("124556687");
-        usersEntity.setPassword("helloword");
-        usersEntity.setUsername("dev1");
+//        usersEntity.setAddress("Tphcm");
+//        usersEntity.setEmail("hello@gmail.com");
+//        usersEntity.setFullName("Nguyen Van A");
+//        usersEntity.setPhoneNumber("124556687");
+//        usersEntity.setPassword("helloword");
+//        usersEntity.setUsername("dev1");
 //        usersEntity.setUserId(1);
 //
 //        HibernateUtils hibernateUtils = new HibernateUtils(usersEntity);
@@ -25,11 +26,18 @@ public class TestData {
 //                ", Phone=" + entity.getPhoneNumber());
 
 //        UsersEntity usersEntity = new UsersEntity();
-        HibernateUtils hibernateUtils = new HibernateUtils(usersEntity);
+//        HibernateUtils hibernateUtils = new HibernateUtils(usersEntity);
 //        usersEntity = (UsersEntity)hibernateUtils.getEntityById(1);
+//        hibernateUtils.getEntityById(1);
+//        System.out.println((UsersEntity)hibernateUtils.getEntityById(1));
+//        Gson json = new Gson();
+//        System.out.println(json.toJson((UsersEntity)hibernateUtils.getEntityById(1)));
+
+
+        CategoriesEntity categoriesEntity = new CategoriesEntity();
+        categoriesEntity.setCategoryName("iphone");
+        HibernateUtils hibernateUtils = new HibernateUtils(categoriesEntity);
         hibernateUtils.saveEntity();
-        System.out.println((UsersEntity)hibernateUtils.getEntityById(1));
-        Gson json = new Gson();
-        System.out.println(usersEntity.getFullName()+" "+ usersEntity.getEmail());
+        System.out.println((CategoriesEntity)hibernateUtils.getEntityById(1));
     }
 }

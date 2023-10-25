@@ -2,12 +2,13 @@ package Models;
 
 import jakarta.persistence.*;
 
+import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.Collection;
 
 @Entity
 @Table(name = "products", schema = "public", catalog = "backend-servlet")
-public class ProductsEntity {
+public class ProductsEntity implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
     @Column(name = "product_id")

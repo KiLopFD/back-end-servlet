@@ -11,33 +11,26 @@ public class UserSerializer extends HibernateUtils  {
         super(object);
     }
 
-    public String save(){
+    public void save(){
         Gson responseJson = new Gson();
         try {
             super.saveEntity();
-            return responseJson.toJson(super.object);
         }
         catch (Exception error)
         {
-            return responseJson.toJson(error);
+            System.out.println(error);
         }
     }
 
-    public String get(int pk){
-        Gson responseJson = new Gson();
+    public String getName(int pk){
+//        Gson responseJson = new Gson();
         try {
             UsersEntity usersEntity = (UsersEntity) super.getEntityById(pk);
-//            System.out.println(usersEntity);
-            ObjectMapper mapper = new ObjectMapper();
-            String jsonString = "{ \"type\" : \"success\","
-                                + "\"data\": {"
-                                + "\"fullName\":" + usersEntity.getFullName() +"}"
-                                + "}";
-            return responseJson.toJson(jsonString);
+            return usersEntity.getFullName();
         }
         catch (Exception error)
         {
-            return responseJson.toJson(error);
+            return error.toString();
         }
     }
 }

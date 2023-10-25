@@ -2,9 +2,11 @@ package Models;
 
 import jakarta.persistence.*;
 
+import java.io.Serializable;
+
 @Entity
 @Table(name = "reviews", schema = "public", catalog = "backend-servlet")
-public class ReviewsEntity {
+public class ReviewsEntity implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
     @Column(name = "review_id")

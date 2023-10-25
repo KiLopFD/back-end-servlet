@@ -2,11 +2,12 @@ package Models;
 
 import jakarta.persistence.*;
 
+import java.io.Serializable;
 import java.util.Collection;
 
 @Entity
 @Table(name = "users", schema = "public", catalog = "backend-servlet")
-public class UsersEntity {
+public class UsersEntity implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
     @Column(name = "user_id")
@@ -137,7 +138,27 @@ public class UsersEntity {
     }
 
     public UsersEntity() {
+//        if (this.ordersByUserId.size() == 0)
+//        {
+//            this.ordersByUserId = null;
+//        }
+//        if (this.reviewsByUserId.size() == 0){
+//            this.reviewsByUserId = null;
+//        }
     }
 
-
+    @Override
+    public String toString() {
+        return "UsersEntity{" +
+                "userId=" + userId +
+                ", username='" + username + '\'' +
+                ", password='" + password + '\'' +
+                ", email='" + email + '\'' +
+                ", fullName='" + fullName + '\'' +
+                ", address='" + address + '\'' +
+                ", phoneNumber='" + phoneNumber + '\'' +
+//                ", ordersByUserId=" + ordersByUserId +
+//                ", reviewsByUserId=" + reviewsByUserId +
+                '}';
+    }
 }

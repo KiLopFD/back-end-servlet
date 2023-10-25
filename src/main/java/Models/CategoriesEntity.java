@@ -2,17 +2,18 @@ package Models;
 
 import jakarta.persistence.*;
 
+import java.io.Serializable;
 import java.util.Collection;
 
 @Entity
 @Table(name = "categories", schema = "public", catalog = "backend-servlet")
-public class CategoriesEntity {
+public class CategoriesEntity implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
     @Column(name = "category_id")
     private int categoryId;
     @Basic
-    @Column(name = "category_name", nullable = false)
+    @Column(name = "category_name", nullable = false, unique = true)
     private String categoryName;
     @OneToMany(mappedBy = "categoriesByCategoryId")
     private Collection<ProductsEntity> productsByCategoryId;
@@ -60,4 +61,5 @@ public class CategoriesEntity {
     public void setProductsByCategoryId(Collection<ProductsEntity> productsByCategoryId) {
         this.productsByCategoryId = productsByCategoryId;
     }
+
 }

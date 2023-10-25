@@ -19,7 +19,7 @@ public class HelloServlet extends HttpServlet {
         PrintWriter out = response.getWriter();
         UsersEntity usersEntity = new UsersEntity();
         UserSerializer userSerializer = new UserSerializer(usersEntity);
-        out.println(userSerializer.get(1));
+        out.println(userSerializer.getName(1));
     }
 
     public void destroy() {
