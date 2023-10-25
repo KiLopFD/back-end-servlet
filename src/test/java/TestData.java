@@ -5,14 +5,14 @@ import com.google.gson.Gson;
 
 public class TestData {
     public static void main(String[] args) {
-//        UsersEntity usersEntity = new UsersEntity();
-//        usersEntity.setAddress("Tphcm");
-//        usersEntity.setEmail("hello3@gmail.com");
-//        usersEntity.setFullName("Nguyen Van A");
-//        usersEntity.setPhoneNumber("124556687");
-//        usersEntity.setPassword("hell3oword");
-//        usersEntity.setUsername("dev3");
-////        usersEntity.setUserId(1);
+        UsersEntity usersEntity = new UsersEntity();
+        usersEntity.setAddress("Tphcm");
+        usersEntity.setEmail("hello@gmail.com");
+        usersEntity.setFullName("Nguyen Van A");
+        usersEntity.setPhoneNumber("124556687");
+        usersEntity.setPassword("helloword");
+        usersEntity.setUsername("dev1");
+//        usersEntity.setUserId(1);
 //
 //        HibernateUtils hibernateUtils = new HibernateUtils(usersEntity);
 //        hibernateUtils.saveEntity();
@@ -24,9 +24,10 @@ public class TestData {
 //                ", Email=" + entity.getEmail() +
 //                ", Phone=" + entity.getPhoneNumber());
 
-        UsersEntity usersEntity = new UsersEntity();
+//        UsersEntity usersEntity = new UsersEntity();
         HibernateUtils hibernateUtils = new HibernateUtils(usersEntity);
-        usersEntity = (UsersEntity)hibernateUtils.getEntityById(1);
+//        usersEntity = (UsersEntity)hibernateUtils.getEntityById(1);
+        hibernateUtils.saveEntity();
         System.out.println((UsersEntity)hibernateUtils.getEntityById(1));
         Gson json = new Gson();
         System.out.println(usersEntity.getFullName()+" "+ usersEntity.getEmail());

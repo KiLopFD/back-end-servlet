@@ -24,13 +24,13 @@ public class ProductsEntity {
     @Basic
     @Column(name = "stock_quantity", nullable = false)
     private int stockQuantity;
-    @Basic
-    @Column(name = "category_id", insertable=false, updatable=false)
-    private Integer categoryId;
+//    @Basic
+//    @Column(name = "category_id", insertable=false, updatable=false)
+//    private Integer categoryId;
     @OneToMany(mappedBy = "productsByProductId")
     private Collection<OrderdetailsEntity> orderdetailsByProductId;
     @ManyToOne
-    @JoinColumn(name = "category_id", referencedColumnName = "category_id")
+    @JoinColumn(name = "category_id", nullable = false)
     private CategoriesEntity categoriesByCategoryId;
     @OneToMany(mappedBy = "productsByProductId")
     private Collection<ReviewsEntity> reviewsByProductId;
@@ -74,14 +74,14 @@ public class ProductsEntity {
     public void setStockQuantity(int stockQuantity) {
         this.stockQuantity = stockQuantity;
     }
-
-    public Integer getCategoryId() {
-        return categoryId;
-    }
-
-    public void setCategoryId(Integer categoryId) {
-        this.categoryId = categoryId;
-    }
+//
+//    public Integer getCategoryId() {
+//        return categoryId;
+//    }
+//
+//    public void setCategoryId(Integer categoryId) {
+//        this.categoryId = categoryId;
+//    }
 
     @Override
     public boolean equals(Object object) {
@@ -95,7 +95,7 @@ public class ProductsEntity {
         if (productName != null ? !productName.equals(that.productName) : that.productName != null) return false;
         if (description != null ? !description.equals(that.description) : that.description != null) return false;
         if (price != null ? !price.equals(that.price) : that.price != null) return false;
-        if (categoryId != null ? !categoryId.equals(that.categoryId) : that.categoryId != null) return false;
+//        if (categoryId != null ? !categoryId.equals(that.categoryId) : that.categoryId != null) return false;
 
         return true;
     }
@@ -107,7 +107,7 @@ public class ProductsEntity {
         result = 31 * result + (description != null ? description.hashCode() : 0);
         result = 31 * result + (price != null ? price.hashCode() : 0);
         result = 31 * result + stockQuantity;
-        result = 31 * result + (categoryId != null ? categoryId.hashCode() : 0);
+//        result = 31 * result + (categoryId != null ? categoryId.hashCode() : 0);
         return result;
     }
 

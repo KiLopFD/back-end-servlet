@@ -12,9 +12,9 @@ public class OrdersEntity {
     @Id
     @Column(name = "order_id")
     private int orderId;
-    @Basic
-    @Column(name = "user_id", insertable=false, updatable=false)
-    private Integer userId;
+//    @Basic
+//    @Column(name = "user_id", insertable=false, updatable=false)
+//    private Integer userId;
     @Basic
     @Column(name = "order_date", nullable = false)
     private Timestamp orderDate;
@@ -24,7 +24,7 @@ public class OrdersEntity {
     @OneToMany(mappedBy = "ordersByOrderId")
     private Collection<OrderdetailsEntity> orderdetailsByOrderId;
     @ManyToOne
-    @JoinColumn(name = "user_id", referencedColumnName = "user_id")
+    @JoinColumn(name = "user_id", nullable = false)
     private UsersEntity usersByUserId;
 
     public int getOrderId() {
@@ -35,13 +35,13 @@ public class OrdersEntity {
         this.orderId = orderId;
     }
 
-    public Integer getUserId() {
-        return userId;
-    }
+//    public Integer getUserId() {
+//        return userId;
+//    }
 
-    public void setUserId(Integer userId) {
-        this.userId = userId;
-    }
+//    public void setUserId(Integer userId) {
+//        this.userId = userId;
+//    }
 
     public Timestamp getOrderDate() {
         return orderDate;
@@ -67,7 +67,7 @@ public class OrdersEntity {
         OrdersEntity that = (OrdersEntity) object;
 
         if (orderId != that.orderId) return false;
-        if (userId != null ? !userId.equals(that.userId) : that.userId != null) return false;
+//        if (userId != null ? !userId.equals(that.userId) : that.userId != null) return false;
         if (orderDate != null ? !orderDate.equals(that.orderDate) : that.orderDate != null) return false;
         if (status != null ? !status.equals(that.status) : that.status != null) return false;
 
@@ -77,7 +77,7 @@ public class OrdersEntity {
     @Override
     public int hashCode() {
         int result = orderId;
-        result = 31 * result + (userId != null ? userId.hashCode() : 0);
+//        result = 31 * result + (userId != null ? userId.hashCode() : 0);
         result = 31 * result + (orderDate != null ? orderDate.hashCode() : 0);
         result = 31 * result + (status != null ? status.hashCode() : 0);
         return result;

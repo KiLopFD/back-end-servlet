@@ -9,12 +9,12 @@ public class ReviewsEntity {
     @Id
     @Column(name = "review_id")
     private int reviewId;
-    @Basic
-    @Column(name = "product_id", insertable=false, updatable=false)
-    private Integer productId;
-    @Basic
-    @Column(name = "user_id", insertable=false, updatable=false)
-    private Integer userId;
+//    @Basic
+//    @Column(name = "product_id", insertable=false, updatable=false)
+//    private Integer productId;
+//    @Basic
+//    @Column(name = "user_id", insertable=false, updatable=false)
+//    private Integer userId;
     @Basic
     @Column(name = "rating")
     private int rating;
@@ -22,10 +22,10 @@ public class ReviewsEntity {
     @Column(name = "comment")
     private String comment;
     @ManyToOne
-    @JoinColumn(name = "product_id", referencedColumnName = "product_id")
+    @JoinColumn(name = "product_id", nullable = false)
     private ProductsEntity productsByProductId;
     @ManyToOne
-    @JoinColumn(name = "user_id", referencedColumnName = "user_id")
+    @JoinColumn(name = "user_id", nullable = false)
     private UsersEntity usersByUserId;
 
     public int getReviewId() {
@@ -36,21 +36,21 @@ public class ReviewsEntity {
         this.reviewId = reviewId;
     }
 
-    public Integer getProductId() {
-        return productId;
-    }
+//    public Integer getProductId() {
+//        return productId;
+//    }
 
-    public void setProductId(Integer productId) {
-        this.productId = productId;
-    }
+//    public void setProductId(Integer productId) {
+//        this.productId = productId;
+//    }
 
-    public Integer getUserId() {
-        return userId;
-    }
+//    public Integer getUserId() {
+//        return userId;
+//    }
 
-    public void setUserId(Integer userId) {
-        this.userId = userId;
-    }
+//    public void setUserId(Integer userId) {
+//        this.userId = userId;
+//    }
 
     public int getRating() {
         return rating;
@@ -77,8 +77,8 @@ public class ReviewsEntity {
 
         if (reviewId != that.reviewId) return false;
         if (rating != that.rating) return false;
-        if (productId != null ? !productId.equals(that.productId) : that.productId != null) return false;
-        if (userId != null ? !userId.equals(that.userId) : that.userId != null) return false;
+//        if (productId != null ? !productId.equals(that.productId) : that.productId != null) return false;
+//        if (userId != null ? !userId.equals(that.userId) : that.userId != null) return false;
         if (comment != null ? !comment.equals(that.comment) : that.comment != null) return false;
 
         return true;
@@ -87,8 +87,8 @@ public class ReviewsEntity {
     @Override
     public int hashCode() {
         int result = reviewId;
-        result = 31 * result + (productId != null ? productId.hashCode() : 0);
-        result = 31 * result + (userId != null ? userId.hashCode() : 0);
+//        result = 31 * result + (productId != null ? productId.hashCode() : 0);
+//        result = 31 * result + (userId != null ? userId.hashCode() : 0);
         result = 31 * result + rating;
         result = 31 * result + (comment != null ? comment.hashCode() : 0);
         return result;
