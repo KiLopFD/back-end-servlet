@@ -19,6 +19,18 @@ public class UsersEntity implements Serializable {
     @Column(name = "password", nullable = false)
     private String password;
     @Basic
+    @Column(name = "role", nullable = false)
+    private String role;
+
+    public String getRole() {
+        return role;
+    }
+
+    public void setRole(String role) {
+        this.role = role;
+    }
+
+    @Basic
     @Column(name = "email", nullable = false)
     private String email;
     @Basic

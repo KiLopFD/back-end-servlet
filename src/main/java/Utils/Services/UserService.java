@@ -1,13 +1,11 @@
-package Utils.Serializers;
+package Utils.Services;
 
 import Models.UsersEntity;
 import Utils.HibernateUtils;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.gson.Gson;
-import jakarta.servlet.http.HttpServletResponse;
 
-public class UserSerializer extends HibernateUtils  {
-    public UserSerializer(UsersEntity object) {
+public class UserService extends HibernateUtils  {
+    public UserService(UsersEntity object) {
         super(object);
     }
 

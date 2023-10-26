@@ -1,44 +1,32 @@
 import Models.CategoriesEntity;
-import Models.UsersEntity;
+import Models.ProductsEntity;
 import Utils.HibernateUtils;
-import Utils.Serializers.UserSerializer;
 import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
+
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.util.List;
 
 public class TestData {
-    public static void main(String[] args) {
-        UsersEntity usersEntity = new UsersEntity();
-//        usersEntity.setAddress("Tphcm");
-//        usersEntity.setEmail("hello@gmail.com");
-//        usersEntity.setFullName("Nguyen Van A");
-//        usersEntity.setPhoneNumber("124556687");
-//        usersEntity.setPassword("helloword");
-//        usersEntity.setUsername("dev1");
-//        usersEntity.setUserId(1);
-//
-//        HibernateUtils hibernateUtils = new HibernateUtils(usersEntity);
-//        hibernateUtils.saveEntity();
-//        UsersEntity entity = (UsersEntity) hibernateUtils.getEntityById(usersEntity.getUserId());
-//
-//        // Print retrieved cat details
-//        System.out.println("Retrieved Data: ID=" + entity.getUserId() +
-//                ", Name=" + entity.getFullName()+
-//                ", Email=" + entity.getEmail() +
-//                ", Phone=" + entity.getPhoneNumber());
+    public static void main(String[] args) throws FileNotFoundException {
+        Gson gson = new Gson();
+        List<ProductsEntity> productsEntities = gson.fromJson(new FileReader("D:\\Users\\Inteliji\\back-end-servlet\\src\\test\\java\\data\\phones.json"), new TypeToken<List<ProductsEntity>>() {}.getType());
+        System.out.println(productsEntities);
+        //
+        List<CategoriesEntity> categoryEntities = gson.fromJson(new FileReader("D:\\Users\\Inteliji\\back-end-servlet\\src\\test\\java\\data\\categories.json"), new TypeToken<List<CategoriesEntity>>() {}.getType());
 
-//        UsersEntity usersEntity = new UsersEntity();
-//        HibernateUtils hibernateUtils = new HibernateUtils(usersEntity);
-//        usersEntity = (UsersEntity)hibernateUtils.getEntityById(1);
-//        hibernateUtils.getEntityById(1);
-//        System.out.println((UsersEntity)hibernateUtils.getEntityById(1));
-//        Gson json = new Gson();
-//        System.out.println(json.toJson((UsersEntity)hibernateUtils.getEntityById(1)));
+        for (CategoriesEntity item: categoryEntities
+        ) {
+            HibernateUtils hibernateUtils = new HibernateUtils(item);
+            hibernateUtils.saveEntity();
+        }
 
-
-        CategoriesEntity categoriesEntity = new CategoriesEntity();
-        categoriesEntity.setCategoryName("iphone");
-        HibernateUtils hibernateUtils = new HibernateUtils(categoriesEntity);
-        hibernateUtils.saveEntity();
-        System.out.println((CategoriesEntity)hibernateUtils.getEntityById(1));
+        for (ProductsEntity item : productsEntities
+             ) {
+            HibernateUtils hibernateUtils = new HibernateUtils(item);
+            hibernateUtils.saveEntity();
+        }
     }
 
     public static void createData() {

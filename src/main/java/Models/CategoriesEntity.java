@@ -15,6 +15,14 @@ public class CategoriesEntity implements Serializable {
     @Basic
     @Column(name = "category_name", nullable = false, unique = true)
     private String categoryName;
+    public CategoriesEntity() {
+    }
+    public CategoriesEntity(String categoryName) {
+        this.categoryName = categoryName;
+    }
+
+
+
     @OneToMany(mappedBy = "categoriesByCategoryId")
     private Collection<ProductsEntity> productsByCategoryId;
 
@@ -62,4 +70,11 @@ public class CategoriesEntity implements Serializable {
         this.productsByCategoryId = productsByCategoryId;
     }
 
+    @Override
+    public String toString() {
+        return "CategoriesEntity{" +
+                "categoryId=" + categoryId +
+                ", categoryName='" + categoryName + '\'' +
+                '}';
+    }
 }

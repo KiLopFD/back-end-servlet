@@ -1,0 +1,63 @@
+[
+  {
+    "productName": "Smartwatch 44mm - Silver - Bonus Charging",
+    "description": "Elevate your style and stay connected with our Smartwatch 44mm in Silver. This sleek device offers a 44mm display for a seamless blend of fashion and function. Receive real-time notifications and track your fitness goals effortlessly. Plus, enjoy a bonus charging solution for ultimate convenience.",
+    "price": 692.0,
+    "urlImg": "https://demo2.pavothemes.com/technocy/wp-content/uploads/2021/07/5.jpg",
+    "categoriesByCategoryId": {
+      "categoryId": 1,
+      "categoryName": "Samsung"
+    }
+  },
+  {
+    "productName": "4G LTE Unlocked Cell Phone 6.5 inches Black 32GB",
+    "description": "Experience the freedom of 4G LTE connectivity with our Unlocked Cell Phone, featuring a stunning 6.5 inches black display and ample 32GB storage. This device offers seamless access to high-speed internet and a spacious storage capacity, ensuring you never miss a beat. Stay connected, stream content, and capture memories, all in one powerful, portable package",
+    "price": 39.09,
+    "urlImg": "https://demo2.pavothemes.com/technocy/wp-content/uploads/2021/07/3.jpg",
+    "categoriesByCategoryId": {
+      "categoryId": 1,
+      "categoryName": "Samsung"
+    }
+  },
+  {
+    "productName": "5G Unlocked Cell Phone 6.6″ Prism Dot Black 128GB",
+    "description": "Discover the future of mobile technology with our 5G Unlocked Cell Phone. Featuring a vibrant 6.6 inches Prism Dot Black display and a generous 128GB storage, this device offers lightning-fast connectivity and ample space for your apps and media. Experience blazing speeds, stunning visuals, and superior storage capabilities, all in the palm of your hand",
+    "price": 201.24,
+    "urlImg": "https://demo2.pavothemes.com/technocy/wp-content/uploads/2021/07/2.jpg",
+    "categoriesByCategoryId": {
+      "categoryId": 1,
+      "categoryName": "Samsung"
+    }
+  },
+  {
+    "productName": "4G LTE Unlocked Cell Phone 6.52″ Midnight Frost 64GB",
+    "description": "Experience seamless connectivity with our 4G LTE Unlocked Cell Phone in Midnight Frost. Featuring a striking 6.52'' display and a generous 64GB storage capacity, this device combines sleek design with powerful performance. Stay connected, stream content, and store memories effortlessly, all in a stylish midnight frost finish.",
+    "price": 17.9,
+    "urlImg": "https://demo2.pavothemes.com/technocy/wp-content/uploads/2021/07/4.jpg",
+    "categoriesByCategoryId": {
+      "categoryId": 1,
+      "categoryName": "Samsung"
+    }
+  },
+  {
+    "productName": "Version Android 11 Helio G25 5150mAh 3GB 64GB",
+    "description": "Introducing a cutting-edge device featuring Android 11, powered by the robust Helio G25 processor. Experience seamless performance with 3GB of RAM and enjoy ample storage space for your apps, files, and multimedia with 64GB internal storage. Stay powered throughout the day with a massive 5150mAh battery, ensuring your device keeps up with your active lifestyle.",
+    "price": 233.79,
+    "urlImg": "https://demo2.pavothemes.com/technocy/wp-content/uploads/2021/07/6.jpg",
+    "categoriesByCategoryId": {
+      "categoryId": 1,
+      "categoryName": "Samsung"
+    }
+  },
+  {
+    "productName": "Ultra 5G Factory Unlocked Android Cell Phone",
+    "description": "Experience the pinnacle of connectivity with our Ultra 5G Factory Unlocked Android Cell Phone. This cutting-edge device offers lightning-fast 5G connectivity, enabling seamless streaming, faster downloads, and lag-free online experiences. Enjoy the freedom of an unlocked phone, allowing you to choose your preferred carrier and customize your mobile experience. Explore the limitless possibilities of Android on a sleek, high-performance device designed to keep you connected in style.",
+    "price": 320.0,
+    "urlImg": "https://demo2.pavothemes.com/technocy/wp-content/uploads/2021/07/1.jpg",
+    "categoriesByCategoryId": {
+      "categoryId": 1,
+      "categoryName": "Samsung"
+    }
+  }
+]
+

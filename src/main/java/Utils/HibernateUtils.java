@@ -54,4 +54,10 @@ public class HibernateUtils {
         session.getTransaction().commit();
         session.close();
     }
+
+
+    // delete
+
+
+    // get all
 }

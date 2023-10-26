@@ -17,7 +17,7 @@ public class ProductsEntity implements Serializable {
     @Column(name = "product_name", nullable = false)
     private String productName;
     @Basic
-    @Column(name = "description", nullable = false)
+    @Column(name = "description", nullable = false, columnDefinition = "TEXT")
     private String description;
 
     public String getUrlImg() {
@@ -31,9 +31,7 @@ public class ProductsEntity implements Serializable {
     @Basic
     @Column(name = "price", nullable = false)
     private BigDecimal price;
-    @Basic
-    @Column(name = "stock_quantity", nullable = false)
-    private int stockQuantity;
+
     @Basic
     @Column(name = "url_img", nullable = false)
     private String urlImg;
@@ -69,12 +67,20 @@ public class ProductsEntity implements Serializable {
     }
 
 
-    public ProductsEntity(String productName, String description, BigDecimal price, int stockQuantity, String urlImg) {
+
+    public ProductsEntity(String productName, String description, BigDecimal price, String urlImg) {
         this.productName = productName;
         this.description = description;
         this.price = price;
-        this.stockQuantity = stockQuantity;
         this.urlImg = urlImg;
+    }
+
+    public ProductsEntity(String productName, String description, BigDecimal price, String urlImg, CategoriesEntity categoriesByCategoryId) {
+        this.productName = productName;
+        this.description = description;
+        this.price = price;
+        this.urlImg = urlImg;
+        this.categoriesByCategoryId = categoriesByCategoryId;
     }
 
     public void setDescription(String description) {
@@ -89,21 +95,7 @@ public class ProductsEntity implements Serializable {
         this.price = price;
     }
 
-    public int getStockQuantity() {
-        return stockQuantity;
-    }
 
-    public void setStockQuantity(int stockQuantity) {
-        this.stockQuantity = stockQuantity;
-    }
-//
-//    public Integer getCategoryId() {
-//        return categoryId;
-//    }
-//
-//    public void setCategoryId(Integer categoryId) {
-//        this.categoryId = categoryId;
-//    }
 
     @Override
     public boolean equals(Object object) {
@@ -113,7 +105,7 @@ public class ProductsEntity implements Serializable {
         ProductsEntity that = (ProductsEntity) object;
 
         if (productId != that.productId) return false;
-        if (stockQuantity != that.stockQuantity) return false;
+//        if (stockQuantity != that.stockQuantity) return false;
         if (productName != null ? !productName.equals(that.productName) : that.productName != null) return false;
         if (description != null ? !description.equals(that.description) : that.description != null) return false;
         if (price != null ? !price.equals(that.price) : that.price != null) return false;
@@ -128,7 +120,7 @@ public class ProductsEntity implements Serializable {
         result = 31 * result + (productName != null ? productName.hashCode() : 0);
         result = 31 * result + (description != null ? description.hashCode() : 0);
         result = 31 * result + (price != null ? price.hashCode() : 0);
-        result = 31 * result + stockQuantity;
+//        result = 31 * result + stockQuantity;
 //        result = 31 * result + (categoryId != null ? categoryId.hashCode() : 0);
         return result;
     }
@@ -155,5 +147,19 @@ public class ProductsEntity implements Serializable {
 
     public void setReviewsByProductId(Collection<ReviewsEntity> reviewsByProductId) {
         this.reviewsByProductId = reviewsByProductId;
+    }
+
+    @Override
+    public String toString() {
+        return "ProductsEntity{" +
+                "productId=" + productId +
+                ", productName='" + productName + '\'' +
+                ", description='" + description + '\'' +
+                ", price=" + price +
+                ", urlImg='" + urlImg + '\'' +
+                ", orderdetailsByProductId=" + (orderdetailsByProductId != null ? orderdetailsByProductId : "None") +
+                ", categoriesByCategoryId=" + categoriesByCategoryId +
+                ", reviewsByProductId=" + (reviewsByProductId != null ? reviewsByProductId : "None") +
+                '}';
     }
 }
