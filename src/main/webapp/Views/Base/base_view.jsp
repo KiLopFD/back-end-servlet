@@ -1,30 +1,46 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport"
-          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Store Phone</title>
-    backend-servlet
-<%--    Css Link --%>
-    <link rel="stylesheet" href="./assets/styles/lib/base_lib.css">
-    <link rel="stylesheet" href="./assets/styles/my_styling/global.css">
+    <%-- Css Link --%>
+    <%@include file="../../assets/styles/my_styling/base_style.jsp"%>
 
 </head>
-<body class="bg-[#fafafa]">
-    <%@include file="header.jsp"%>
 
-    <p></p>
+<body class="flex flex-col justify-between h-[100vh] min-h-auto w-full min-w-[355px]"
+      style="background: url(/backend_war_exploded/assets/images/background.jpg);">
+<%@include file="header.jsp" %>
 
-    <script>
-        // On page load or when changing themes, best to add inline in `head` to avoid FOUC
-        if (localStorage.getItem('color-theme') === 'dark' || (!('color-theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
-            document.documentElement.classList.add('dark');
-        } else {
-            document.documentElement.classList.remove('dark')
+
+<main class="h-full">
+    <%
+        if (request.getRequestURL().toString().equals("http://localhost:8080/backend_war_exploded/")) {
+    %>
+    <%@include file="../Content/home.jsp" %>
+    <%
         }
-    </script>
-    <script src="./assets/scripts/dark_mode.js"></script>
+    %>
+
+</main>
+
+
+<%@include file="footer.jsp" %>
+
+<script>
+    // On page load or when changing themes, best to add inline in `head` to avoid FOUC
+    if (localStorage.getItem('color-theme') === 'dark' || (!('color-theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+        document.documentElement.classList.add('dark');
+    } else {
+        document.documentElement.classList.remove('dark')
+    }
+</script>
+<script src="./assets/scripts/dark_mode.js"></script>
+<script src="./assets/styles/lib/base_lib.js"></script>
 </body>
+
 </html>
+
+
