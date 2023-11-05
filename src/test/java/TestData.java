@@ -1,6 +1,6 @@
-import Models.CategoriesEntity;
-import Models.ProductsEntity;
-import Utils.HibernateUtils;
+import models.CategoriesEntity;
+import models.ProductsEntity;
+import utils.HibernateUtils;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 

@@ -1,4 +1,4 @@
-package Models;
+package models;
 
 import jakarta.persistence.*;
 
@@ -12,21 +12,13 @@ public class OrderdetailsEntity implements Serializable {
     @Id
     @Column(name = "order_detail_id")
     private int orderDetailId;
-//    @Basic
-//    @Column(name = "order_id", insertable=false, updatable=false)
-//    private Integer orderId;
-//    @Basic
-//    @Column(name = "product_id", insertable=false, updatable=false)
-//    private Integer productId;
+
     @Basic
     @Column(name = "quantity", nullable = false)
     private int quantity;
     @Basic
     @Column(name = "price", nullable = false)
     private BigDecimal price;
-    @ManyToOne
-    @JoinColumn(name = "order_id", nullable = false)
-    private OrdersEntity ordersByOrderId;
     @ManyToOne
     @JoinColumn(name = "product_id", nullable = false)
     private ProductsEntity productsByProductId;
@@ -97,13 +89,7 @@ public class OrderdetailsEntity implements Serializable {
         return result;
     }
 
-    public OrdersEntity getOrdersByOrderId() {
-        return ordersByOrderId;
-    }
 
-    public void setOrdersByOrderId(OrdersEntity ordersByOrderId) {
-        this.ordersByOrderId = ordersByOrderId;
-    }
 
     public ProductsEntity getProductsByProductId() {
         return productsByProductId;

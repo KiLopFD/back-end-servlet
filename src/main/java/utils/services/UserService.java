@@ -1,7 +1,7 @@
-package Utils.Services;
+package utils.services;
 
-import Models.UsersEntity;
-import Utils.HibernateUtils;
+import models.UsersEntity;
+import utils.HibernateUtils;
 import com.google.gson.Gson;
 
 public class UserService extends HibernateUtils  {

@@ -1,4 +1,4 @@
-package Models;
+package models;
 
 import jakarta.persistence.*;
 
@@ -35,13 +35,11 @@ public class ProductsEntity implements Serializable {
     @Basic
     @Column(name = "url_img", nullable = false)
     private String urlImg;
-    @OneToMany(mappedBy = "productsByProductId")
-    private Collection<OrderdetailsEntity> orderdetailsByProductId;
+
     @ManyToOne
     @JoinColumn(name = "category_id", nullable = false)
-    private CategoriesEntity categoriesByCategoryId;
-    @OneToMany(mappedBy = "productsByProductId")
-    private Collection<ReviewsEntity> reviewsByProductId;
+    private CategoriesEntity category;
+
 
     public int getProductId() {
         return productId;
@@ -75,12 +73,12 @@ public class ProductsEntity implements Serializable {
         this.urlImg = urlImg;
     }
 
-    public ProductsEntity(String productName, String description, BigDecimal price, String urlImg, CategoriesEntity categoriesByCategoryId) {
+    public ProductsEntity(String productName, String description, BigDecimal price, String urlImg, CategoriesEntity category) {
         this.productName = productName;
         this.description = description;
         this.price = price;
         this.urlImg = urlImg;
-        this.categoriesByCategoryId = categoriesByCategoryId;
+        this.category = category;
     }
 
     public void setDescription(String description) {
@@ -125,29 +123,19 @@ public class ProductsEntity implements Serializable {
         return result;
     }
 
-    public Collection<OrderdetailsEntity> getOrderdetailsByProductId() {
-        return orderdetailsByProductId;
-    }
 
-    public void setOrderdetailsByProductId(Collection<OrderdetailsEntity> orderdetailsByProductId) {
-        this.orderdetailsByProductId = orderdetailsByProductId;
-    }
+
 
     public CategoriesEntity getCategoriesByCategoryId() {
-        return categoriesByCategoryId;
+        return category;
     }
 
     public void setCategoriesByCategoryId(CategoriesEntity categoriesByCategoryId) {
-        this.categoriesByCategoryId = categoriesByCategoryId;
+        this.category = categoriesByCategoryId;
     }
 
-    public Collection<ReviewsEntity> getReviewsByProductId() {
-        return reviewsByProductId;
-    }
 
-    public void setReviewsByProductId(Collection<ReviewsEntity> reviewsByProductId) {
-        this.reviewsByProductId = reviewsByProductId;
-    }
+
 
     @Override
     public String toString() {
@@ -157,9 +145,7 @@ public class ProductsEntity implements Serializable {
                 ", description='" + description + '\'' +
                 ", price=" + price +
                 ", urlImg='" + urlImg + '\'' +
-                ", orderdetailsByProductId=" + (orderdetailsByProductId != null ? orderdetailsByProductId : "None") +
-                ", categoriesByCategoryId=" + categoriesByCategoryId +
-                ", reviewsByProductId=" + (reviewsByProductId != null ? reviewsByProductId : "None") +
+                ", categoriesByCategoryId=" + category +
                 '}';
     }
 }

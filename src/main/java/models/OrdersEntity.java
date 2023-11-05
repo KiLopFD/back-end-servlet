@@ -1,4 +1,4 @@
-package Models;
+package models;
 
 import jakarta.persistence.*;
 
@@ -22,8 +22,6 @@ public class OrdersEntity implements Serializable {
     @Basic
     @Column(name = "status", nullable = false)
     private String status;
-    @OneToMany(mappedBy = "ordersByOrderId")
-    private Collection<OrderdetailsEntity> orderdetailsByOrderId;
     @ManyToOne
     @JoinColumn(name = "user_id", nullable = false)
     private UsersEntity usersByUserId;
@@ -84,13 +82,9 @@ public class OrdersEntity implements Serializable {
         return result;
     }
 
-    public Collection<OrderdetailsEntity> getOrderdetailsByOrderId() {
-        return orderdetailsByOrderId;
-    }
 
-    public void setOrderdetailsByOrderId(Collection<OrderdetailsEntity> orderdetailsByOrderId) {
-        this.orderdetailsByOrderId = orderdetailsByOrderId;
-    }
+
+
 
     public UsersEntity getUsersByUserId() {
         return usersByUserId;

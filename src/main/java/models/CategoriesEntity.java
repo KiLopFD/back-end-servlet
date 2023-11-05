@@ -1,4 +1,4 @@
-package Models;
+package models;
 
 import jakarta.persistence.*;
 
@@ -23,8 +23,8 @@ public class CategoriesEntity implements Serializable {
 
 
 
-    @OneToMany(mappedBy = "categoriesByCategoryId")
-    private Collection<ProductsEntity> productsByCategoryId;
+    @OneToMany(mappedBy = "category")
+    private Collection<ProductsEntity> listProduct;
 
     public int getCategoryId() {
         return categoryId;
@@ -63,11 +63,11 @@ public class CategoriesEntity implements Serializable {
     }
 
     public Collection<ProductsEntity> getProductsByCategoryId() {
-        return productsByCategoryId;
+        return listProduct;
     }
 
     public void setProductsByCategoryId(Collection<ProductsEntity> productsByCategoryId) {
-        this.productsByCategoryId = productsByCategoryId;
+        this.listProduct = productsByCategoryId;
     }
 
     @Override

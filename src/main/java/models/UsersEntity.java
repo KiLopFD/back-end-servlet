@@ -1,4 +1,4 @@
-package Models;
+package models;
 
 import jakarta.persistence.*;
 
@@ -42,10 +42,7 @@ public class UsersEntity implements Serializable {
     @Basic
     @Column(name = "phone_number", nullable = false)
     private String phoneNumber;
-    @OneToMany(mappedBy = "usersByUserId")
-    private Collection<OrdersEntity> ordersByUserId;
-    @OneToMany(mappedBy = "usersByUserId")
-    private Collection<ReviewsEntity> reviewsByUserId;
+
 
     public int getUserId() {
         return userId;
@@ -133,30 +130,14 @@ public class UsersEntity implements Serializable {
         return result;
     }
 
-    public Collection<OrdersEntity> getOrdersByUserId() {
-        return ordersByUserId;
-    }
 
-    public void setOrdersByUserId(Collection<OrdersEntity> ordersByUserId) {
-        this.ordersByUserId = ordersByUserId;
-    }
 
-    public Collection<ReviewsEntity> getReviewsByUserId() {
-        return reviewsByUserId;
-    }
 
-    public void setReviewsByUserId(Collection<ReviewsEntity> reviewsByUserId) {
-        this.reviewsByUserId = reviewsByUserId;
-    }
+
+
 
     public UsersEntity() {
-//        if (this.ordersByUserId.size() == 0)
-//        {
-//            this.ordersByUserId = null;
-//        }
-//        if (this.reviewsByUserId.size() == 0){
-//            this.reviewsByUserId = null;
-//        }
+
     }
 
     @Override
@@ -169,8 +150,6 @@ public class UsersEntity implements Serializable {
                 ", fullName='" + fullName + '\'' +
                 ", address='" + address + '\'' +
                 ", phoneNumber='" + phoneNumber + '\'' +
-//                ", ordersByUserId=" + ordersByUserId +
-//                ", reviewsByUserId=" + reviewsByUserId +
                 '}';
     }
 }

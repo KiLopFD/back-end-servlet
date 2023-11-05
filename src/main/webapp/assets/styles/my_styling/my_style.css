@@ -1,0 +1,10 @@
+* {
+    color: rgb(148 163 184)
+}
+
+body{
+    min-height: 100vh;
+    height: auto;
+    width: 100%;
+    background-color: #f0ecec;
+}
