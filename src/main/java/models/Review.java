@@ -12,26 +12,9 @@ public class Review implements Serializable {
     @Id
     @Column(name = "review_id")
     private int reviewId;
-
-
-    //    @Basic
-//    @Column(name = "product_id", insertable=false, updatable=false)
-//    private Integer productId;
-//    @Basic
-//    @Column(name = "user_id", insertable=false, updatable=false)
-//    private Integer userId;
     @Basic
     @Column(name = "rating")
     private int rating;
-
-    public Timestamp getReviewDate() {
-        return reviewDate;
-    }
-
-    public void setReviewDate(Timestamp reviewDate) {
-        this.reviewDate = reviewDate;
-    }
-
     @Basic
     @Column(name = "review_date", nullable = false)
     private Timestamp reviewDate;
@@ -43,15 +26,18 @@ public class Review implements Serializable {
     private Product productsByProductId;
     @ManyToOne
     @JoinColumn(name = "user_id", nullable = false)
-    private User usersByUserId;
-
-
-    public Review(int rating, String comment) {
-        this.rating = rating;
-        this.comment = comment;
-    }
+    private User userReview;
 
     public Review() {
+    }
+
+    public Review(int reviewId, int rating, Timestamp reviewDate, String comment, Product productsByProductId, User userReview) {
+        this.reviewId = reviewId;
+        this.rating = rating;
+        this.reviewDate = reviewDate;
+        this.comment = comment;
+        this.productsByProductId = productsByProductId;
+        this.userReview = userReview;
     }
 
     public int getReviewId() {
@@ -70,34 +56,20 @@ public class Review implements Serializable {
         this.rating = rating;
     }
 
+    public Timestamp getReviewDate() {
+        return reviewDate;
+    }
+
+    public void setReviewDate(Timestamp reviewDate) {
+        this.reviewDate = reviewDate;
+    }
+
     public String getComment() {
         return comment;
     }
 
     public void setComment(String comment) {
         this.comment = comment;
-    }
-
-    @Override
-    public boolean equals(Object object) {
-        if (this == object) return true;
-        if (object == null || getClass() != object.getClass()) return false;
-
-        Review that = (Review) object;
-
-        if (reviewId != that.reviewId) return false;
-        if (rating != that.rating) return false;
-        if (comment != null ? !comment.equals(that.comment) : that.comment != null) return false;
-
-        return true;
-    }
-
-    @Override
-    public int hashCode() {
-        int result = reviewId;
-        result = 31 * result + rating;
-        result = 31 * result + (comment != null ? comment.hashCode() : 0);
-        return result;
     }
 
     public Product getProductsByProductId() {
@@ -108,11 +80,11 @@ public class Review implements Serializable {
         this.productsByProductId = productsByProductId;
     }
 
-    public User getUsersByUserId() {
-        return usersByUserId;
+    public User getUserReview() {
+        return userReview;
     }
 
-    public void setUsersByUserId(User usersByUserId) {
-        this.usersByUserId = usersByUserId;
+    public void setUserReview(User userReview) {
+        this.userReview = userReview;
     }
 }

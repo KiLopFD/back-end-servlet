@@ -32,11 +32,15 @@ public class Orderdetail implements Serializable {
     @JoinColumn(name = "order_id", nullable = false)
     private Order order;
 
-    public Order getOrder() {
-        return order;
+    public Orderdetail() {
     }
 
-    public void setOrder(Order order) {
+    public Orderdetail(int orderDetailId, int quantity, BigDecimal price, Timestamp detailTime, Product product, Order order) {
+        this.orderDetailId = orderDetailId;
+        this.quantity = quantity;
+        this.price = price;
+        this.detailTime = detailTime;
+        this.product = product;
         this.order = order;
     }
 
@@ -47,8 +51,6 @@ public class Orderdetail implements Serializable {
     public void setOrderDetailId(int orderDetailId) {
         this.orderDetailId = orderDetailId;
     }
-
-
 
     public int getQuantity() {
         return quantity;
@@ -66,39 +68,27 @@ public class Orderdetail implements Serializable {
         this.price = price;
     }
 
-    @Override
-    public boolean equals(Object object) {
-        if (this == object) return true;
-        if (object == null || getClass() != object.getClass()) return false;
-
-        Orderdetail that = (Orderdetail) object;
-
-        if (orderDetailId != that.orderDetailId) return false;
-        if (quantity != that.quantity) return false;
-//        if (orderId != null ? !orderId.equals(that.orderId) : that.orderId != null) return false;
-//        if (productId != null ? !productId.equals(that.productId) : that.productId != null) return false;
-        if (price != null ? !price.equals(that.price) : that.price != null) return false;
-
-        return true;
+    public Timestamp getDetailTime() {
+        return detailTime;
     }
 
-    @Override
-    public int hashCode() {
-        int result = orderDetailId;
-//        result = 31 * result + (orderId != null ? orderId.hashCode() : 0);
-//        result = 31 * result + (productId != null ? productId.hashCode() : 0);
-        result = 31 * result + quantity;
-        result = 31 * result + (price != null ? price.hashCode() : 0);
-        return result;
+    public void setDetailTime(Timestamp detailTime) {
+        this.detailTime = detailTime;
     }
 
-
-
-    public Product getProductsByProductId() {
+    public Product getProduct() {
         return product;
     }
 
-    public void setProductsByProductId(Product productsByProductId) {
-        this.product = productsByProductId;
+    public void setProduct(Product product) {
+        this.product = product;
+    }
+
+    public Order getOrder() {
+        return order;
+    }
+
+    public void setOrder(Order order) {
+        this.order = order;
     }
 }

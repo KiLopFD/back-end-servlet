@@ -1,3 +1,4 @@
+import dao.ProductDAO;
 import models.Category;
 import models.Product;
 import dao.JpaDAO;
@@ -6,6 +7,9 @@ import com.google.gson.reflect.TypeToken;
 
 import java.io.FileNotFoundException;
 import java.io.FileReader;
+import java.math.BigDecimal;
+import java.sql.Timestamp;
+import java.util.Date;
 import java.util.List;
 
 public class TestData {
@@ -27,7 +31,19 @@ public class TestData {
 //            JpaDAO hibernateUtils = new JpaDAO(item);
 //            hibernateUtils.saveEntity();
 //        }
+        Category category = new Category();
+        category.setCategoryName("Samsung");
+        JpaDAO<Category> jpaDAO = new JpaDAO();
+        jpaDAO.create(category);
 
+        ProductDAO productDAO = new ProductDAO();
+        Product product = new Product();
+        product.setCategory(jpaDAO.find(Category.class, 1));
+        product.setUrlImg("");
+        product.setPrice(BigDecimal.valueOf(50000000));
+        product.setDescription("");
+        product.setDatePublic(Timestamp.valueOf("11/12/2003"));
+        productDAO.create(product);
     }
 
     public static void createData() {

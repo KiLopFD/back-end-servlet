@@ -12,19 +12,33 @@ public class Order implements Serializable {
     @Id
     @Column(name = "order_id")
     private int orderId;
-//    @Basic
-//    @Column(name = "user_id", insertable=false, updatable=false)
-//    private Integer userId;
+
     @Basic
     @Column(name = "order_date", nullable = false)
     private Timestamp orderDate;
     @Basic
-    @Column(name = "status", nullable = false)
-    private String status;
+    @Column(name = "status_payment", nullable = false)
+    private String statusPayment;
     @ManyToOne
     @JoinColumn(name = "user_id", nullable = false)
-    private User usersByUserId;
+    private User infoUser;
 
+
+    public Order() {
+    }
+
+    public Order(int orderId, Timestamp orderDate, String statusPayment) {
+        this.orderId = orderId;
+        this.orderDate = orderDate;
+        this.statusPayment = statusPayment;
+    }
+
+    public Order(int orderId, Timestamp orderDate, String statusPayment, User infoUser) {
+        this.orderId = orderId;
+        this.orderDate = orderDate;
+        this.statusPayment = statusPayment;
+        this.infoUser = infoUser;
+    }
 
     public int getOrderId() {
         return orderId;
@@ -34,14 +48,6 @@ public class Order implements Serializable {
         this.orderId = orderId;
     }
 
-//    public Integer getUserId() {
-//        return userId;
-//    }
-
-//    public void setUserId(Integer userId) {
-//        this.userId = userId;
-//    }
-
     public Timestamp getOrderDate() {
         return orderDate;
     }
@@ -50,47 +56,19 @@ public class Order implements Serializable {
         this.orderDate = orderDate;
     }
 
-    public String getStatus() {
-        return status;
+    public String getStatusPayment() {
+        return statusPayment;
     }
 
-    public void setStatus(String status) {
-        this.status = status;
+    public void setStatusPayment(String statusPayment) {
+        this.statusPayment = statusPayment;
     }
 
-    @Override
-    public boolean equals(Object object) {
-        if (this == object) return true;
-        if (object == null || getClass() != object.getClass()) return false;
-
-        Order that = (Order) object;
-
-        if (orderId != that.orderId) return false;
-//        if (userId != null ? !userId.equals(that.userId) : that.userId != null) return false;
-        if (orderDate != null ? !orderDate.equals(that.orderDate) : that.orderDate != null) return false;
-        if (status != null ? !status.equals(that.status) : that.status != null) return false;
-
-        return true;
+    public User getInfoUser() {
+        return infoUser;
     }
 
-    @Override
-    public int hashCode() {
-        int result = orderId;
-//        result = 31 * result + (userId != null ? userId.hashCode() : 0);
-        result = 31 * result + (orderDate != null ? orderDate.hashCode() : 0);
-        result = 31 * result + (status != null ? status.hashCode() : 0);
-        return result;
-    }
-
-
-
-
-
-    public User getUsersByUserId() {
-        return usersByUserId;
-    }
-
-    public void setUsersByUserId(User usersByUserId) {
-        this.usersByUserId = usersByUserId;
+    public void setInfoUser(User infoUser) {
+        this.infoUser = infoUser;
     }
 }

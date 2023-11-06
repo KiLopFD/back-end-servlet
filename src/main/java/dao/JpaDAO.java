@@ -1,6 +1,8 @@
 package dao;
 
 import jakarta.persistence.EntityManager;
+import jakarta.persistence.EntityManagerFactory;
+import jakarta.persistence.Persistence;
 import jakarta.persistence.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -9,11 +11,11 @@ import org.hibernate.cfg.Configuration;
 import java.util.List;
 
 public class JpaDAO<E> {
-    private static final SessionFactory entityManagerFactory;
+    private static final EntityManagerFactory entityManagerFactory;
     static {
         try {
             // Create the SessionFactory from hibernate.cfg.xml
-            entityManagerFactory = new Configuration().configure("hibernate.cfg.xml").buildSessionFactory();
+            entityManagerFactory = Persistence.createEntityManagerFactory("StorePhone");
         } catch (Throwable ex) {
             // Make sure you log the exception, as it might be swallowed
             System.err.println("Initial SessionFactory creation failed." + ex);
