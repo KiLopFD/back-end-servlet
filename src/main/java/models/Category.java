@@ -7,7 +7,7 @@ import java.util.Collection;
 
 @Entity
 @Table(name = "categories", schema = "public", catalog = "backend-servlet")
-public class CategoriesEntity implements Serializable {
+public class Category implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
     @Column(name = "category_id")
@@ -15,16 +15,16 @@ public class CategoriesEntity implements Serializable {
     @Basic
     @Column(name = "category_name", nullable = false, unique = true)
     private String categoryName;
-    public CategoriesEntity() {
+    public Category() {
     }
-    public CategoriesEntity(String categoryName) {
+    public Category(String categoryName) {
         this.categoryName = categoryName;
     }
 
 
 
     @OneToMany(mappedBy = "category")
-    private Collection<ProductsEntity> listProduct;
+    private Collection<Product> listProduct;
 
     public int getCategoryId() {
         return categoryId;
@@ -47,7 +47,7 @@ public class CategoriesEntity implements Serializable {
         if (this == object) return true;
         if (object == null || getClass() != object.getClass()) return false;
 
-        CategoriesEntity that = (CategoriesEntity) object;
+        Category that = (Category) object;
 
         if (categoryId != that.categoryId) return false;
         if (categoryName != null ? !categoryName.equals(that.categoryName) : that.categoryName != null) return false;
@@ -62,11 +62,11 @@ public class CategoriesEntity implements Serializable {
         return result;
     }
 
-    public Collection<ProductsEntity> getProductsByCategoryId() {
+    public Collection<Product> getProductsByCategoryId() {
         return listProduct;
     }
 
-    public void setProductsByCategoryId(Collection<ProductsEntity> productsByCategoryId) {
+    public void setProductsByCategoryId(Collection<Product> productsByCategoryId) {
         this.listProduct = productsByCategoryId;
     }
 

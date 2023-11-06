@@ -4,11 +4,14 @@ import jakarta.persistence.*;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
-import java.util.Collection;
+import java.sql.Timestamp;
 
 @Entity
-@Table(name = "products", schema = "public", catalog = "backend-servlet")
-public class ProductsEntity implements Serializable {
+@Table(name = "product", schema = "public", catalog = "backend-servlet")
+@NamedQueries({
+        @NamedQuery(name="Product.findAll", query = "SELECT u FROM Product u ORDER BY u.id")
+})
+public class Product implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
     @Column(name = "product_id")
@@ -19,6 +22,22 @@ public class ProductsEntity implements Serializable {
     @Basic
     @Column(name = "description", nullable = false, columnDefinition = "TEXT")
     private String description;
+
+    public Timestamp getDatePublic() {
+        return datePublic;
+    }
+
+    public void setDatePublic(Timestamp datePublic) {
+        this.datePublic = datePublic;
+    }
+
+    @Basic
+    @Column(name = "date_public", nullable = false)
+    private Timestamp datePublic;
+
+
+
+
 
     public String getUrlImg() {
         return urlImg;
@@ -38,7 +57,7 @@ public class ProductsEntity implements Serializable {
 
     @ManyToOne
     @JoinColumn(name = "category_id", nullable = false)
-    private CategoriesEntity category;
+    private Category category;
 
 
     public int getProductId() {
@@ -61,19 +80,19 @@ public class ProductsEntity implements Serializable {
         return description;
     }
 
-    public ProductsEntity() {
+    public Product() {
     }
 
 
 
-    public ProductsEntity(String productName, String description, BigDecimal price, String urlImg) {
+    public Product(String productName, String description, BigDecimal price, String urlImg) {
         this.productName = productName;
         this.description = description;
         this.price = price;
         this.urlImg = urlImg;
     }
 
-    public ProductsEntity(String productName, String description, BigDecimal price, String urlImg, CategoriesEntity category) {
+    public Product(String productName, String description, BigDecimal price, String urlImg, Category category) {
         this.productName = productName;
         this.description = description;
         this.price = price;
@@ -100,7 +119,7 @@ public class ProductsEntity implements Serializable {
         if (this == object) return true;
         if (object == null || getClass() != object.getClass()) return false;
 
-        ProductsEntity that = (ProductsEntity) object;
+        Product that = (Product) object;
 
         if (productId != that.productId) return false;
 //        if (stockQuantity != that.stockQuantity) return false;
@@ -126,11 +145,11 @@ public class ProductsEntity implements Serializable {
 
 
 
-    public CategoriesEntity getCategoriesByCategoryId() {
+    public Category getCategoriesByCategoryId() {
         return category;
     }
 
-    public void setCategoriesByCategoryId(CategoriesEntity categoriesByCategoryId) {
+    public void setCategoriesByCategoryId(Category categoriesByCategoryId) {
         this.category = categoriesByCategoryId;
     }
 

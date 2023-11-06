@@ -3,11 +3,13 @@ package models;
 import jakarta.persistence.*;
 
 import java.io.Serializable;
-import java.util.Collection;
 
 @Entity
 @Table(name = "users", schema = "public", catalog = "backend-servlet")
-public class UsersEntity implements Serializable {
+@NamedQueries({
+    @NamedQuery(name="User.findAll", query = "SELECT u FROM User u ORDER BY u.id")
+})
+public class User implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
     @Column(name = "user_id")
@@ -105,7 +107,7 @@ public class UsersEntity implements Serializable {
         if (this == object) return true;
         if (object == null || getClass() != object.getClass()) return false;
 
-        UsersEntity that = (UsersEntity) object;
+        User that = (User) object;
 
         if (userId != that.userId) return false;
         if (username != null ? !username.equals(that.username) : that.username != null) return false;
@@ -136,7 +138,7 @@ public class UsersEntity implements Serializable {
 
 
 
-    public UsersEntity() {
+    public User() {
 
     }
 

@@ -4,10 +4,11 @@ import jakarta.persistence.*;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
+import java.sql.Timestamp;
 
 @Entity
-@Table(name = "orderdetails", schema = "public", catalog = "backend-servlet")
-public class OrderdetailsEntity implements Serializable {
+@Table(name = "orderdetail", schema = "public", catalog = "backend-servlet")
+public class Orderdetail implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
     @Column(name = "order_detail_id")
@@ -19,9 +20,25 @@ public class OrderdetailsEntity implements Serializable {
     @Basic
     @Column(name = "price", nullable = false)
     private BigDecimal price;
+
+    @Basic
+    @Column(name = "detail_time", nullable = false)
+    private Timestamp detailTime;
     @ManyToOne
     @JoinColumn(name = "product_id", nullable = false)
-    private ProductsEntity productsByProductId;
+    private Product product;
+
+    @ManyToOne
+    @JoinColumn(name = "order_id", nullable = false)
+    private Order order;
+
+    public Order getOrder() {
+        return order;
+    }
+
+    public void setOrder(Order order) {
+        this.order = order;
+    }
 
     public int getOrderDetailId() {
         return orderDetailId;
@@ -31,21 +48,7 @@ public class OrderdetailsEntity implements Serializable {
         this.orderDetailId = orderDetailId;
     }
 
-//    public Integer getOrderId() {
-//        return orderId;
-//    }
 
-//    public void setOrderId(Integer orderId) {
-//        this.orderId = orderId;
-//    }
-
-//    public Integer getProductId() {
-//        return productId;
-//    }
-
-//    public void setProductId(Integer productId) {
-//        this.productId = productId;
-//    }
 
     public int getQuantity() {
         return quantity;
@@ -68,7 +71,7 @@ public class OrderdetailsEntity implements Serializable {
         if (this == object) return true;
         if (object == null || getClass() != object.getClass()) return false;
 
-        OrderdetailsEntity that = (OrderdetailsEntity) object;
+        Orderdetail that = (Orderdetail) object;
 
         if (orderDetailId != that.orderDetailId) return false;
         if (quantity != that.quantity) return false;
@@ -91,11 +94,11 @@ public class OrderdetailsEntity implements Serializable {
 
 
 
-    public ProductsEntity getProductsByProductId() {
-        return productsByProductId;
+    public Product getProductsByProductId() {
+        return product;
     }
 
-    public void setProductsByProductId(ProductsEntity productsByProductId) {
-        this.productsByProductId = productsByProductId;
+    public void setProductsByProductId(Product productsByProductId) {
+        this.product = productsByProductId;
     }
 }

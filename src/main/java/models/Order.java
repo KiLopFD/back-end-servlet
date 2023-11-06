@@ -4,11 +4,10 @@ import jakarta.persistence.*;
 
 import java.io.Serializable;
 import java.sql.Timestamp;
-import java.util.Collection;
 
 @Entity
-@Table(name = "orders", schema = "public", catalog = "backend-servlet")
-public class OrdersEntity implements Serializable {
+@Table(name = "order", schema = "public", catalog = "backend-servlet")
+public class Order implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
     @Column(name = "order_id")
@@ -24,7 +23,8 @@ public class OrdersEntity implements Serializable {
     private String status;
     @ManyToOne
     @JoinColumn(name = "user_id", nullable = false)
-    private UsersEntity usersByUserId;
+    private User usersByUserId;
+
 
     public int getOrderId() {
         return orderId;
@@ -63,7 +63,7 @@ public class OrdersEntity implements Serializable {
         if (this == object) return true;
         if (object == null || getClass() != object.getClass()) return false;
 
-        OrdersEntity that = (OrdersEntity) object;
+        Order that = (Order) object;
 
         if (orderId != that.orderId) return false;
 //        if (userId != null ? !userId.equals(that.userId) : that.userId != null) return false;
@@ -86,11 +86,11 @@ public class OrdersEntity implements Serializable {
 
 
 
-    public UsersEntity getUsersByUserId() {
+    public User getUsersByUserId() {
         return usersByUserId;
     }
 
-    public void setUsersByUserId(UsersEntity usersByUserId) {
+    public void setUsersByUserId(User usersByUserId) {
         this.usersByUserId = usersByUserId;
     }
 }

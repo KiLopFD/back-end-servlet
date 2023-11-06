@@ -7,7 +7,7 @@ import java.sql.Timestamp;
 
 @Entity
 @Table(name = "reviews", schema = "public", catalog = "backend-servlet")
-public class ReviewsEntity implements Serializable {
+public class Review implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
     @Column(name = "review_id")
@@ -40,18 +40,18 @@ public class ReviewsEntity implements Serializable {
     private String comment;
     @ManyToOne
     @JoinColumn(name = "product_id", nullable = false)
-    private ProductsEntity productsByProductId;
+    private Product productsByProductId;
     @ManyToOne
     @JoinColumn(name = "user_id", nullable = false)
-    private UsersEntity usersByUserId;
+    private User usersByUserId;
 
 
-    public ReviewsEntity(int rating, String comment) {
+    public Review(int rating, String comment) {
         this.rating = rating;
         this.comment = comment;
     }
 
-    public ReviewsEntity() {
+    public Review() {
     }
 
     public int getReviewId() {
@@ -83,7 +83,7 @@ public class ReviewsEntity implements Serializable {
         if (this == object) return true;
         if (object == null || getClass() != object.getClass()) return false;
 
-        ReviewsEntity that = (ReviewsEntity) object;
+        Review that = (Review) object;
 
         if (reviewId != that.reviewId) return false;
         if (rating != that.rating) return false;
@@ -100,19 +100,19 @@ public class ReviewsEntity implements Serializable {
         return result;
     }
 
-    public ProductsEntity getProductsByProductId() {
+    public Product getProductsByProductId() {
         return productsByProductId;
     }
 
-    public void setProductsByProductId(ProductsEntity productsByProductId) {
+    public void setProductsByProductId(Product productsByProductId) {
         this.productsByProductId = productsByProductId;
     }
 
-    public UsersEntity getUsersByUserId() {
+    public User getUsersByUserId() {
         return usersByUserId;
     }
 
-    public void setUsersByUserId(UsersEntity usersByUserId) {
+    public void setUsersByUserId(User usersByUserId) {
         this.usersByUserId = usersByUserId;
     }
 }

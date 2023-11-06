@@ -29,11 +29,11 @@
     <property name="hibernate.hbm2ddl.auto">update</property>
 
     <!-- Mention annotated class -->
-    <mapping class="models.CategoriesEntity"/>
-    <mapping class="models.OrderdetailsEntity"/>
-    <mapping class="models.OrdersEntity"/>
-    <mapping class="models.ProductsEntity"/>
-    <mapping class="models.ReviewsEntity"/>
-    <mapping class="models.UsersEntity"/>
+    <mapping class="models.Category"/>
+    <mapping class="models.Orderdetail"/>
+    <mapping class="models.Order"/>
+    <mapping class="models.Product"/>
+    <mapping class="models.Review"/>
+    <mapping class="models.User"/>
   </session-factory>
 </hibernate-configuration>
