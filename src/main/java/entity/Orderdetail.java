@@ -1,5 +1,6 @@
-package models;
+package entity;
 
+import com.oracle.wls.shaded.org.apache.xpath.operations.Or;
 import jakarta.persistence.*;
 
 import java.io.Serializable;
@@ -7,12 +8,16 @@ import java.math.BigDecimal;
 import java.sql.Timestamp;
 
 @Entity
-@Table(name = "orderdetail", schema = "public", catalog = "backend-servlet")
+@Table(name = "order_details", schema = "public", catalog = "backend-servlet")
+@NamedQueries({
+        @NamedQuery(name="Orderdetail.findAll", query = "SELECT od FROM Orderdetail od"),
+        @NamedQuery(name="Orderdetail.countAll", query = "SELECT COUNT(*) FROM Orderdetail od")
+})
 public class Orderdetail implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
     @Column(name = "order_detail_id")
-    private int orderDetailId;
+    private int order_detail_id;
 
     @Basic
     @Column(name = "quantity", nullable = false)
@@ -26,30 +31,27 @@ public class Orderdetail implements Serializable {
     private Timestamp detailTime;
     @ManyToOne
     @JoinColumn(name = "product_id", nullable = false)
-    private Product product;
+    private Product productOfOrderDetail;
 
-    @ManyToOne
-    @JoinColumn(name = "order_id", nullable = false)
-    private Order order;
+
 
     public Orderdetail() {
     }
 
-    public Orderdetail(int orderDetailId, int quantity, BigDecimal price, Timestamp detailTime, Product product, Order order) {
-        this.orderDetailId = orderDetailId;
+    public Orderdetail(int order_detail_id, int quantity, BigDecimal price, Timestamp detailTime, Product productOfOrderDetail, Order orderOfOrderDetail) {
+        this.order_detail_id = order_detail_id;
         this.quantity = quantity;
         this.price = price;
         this.detailTime = detailTime;
-        this.product = product;
-        this.order = order;
+        this.productOfOrderDetail = productOfOrderDetail;
     }
 
-    public int getOrderDetailId() {
-        return orderDetailId;
+    public int getOrder_detail_id() {
+        return order_detail_id;
     }
 
-    public void setOrderDetailId(int orderDetailId) {
-        this.orderDetailId = orderDetailId;
+    public void setOrder_detail_id(int order_detail_id) {
+        this.order_detail_id = order_detail_id;
     }
 
     public int getQuantity() {
@@ -76,19 +78,12 @@ public class Orderdetail implements Serializable {
         this.detailTime = detailTime;
     }
 
-    public Product getProduct() {
-        return product;
+    public Product getProductOfOrderDetail() {
+        return productOfOrderDetail;
     }
 
-    public void setProduct(Product product) {
-        this.product = product;
+    public void setProductOfOrderDetail(Product productOfOrderDetail) {
+        this.productOfOrderDetail = productOfOrderDetail;
     }
 
-    public Order getOrder() {
-        return order;
-    }
-
-    public void setOrder(Order order) {
-        this.order = order;
-    }
 }

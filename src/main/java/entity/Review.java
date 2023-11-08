@@ -1,4 +1,4 @@
-package models;
+package entity;
 
 import jakarta.persistence.*;
 
@@ -7,6 +7,10 @@ import java.sql.Timestamp;
 
 @Entity
 @Table(name = "reviews", schema = "public", catalog = "backend-servlet")
+@NamedQueries({
+        @NamedQuery(name="Review.findAll", query = "SELECT r FROM Review r"),
+        @NamedQuery(name="Review.countAll", query = "SELECT COUNT(*) FROM Review r")
+})
 public class Review implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
@@ -21,22 +25,22 @@ public class Review implements Serializable {
     @Basic
     @Column(name = "comment")
     private String comment;
-    @ManyToOne
-    @JoinColumn(name = "product_id", nullable = false)
-    private Product productsByProductId;
-    @ManyToOne
-    @JoinColumn(name = "user_id", nullable = false)
+    @Basic
+    @Column(name = "product_id")
+    private Product productReview;
+    @Basic
+    @Column(name = "user_id")
     private User userReview;
 
     public Review() {
     }
 
-    public Review(int reviewId, int rating, Timestamp reviewDate, String comment, Product productsByProductId, User userReview) {
+    public Review(int reviewId, int rating, Timestamp reviewDate, String comment, Product productReview, User userReview) {
         this.reviewId = reviewId;
         this.rating = rating;
         this.reviewDate = reviewDate;
         this.comment = comment;
-        this.productsByProductId = productsByProductId;
+        this.productReview = productReview;
         this.userReview = userReview;
     }
 
@@ -72,12 +76,12 @@ public class Review implements Serializable {
         this.comment = comment;
     }
 
-    public Product getProductsByProductId() {
-        return productsByProductId;
+    public Product getProductReview() {
+        return productReview;
     }
 
-    public void setProductsByProductId(Product productsByProductId) {
-        this.productsByProductId = productsByProductId;
+    public void setProductReview(Product productReview) {
+        this.productReview = productReview;
     }
 
     public User getUserReview() {

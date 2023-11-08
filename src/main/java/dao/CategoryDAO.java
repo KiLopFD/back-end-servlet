@@ -1,6 +1,6 @@
 package dao;
 
-import models.Category;
+import entity.Category;
 
 import java.util.List;
 
@@ -22,6 +22,6 @@ public class CategoryDAO extends JpaDAO<Category> implements GenericDAO<Category
 
     @Override
     public long count() {
-        return 0;
+        return super.countWithNamedQuery("Category.countAll");
     }
 }

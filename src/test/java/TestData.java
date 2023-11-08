@@ -1,16 +1,11 @@
 import dao.ProductDAO;
-import models.Category;
-import models.Product;
+import entity.Category;
+import entity.Product;
 import dao.JpaDAO;
-import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
 
 import java.io.FileNotFoundException;
-import java.io.FileReader;
 import java.math.BigDecimal;
 import java.sql.Timestamp;
-import java.util.Date;
-import java.util.List;
 
 public class TestData {
     public static void main(String[] args) throws FileNotFoundException {
@@ -39,11 +34,13 @@ public class TestData {
         ProductDAO productDAO = new ProductDAO();
         Product product = new Product();
         product.setCategory(jpaDAO.find(Category.class, 1));
+        product.setProductName("Iphone X");
         product.setUrlImg("");
         product.setPrice(BigDecimal.valueOf(50000000));
         product.setDescription("");
-        product.setDatePublic(Timestamp.valueOf("11/12/2003"));
+        product.setDatePublic(Timestamp.valueOf("2022-04-04 04:12:35"));
         productDAO.create(product);
+        System.out.println(productDAO.listAll());
     }
 
     public static void createData() {

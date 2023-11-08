@@ -1,12 +1,17 @@
-package models;
+package entity;
 
 import jakarta.persistence.*;
 
 import java.io.Serializable;
 import java.sql.Timestamp;
+import java.util.List;
 
 @Entity
 @Table(name = "order", schema = "public", catalog = "backend-servlet")
+@NamedQueries({
+        @NamedQuery(name="Order.findAll", query = "SELECT o FROM Order o"),
+        @NamedQuery(name="Order.countAll", query = "SELECT COUNT(*) FROM Order o")
+})
 public class Order implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
@@ -24,20 +29,19 @@ public class Order implements Serializable {
     private User infoUser;
 
 
+    @OneToMany
+    @JoinColumn(name = "order_id")
+    private List<Orderdetail> listOrderDetails;
+
     public Order() {
     }
 
-    public Order(int orderId, Timestamp orderDate, String statusPayment) {
-        this.orderId = orderId;
-        this.orderDate = orderDate;
-        this.statusPayment = statusPayment;
-    }
-
-    public Order(int orderId, Timestamp orderDate, String statusPayment, User infoUser) {
+    public Order(int orderId, Timestamp orderDate, String statusPayment, User infoUser, List<Order> listOrderDetails) {
         this.orderId = orderId;
         this.orderDate = orderDate;
         this.statusPayment = statusPayment;
         this.infoUser = infoUser;
+//        this.listOrderDetails = listOrderDetails;
     }
 
     public int getOrderId() {
@@ -71,4 +75,12 @@ public class Order implements Serializable {
     public void setInfoUser(User infoUser) {
         this.infoUser = infoUser;
     }
+
+//    public List<Order> getListOrderDetails() {
+//        return listOrderDetails;
+//    }
+
+//    public void setListOrderDetails(List<Order> listOrderDetails) {
+//        this.listOrderDetails = listOrderDetails;
+//    }
 }

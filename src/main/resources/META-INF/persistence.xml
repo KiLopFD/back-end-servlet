@@ -4,12 +4,12 @@
              xsi:schemaLocation="https://jakarta.ee/xml/ns/persistence https://jakarta.ee/xml/ns/persistence/persistence_3_0.xsd"
              version="3.0">
     <persistence-unit name="StorePhone">
-        <class>models.User</class>
-        <class>models.Product</class>
-        <class>models.Category</class>
-        <class>models.Order</class>
-        <class>models.Orderdetail</class>
-        <class>models.Review</class>
+        <class>entity.User</class>
+        <class>entity.Product</class>
+        <class>entity.Category</class>
+        <class>entity.Order</class>
+        <class>entity.Orderdetail</class>
+        <class>entity.Review</class>
 
 
 

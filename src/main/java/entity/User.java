@@ -1,4 +1,4 @@
-package models;
+package entity;
 
 import jakarta.persistence.*;
 
@@ -7,7 +7,8 @@ import java.io.Serializable;
 @Entity
 @Table(name = "users", schema = "public", catalog = "backend-servlet")
 @NamedQueries({
-    @NamedQuery(name="User.findAll", query = "SELECT u FROM User u ORDER BY u.id")
+    @NamedQuery(name="User.findAll", query = "SELECT u FROM User u"),
+    @NamedQuery(name="User.countAll", query = "SELECT COUNT(*) FROM User u")
 })
 public class User implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
