@@ -1,6 +1,5 @@
 package entity;
 
-import com.oracle.wls.shaded.org.apache.xpath.operations.Or;
 import jakarta.persistence.*;
 
 import java.io.Serializable;
@@ -23,8 +22,8 @@ public class Orderdetail implements Serializable {
     @Column(name = "quantity", nullable = false)
     private int quantity;
     @Basic
-    @Column(name = "price", nullable = false)
-    private BigDecimal price;
+    @Column(name = "total_price", nullable = false)
+    private BigDecimal totalPrice;
 
     @Basic
     @Column(name = "detail_time", nullable = false)
@@ -41,7 +40,7 @@ public class Orderdetail implements Serializable {
     public Orderdetail(int order_detail_id, int quantity, BigDecimal price, Timestamp detailTime, Product productOfOrderDetail, Order orderOfOrderDetail) {
         this.order_detail_id = order_detail_id;
         this.quantity = quantity;
-        this.price = price;
+        this.totalPrice = price;
         this.detailTime = detailTime;
         this.productOfOrderDetail = productOfOrderDetail;
     }
@@ -62,12 +61,12 @@ public class Orderdetail implements Serializable {
         this.quantity = quantity;
     }
 
-    public BigDecimal getPrice() {
-        return price;
+    public BigDecimal getTotalPrice() {
+        return totalPrice;
     }
 
-    public void setPrice(BigDecimal price) {
-        this.price = price;
+    public void setTotalPrice(BigDecimal totalPrice) {
+        this.totalPrice = totalPrice;
     }
 
     public Timestamp getDetailTime() {

@@ -3,21 +3,29 @@
 <!doctype html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport"
-          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Home</title>
-    <%@include file="base/style.jsp"%>
+    <jsp:include page="base/head.jsp">
+        <jsp:param name="title" value="Home"/>
+    </jsp:include>
 </head>
 <body>
-    <jsp:include page="base/header.jsp"/>
-    ${name}
-    <%= request.getServletContext().getInitParameter("title-home")%>
+<jsp:include page="base/header.jsp"/>
+<main class="home-main-ctn relative">
+    <div class="inner-wrap container mx-auto">
+        <div>
+            <p class="title hover:text-black">Choose for you one best phone</p>
+            <p class="desc"></p>
+        </div>
+        <div>
+        </div>
 
-    <%--    My Script --%>
-    <script>
-        <%@include file="../assets/scripts/header.js"%>
-    </script>
+</main>
+<%= request.getServletContext().getInitParameter("title-home")%>
+
+<%--    My Script --%>
+
+<script>
+    <%@include file="../assets/scripts/jquery.js"%>
+    <%@include file="../assets/scripts/header.js"%>
+</script>
 </body>
 </html>
