@@ -3,14 +3,19 @@
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="https://jakarta.ee/xml/ns/jakartaee https://jakarta.ee/xml/ns/jakartaee/web-app_6_0.xsd"
          version="6.0">
-
-
+    <welcome-file-list>
+        <welcome-file>/pages/home.jsp</welcome-file>
+    </welcome-file-list>
+    <error-page>
+        <error-code>404</error-code>
+        <location>/pages/404.jsp</location>
+    </error-page>
 
 <!--    Context Global Variable -->
 <!--    Title -->
     <context-param>
         <param-name>title-home</param-name>
-        <param-value>Trang chủ</param-value>
+        <param-value>Home</param-value>
     </context-param>
 <!--End Title -->
 </web-app>

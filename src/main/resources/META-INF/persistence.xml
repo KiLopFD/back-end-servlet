@@ -3,7 +3,44 @@
              xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
              xsi:schemaLocation="https://jakarta.ee/xml/ns/persistence https://jakarta.ee/xml/ns/persistence/persistence_3_0.xsd"
              version="3.0">
-    <persistence-unit name="default">
+    <persistence-unit name="StorePhone">
+        <class>entity.User</class>
+        <class>entity.Product</class>
+        <class>entity.Category</class>
+        <class>entity.Order</class>
+        <class>entity.Orderdetail</class>
+        <class>entity.Review</class>
 
+
+
+
+        <properties>
+            <!-- Database connection properties -->
+            <property name="jakarta.persistence.jdbc.driver" value="org.postgresql.Driver" />
+            <property name="jakarta.persistence.jdbc.url" value="jdbc:postgresql://localhost:5432/PhoneStore" />
+            <property name="jakarta.persistence.jdbc.user" value="postgres" />
+            <property name="jakarta.persistence.jdbc.password" value="232003" />
+
+            <!-- JDBC connection pool settings -->
+            <property name="hibernate.c3p0.min_size" value="5" />
+            <property name="hibernate.c3p0.max_size" value="20" />
+            <property name="hibernate.c3p0.timeout" value="300" />
+            <property name="hibernate.c3p0.max_statements" value="50" />
+            <property name="hibernate.c3p0.idle_test_period" value="3000" />
+
+            <!-- Specify dialect -->
+            <property name="hibernate.dialect" value="org.hibernate.dialect.PostgreSQLDialect" />
+
+            <!-- Echo all executed SQL to stdout -->
+            <property name="hibernate.show_sql" value="true" />
+            <property name="hibernate.format_sql" value="true"/>
+
+            <!-- Drop and re-create the database schema on startup -->
+            <property name="hibernate.hbm2ddl.auto" value="update" />
+            <property name="hibernate.connection.driver_class" value="org.postgresql.Driver"/>
+            <property name="hibernate.connection.url" value="jdbc:postgresql://localhost:5432/PhoneStore"/>
+            <property name="hibernate.connection.username" value="postgres"/>
+            <property name="hibernate.connection.password" value="232003"/>
+        </properties>
     </persistence-unit>
 </persistence>
