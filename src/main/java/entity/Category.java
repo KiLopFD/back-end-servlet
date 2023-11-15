@@ -10,7 +10,6 @@ import java.util.List;
 @NamedQueries({
         @NamedQuery(name="Category.findAll", query = "SELECT c FROM Category c"),
         @NamedQuery(name="Category.countAll", query="SELECT COUNT(*) FROM Category c"),
-        @NamedQuery(name= "Category.findByName", query = "SELECT c FROM Category c WHERE c.categoryName = :name")
 })
 public class Category implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)

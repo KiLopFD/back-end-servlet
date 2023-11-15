@@ -25,17 +25,6 @@ public class OrderDAO extends JpaDAO<Order> implements GenericDAO<Order>{
         return super.find(Order.class, id);
     }
 
-    public Order get(int orderId, int userId){
-        Map<String,Object> parameters = new HashMap<>();
-        parameters.put("orderId", orderId);
-        parameters.put("userId",userId);
-        List<Order> result = super.findWithNamedQuery("Order.findByIdAndUser",parameters);
-
-        if(!result.isEmpty()){
-            return result.get(0);
-        }
-        return null;
-    }
     @Override
     public void delete(Object id) {
         super.delete(Order.class,id);
