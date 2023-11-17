@@ -1,5 +1,6 @@
 package dao;
 
+import entity.Order;
 import entity.Product;
 
 import java.util.List;
@@ -25,8 +26,9 @@ public class ProductDAO extends JpaDAO<Product> implements GenericDAO<Product> {
     }
 
     @Override
-    public void delete(Object productId) {
+    public Order delete(Object productId) {
         super.delete(Product.class, productId);
+        return null;
     }
 
     @Override

@@ -1,5 +1,6 @@
 package dao;
 
+import entity.Order;
 import entity.Orderdetail;
 
 import java.util.List;
@@ -11,8 +12,9 @@ public class OrderdetailDAO extends JpaDAO<Orderdetail> implements GenericDAO<Or
     }
 
     @Override
-    public void delete(Object id) {
+    public Order delete(Object id) {
         super.delete(Orderdetail.class, id);
+        return null;
     }
 
     @Override

@@ -1,10 +1,12 @@
 package dao;
 
+import entity.Order;
 import entity.Review;
 
-import java.sql.Timestamp;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class ReviewDAO extends JpaDAO<Review> implements GenericDAO<Review> {
     @Override
@@ -18,8 +20,22 @@ public class ReviewDAO extends JpaDAO<Review> implements GenericDAO<Review> {
     }
 
     @Override
-    public void delete(Object id) {
+    public Order delete(Object id) {
         super.delete(Review.class, id);
+        return null;
+    }
+    public Review findByUserAndProduct(Integer userId, Integer productId) {
+        Map<String, Object> parameters = new HashMap<>();
+        parameters.put("userId", userId);
+        parameters.put("productId", productId);
+
+        List<Review> result = super.findWithNamedQuery("Review.findByUserAndProduct", parameters);
+
+        if (!result.isEmpty()) {
+            return result.get(0);
+        }
+
+        return null;
     }
 
     @Override

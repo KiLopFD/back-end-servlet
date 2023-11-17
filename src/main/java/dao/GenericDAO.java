@@ -1,5 +1,7 @@
 package dao;
 
+import entity.Order;
+
 import java.util.List;
 
 public interface GenericDAO<E> {
@@ -10,7 +12,7 @@ public interface GenericDAO<E> {
 
     public E get(Object id);
 
-    public void delete(Object id);
+    public Order delete(Object id);
 
     public List<E> listAll();
 

@@ -28,13 +28,13 @@ class ReviewDAOTest {
     @Test
     void create() {
         Review review = new Review();
-        Product product = new ProductDAO().get(3);
-        User user = new UserDAO().get(1);
+        Product product = new ProductDAO().get(2);
+        User user = new UserDAO().get(4);
         review.setReviewDate(new Date());
         review.setProductReview(product);
         review.setUserReview(user);
-        review.setRating(2);
-        review.setComment("Điện thoại trung quốc");
+        review.setRating(1);
+        review.setComment("Hay a");
 
         Review newReview = reviewDAO.create(review);
         assertTrue(newReview.getReviewId() > 0);
@@ -62,7 +62,7 @@ class ReviewDAOTest {
     void listAll() {
         List<Review> listReviews = reviewDAO.listAll();
         for(Review review : listReviews){
-            System.out.println(review.getUserReview()+"---"+review.getProductReview()+"---"+review.getComment());
+            System.out.println(review.getUserReview()+"---"+review.getProductReview()+"---"+review.getComment()+"---" +review.getReviewDate());
         }
         assertTrue(!listReviews.isEmpty());
     }
