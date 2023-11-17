@@ -1,5 +1,6 @@
 package dao;
 
+import entity.Order;
 import entity.Product;
 import jakarta.persistence.EntityManager;
 

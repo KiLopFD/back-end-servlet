@@ -35,7 +35,7 @@
         @JoinColumn(name = "user_id", nullable = false)
         private User infoUser;
 
-        @OneToMany(cascade = CascadeType.PERSIST)
+        @OneToMany(cascade = CascadeType.ALL)
         @JoinColumn(name = "order_id")
         private Set<Orderdetail> listOrderDetails = new HashSet<>(0);
 

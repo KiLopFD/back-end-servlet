@@ -67,6 +67,8 @@ class OrderDAOTest {
 
     @Test
     void testGet() {
+       orderDAO.delete(1);
+
     }
 
     @Test

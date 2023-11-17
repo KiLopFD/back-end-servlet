@@ -1,6 +1,7 @@
 package dao;
 
 import entity.Category;
+import entity.Order;
 
 import java.util.List;
 

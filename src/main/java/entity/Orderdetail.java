@@ -29,7 +29,7 @@ public class Orderdetail implements Serializable {
     @Basic
     @Column(name = "detail_time", nullable = false)
     private Date detailTime;
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "product_id", nullable = false)
     private Product productOfOrderDetail;
 

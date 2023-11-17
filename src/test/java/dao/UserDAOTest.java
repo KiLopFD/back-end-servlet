@@ -1,6 +1,8 @@
 package dao;
 
+import common.HashGenerator;
 import entity.User;
+import org.junit.Assert;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
@@ -27,13 +29,13 @@ class UserDAOTest {
     @Test
     void create() throws ParseException, IOException {
         User user = new User();
-        user.setUsername("Yuhatan");
-        user.setPassword("password");
+        user.setUsername("Iggy");
+        user.setPassword("1234");
         user.setEmail("sdfsd@gmail.com");
-        user.setFullName("Nooe");
+        user.setFullName("Nanunaka");
         user.setPhoneNumber("098678923");
-        user.setRole("admin");
-        user.setAddress("Dak lak");
+        user.setRole("user");
+        user.setAddress("dnvt");
 
         User createUser = userDAO.create(user);
 
@@ -59,7 +61,7 @@ class UserDAOTest {
 
     @Test
     void testDelete() {
-        int userId = 14;
+        int userId = 1;
         userDAO.delete(userId);
         User user = userDAO.get(userId);
 
@@ -81,5 +83,28 @@ class UserDAOTest {
         long totalUser = userDAO.count();
 
         assertEquals(1,totalUser);
+    }
+
+    @Test
+    void checkLogin() {
+        String userName = "Iggy";
+        String password = "1234";
+        boolean check = userDAO.checkLogin(userName,password);
+        assertTrue(check);
+    }
+
+    @Test
+    void findByUserName() {
+        User user = userDAO.findByUserName("Iggy");
+        System.out.println(user.getUsername());
+        assertNotNull(user);
+
+    }
+
+    @Test
+    void findByEmail() {
+        User user = userDAO.findByEmail("gini@gmail.com");
+        System.out.println(user.getUsername());
+        assertNotNull(user);
     }
 }

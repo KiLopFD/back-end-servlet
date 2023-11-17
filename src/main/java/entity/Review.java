@@ -26,11 +26,11 @@ public class Review implements Serializable {
     @Basic
     @Column(name = "comment")
     private String comment;
-
-    @Column(name = "product_id")
+    @ManyToOne
+    @JoinColumn(name = "product_id")
     private Product productReview;
-
-    @Column(name = "user_id")
+    @ManyToOne
+    @JoinColumn(name = "user_id")
     private User userReview;
 
     public Review() {

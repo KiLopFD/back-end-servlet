@@ -3,12 +3,17 @@ package entity;
 import jakarta.persistence.*;
 
 import java.io.Serializable;
+import java.util.Set;
 
 @Entity
 @Table(name = "users", schema = "public", catalog = "backend-servlet")
 @NamedQueries({
-    @NamedQuery(name="User.findAll", query = "SELECT u FROM User u"),
-    @NamedQuery(name="User.countAll", query = "SELECT COUNT(*) FROM User u")
+        @NamedQuery(name = "User.findByUserName", query = "SELECT u FROM User u WHERE u.username = :username"),
+        @NamedQuery(name = "User.findAll", query = "SELECT u FROM User u"),
+        @NamedQuery(name = "User.countAll", query = "SELECT COUNT(*) FROM User u"),
+        @NamedQuery(name = "User.checkLogin", query = "SELECT u FROM User u WHERE u.username = :username AND u.password = :password"),
+        @NamedQuery(name = "User.findByEmail", query = "SELECT u FROM User u WHERE u.email = :email"),
+
 })
 public class User implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -37,6 +42,8 @@ public class User implements Serializable {
     @Column(name = "phone_number", nullable = false)
     private String phoneNumber;
 
+    @OneToMany(mappedBy = "infoUser", cascade = CascadeType.REMOVE)
+    private Set<Order> orders;
     public User() {
     }
 

@@ -1,6 +1,5 @@
 package dao;
 
-import com.oracle.wls.shaded.org.apache.xpath.operations.Or;
 import entity.Order;
 import entity.Orderdetail;
 import entity.User;
@@ -10,6 +9,10 @@ import jakarta.persistence.Query;
 import java.sql.Array;
 import java.sql.Timestamp;
 import java.util.*;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 public class OrderDAO extends JpaDAO<Order> implements GenericDAO<Order>{
     @Override

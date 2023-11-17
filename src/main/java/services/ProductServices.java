@@ -57,6 +57,9 @@ public class ProductServices {
             return false;
         return true;
     }
+    //    public HttpServletRequest listProducts() throws ServletException, IOException {
+//        return listProducts(null);
+//    }
 
     public Boolean AddProduct(Product prod) {
         Product test = productDAO.create(prod);
