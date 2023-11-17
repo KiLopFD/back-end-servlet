@@ -26,10 +26,10 @@ public class Review implements Serializable {
     @Basic
     @Column(name = "comment")
     private String comment;
-    @Basic
+
     @Column(name = "product_id")
     private Product productReview;
-    @Basic
+
     @Column(name = "user_id")
     private User userReview;
 

@@ -15,5 +15,12 @@
       <jdbc-url>jdbc:postgresql://localhost:5432/PhoneStore</jdbc-url>
       <working-dir>$ProjectFileDir$</working-dir>
     </data-source>
+    <data-source source="LOCAL" name="SP@ep-wild-dust-35047735.ap-southeast-1.aws.neon.tech" uuid="77d3322a-7131-4b3a-ab68-d590cafcfb08">
+      <driver-ref>postgresql</driver-ref>
+      <synchronize>true</synchronize>
+      <jdbc-driver>org.postgresql.Driver</jdbc-driver>
+      <jdbc-url>jdbc:postgresql://ep-wild-dust-35047735.ap-southeast-1.aws.neon.tech:5432/SP</jdbc-url>
+      <working-dir>$ProjectFileDir$</working-dir>
+    </data-source>
   </component>
 </project>

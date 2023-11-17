@@ -13,7 +13,7 @@ import java.util.Map;
 import java.util.Set;
 
 public class JpaDAO<E> {
-    private static final EntityManagerFactory entityManagerFactory;
+    public static final EntityManagerFactory entityManagerFactory;
     static {
         try {
             // Create the SessionFactory from hibernate.cfg.xml

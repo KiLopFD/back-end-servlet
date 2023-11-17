@@ -1,6 +1,7 @@
     package entity;
 
     import jakarta.persistence.*;
+    import jakarta.transaction.Transactional;
 
     import java.io.Serializable;
     import java.sql.Timestamp;
@@ -10,10 +11,12 @@
     @Table(name = "order", schema = "public", catalog = "backend-servlet")
     @NamedQueries({
             @NamedQuery(name="Order.findAll", query = "SELECT o FROM Order o"),
+            @NamedQuery(name = "Order.findByUser", query = "SELECT o FROM Order o WHERE o.infoUser = :userId"),
+            @NamedQuery(name = "Order.findById", query = "SELECT o FROM Order o WHERE o.orderId = :orderId"),
             @NamedQuery(name="Order.countAll", query = "SELECT COUNT(*) FROM Order o"),
             @NamedQuery(
                     name = "Order.findByIdAndUser",
-                    query = "SELECT o FROM Order o WHERE o.orderId = :orderId AND o.infoUser = :user"
+                    query = "SELECT o FROM Order o WHERE o.orderId = :orderId AND o.infoUser = :userId"
             )
     })
     public class Order implements Serializable {

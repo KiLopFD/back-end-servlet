@@ -17,9 +17,9 @@
         <properties>
             <!-- Database connection properties -->
             <property name="jakarta.persistence.jdbc.driver" value="org.postgresql.Driver" />
-            <property name="jakarta.persistence.jdbc.url" value="jdbc:postgresql://localhost:5432/PhoneStore" />
-            <property name="jakarta.persistence.jdbc.user" value="postgres" />
-            <property name="jakarta.persistence.jdbc.password" value="232003" />
+            <property name="jakarta.persistence.jdbc.url" value="jdbc:postgresql://ep-wild-dust-35047735.ap-southeast-1.aws.neon.tech/SP" />
+            <property name="jakarta.persistence.jdbc.user" value="gexat74780@newnime.com" />
+            <property name="jakarta.persistence.jdbc.password" value="T6FAluQJYgk2" />
 
             <!-- JDBC connection pool settings -->
             <property name="hibernate.c3p0.min_size" value="5" />
@@ -38,9 +38,9 @@
             <!-- Drop and re-create the database schema on startup -->
             <property name="hibernate.hbm2ddl.auto" value="update" />
             <property name="hibernate.connection.driver_class" value="org.postgresql.Driver"/>
-            <property name="hibernate.connection.url" value="jdbc:postgresql://localhost:5432/PhoneStore"/>
-            <property name="hibernate.connection.username" value="postgres"/>
-            <property name="hibernate.connection.password" value="232003"/>
+            <property name="hibernate.connection.url" value="jdbc:postgresql://ep-wild-dust-35047735.ap-southeast-1.aws.neon.tech/SP"/>
+            <property name="hibernate.connection.username" value="gexat74780@newnime.com"/>
+            <property name="hibernate.connection.password" value="T6FAluQJYgk2"/>
         </properties>
     </persistence-unit>
 </persistence>

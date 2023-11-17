@@ -11,7 +11,8 @@ import java.util.Date;
 @Table(name = "product", schema = "public", catalog = "backend-servlet")
 @NamedQueries({
         @NamedQuery(name="Product.findAll", query = "SELECT p FROM Product p"),
-        @NamedQuery(name="Product.countAll", query = "SELECT COUNT(*) FROM Product p")
+        @NamedQuery(name="Product.countAll", query = "SELECT COUNT(*) FROM Product p"),
+        @NamedQuery(name="Product.findByName", query = "SELECT p FROM Product p WHERE p.productName LIKE :name "),
 })
 public class Product implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
