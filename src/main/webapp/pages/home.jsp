@@ -15,11 +15,13 @@
             <p class="title hover:text-black">Choose for you one best phone</p>
             <p class="desc"></p>
         </div>
-        <div>
-        </div>
-
+        <c:set var="listProducts" scope="request" value="${requestScope.get('listProducts')}"/>
+        <c:forEach var="item" items="${listProducts}">
+            <p><c:out value="${item.getProductName()}"/></p>
+        </c:forEach>
+    </div>
 </main>
-<%= request.getServletContext().getInitParameter("title-home")%>
+<%--<%= request.getServletContext().getInitParameter("title-home")%>--%>
 
 <%--    My Script --%>
 
