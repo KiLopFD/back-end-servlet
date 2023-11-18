@@ -35,9 +35,9 @@ public class OrderDAO extends JpaDAO<Order> implements GenericDAO<Order>{
         return null;
     }
     @Override
-    public Order delete(Object id) {
+    public void delete(Object id) {
         super.delete(Order.class,id);
-        return null;
+
     }
 
     @Override

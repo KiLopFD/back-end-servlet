@@ -20,9 +20,9 @@ public class ReviewDAO extends JpaDAO<Review> implements GenericDAO<Review> {
     }
 
     @Override
-    public Order delete(Object id) {
+    public void delete(Object id) {
         super.delete(Review.class, id);
-        return null;
+
     }
     public Review findByUserAndProduct(Integer userId, Integer productId) {
         Map<String, Object> parameters = new HashMap<>();

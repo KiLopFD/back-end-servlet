@@ -26,9 +26,9 @@ public class ProductDAO extends JpaDAO<Product> implements GenericDAO<Product> {
     }
 
     @Override
-    public Order delete(Object productId) {
+    public void delete(Object productId) {
         super.delete(Product.class, productId);
-        return null;
+
     }
 
     @Override

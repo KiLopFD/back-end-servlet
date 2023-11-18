@@ -12,9 +12,9 @@ public class OrderdetailDAO extends JpaDAO<Orderdetail> implements GenericDAO<Or
     }
 
     @Override
-    public Order delete(Object id) {
+    public void delete(Object id) {
         super.delete(Orderdetail.class, id);
-        return null;
+
     }
 
     @Override

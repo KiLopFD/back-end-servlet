@@ -41,9 +41,9 @@ public class User implements Serializable {
     @Basic
     @Column(name = "phone_number", nullable = false)
     private String phoneNumber;
-
-    @OneToMany(mappedBy = "infoUser", cascade = CascadeType.REMOVE)
+    @OneToMany(mappedBy = "infoUser", cascade = CascadeType.ALL)
     private Set<Order> orders;
+
     public User() {
     }
 

@@ -33,14 +33,14 @@ class OrderDAOTest {
     @Test
     void create() {
         Order order = new Order();
-        User user = new UserDAO().get(1);
+        User user = new UserDAO().get(4);
 
         order.setInfoUser(user);
 
         Set<Orderdetail> orderdetails = new HashSet<>();
         Orderdetail orderdetail = new Orderdetail();
 
-        Product product = new ProductDAO().get(2);
+        Product product = new ProductDAO().get(6);
         orderdetail.setProductOfOrderDetail(product);
         orderdetail.setQuantity(1);
         orderdetail.setDetailTime( new Date());
@@ -67,7 +67,7 @@ class OrderDAOTest {
 
     @Test
     void testGet() {
-       Order order =  orderDAO.delete(1);
+        orderDAO.delete(1);
 
     }
 

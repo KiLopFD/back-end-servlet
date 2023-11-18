@@ -12,7 +12,7 @@ public interface GenericDAO<E> {
 
     public E get(Object id);
 
-    public Order delete(Object id);
+    public void delete(Object id);
 
     public List<E> listAll();
 

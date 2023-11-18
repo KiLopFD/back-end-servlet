@@ -21,9 +21,9 @@ public class CategoryDAO extends JpaDAO<Category> implements GenericDAO<Category
     }
 
     @Override
-    public Order delete(Object id) {
+    public void delete(Object id) {
         super.delete(Category.class, id);
-        return null;
+
     }
 
     @Override
