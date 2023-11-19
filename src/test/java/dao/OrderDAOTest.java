@@ -1,5 +1,6 @@
 package dao;
 
+import com.oracle.wls.shaded.org.apache.bcel.generic.NEW;
 import entity.Order;
 import entity.Orderdetail;
 import entity.Product;
@@ -12,6 +13,7 @@ import java.math.BigDecimal;
 import java.sql.Timestamp;
 import java.util.Date;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -33,14 +35,14 @@ class OrderDAOTest {
     @Test
     void create() {
         Order order = new Order();
-        User user = new UserDAO().get(4);
+        User user = new UserDAO().get(3);
 
         order.setInfoUser(user);
 
         Set<Orderdetail> orderdetails = new HashSet<>();
         Orderdetail orderdetail = new Orderdetail();
 
-        Product product = new ProductDAO().get(6);
+        Product product = new ProductDAO().get(3);
         orderdetail.setProductOfOrderDetail(product);
         orderdetail.setQuantity(1);
         orderdetail.setDetailTime( new Date());
@@ -58,6 +60,10 @@ class OrderDAOTest {
 
     @Test
     void update() {
+        Order order = orderDAO.get(14);
+        order.setStatusPayment("paid");
+        Order newOrder = orderDAO.update(order);
+        assertEquals("paid",newOrder.getStatusPayment());
     }
 
     @Test
@@ -82,4 +88,6 @@ class OrderDAOTest {
     @Test
     void count() {
     }
+
+
 }

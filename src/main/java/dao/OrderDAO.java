@@ -1,6 +1,8 @@
 package dao;
 
 import entity.Order;
+import entity.Product;
+import entity.User;
 
 import java.util.Date;
 import java.util.HashMap;
@@ -45,8 +47,11 @@ public class OrderDAO extends JpaDAO<Order> implements GenericDAO<Order>{
         return super.findWithNamedQuery("Order.findAll");
     }
 
+
     @Override
     public long count() {
         return super.countWithNamedQuery("Order.countAll");
     }
+
+
 }

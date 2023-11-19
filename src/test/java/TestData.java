@@ -10,6 +10,7 @@ import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityManagerFactory;
 import jakarta.persistence.Persistence;
 import services.ProductServices;
+import services.ReviewService;
 import services.UserService;
 
 import java.io.FileNotFoundException;
@@ -37,15 +38,16 @@ public class TestData {
 //        }
 //        em.close();
 //        emf.close();
-        try{
-            //          checkLogin();
-            createUser();
-//        deleteUser();
-//        listProducts();
-        }
-        catch (Exception ex){
-            System.out.println("UserName or Email already exist");
-        }
+//        try{
+//            //          checkLogin();
+//            createUser();
+////        deleteUser();
+////        listProducts();
+//        }
+//        catch (Exception ex){
+//            System.out.println("UserName or Email already exist");
+//        }
+        createReview();
 
     }
     public static void  createUser(){
@@ -86,6 +88,21 @@ public class TestData {
         for(Product product : listProducts){
             System.out.println(product.getProductName()+"---"+product.getPrice()+"---"+product.getCategory());
         }
+    }
+    public static void createReview(){
+        User user = new UserDAO().get(2);
+        Product product = new  ProductDAO().get(1);
+        String comment = "Nice 😀";
+        int rating= 4;
+
+        ReviewService reviewService = new ReviewService();
+        boolean checkCreteReview = reviewService.createReview(user,product,comment,rating);
+        if(checkCreteReview){
+            System.out.println("Tạo review thành công");
+        }else {
+            System.out.println("Tạo review thất bại");
+        }
+
     }
 
 

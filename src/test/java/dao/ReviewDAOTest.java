@@ -29,7 +29,7 @@ class ReviewDAOTest {
     void create() {
         Review review = new Review();
         Product product = new ProductDAO().get(2);
-        User user = new UserDAO().get(4);
+        User user = new UserDAO().get(2);
         review.setReviewDate(new Date());
         review.setProductReview(product);
         review.setUserReview(user);

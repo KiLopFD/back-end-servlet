@@ -10,8 +10,9 @@ import java.util.Date;
 @Entity
 @Table(name = "order_details", schema = "public", catalog = "backend-servlet")
 @NamedQueries({
-        @NamedQuery(name="Orderdetail.findAll", query = "SELECT od FROM Orderdetail od"),
-        @NamedQuery(name="Orderdetail.countAll", query = "SELECT COUNT(*) FROM Orderdetail od")
+        @NamedQuery(name = "Orderdetail.findAll", query = "SELECT od FROM Orderdetail od"),
+        @NamedQuery(name = "Orderdetail.countAll", query = "SELECT COUNT(*) FROM Orderdetail od"),
+        @NamedQuery(name = "Orderdetail.findPaidProductsByUser", query = "SELECT od.productOfOrderDetail FROM Orderdetail od JOIN od.order o WHERE o.statusPayment = 'paid' AND o.infoUser = :user")
 })
 public class Orderdetail implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -32,8 +33,17 @@ public class Orderdetail implements Serializable {
     @ManyToOne
     @JoinColumn(name = "product_id", nullable = false)
     private Product productOfOrderDetail;
+    @ManyToOne
+    @JoinColumn(name = "order_id", referencedColumnName = "order_id")
+    private Order order;
 
+    public Order getOrder() {
+        return order;
+    }
 
+    public void setOrder(Order order) {
+        this.order = order;
+    }
 
     public Orderdetail() {
     }
