@@ -10,7 +10,8 @@
     @Table(name = "order", schema = "public", catalog = "backend-servlet")
     @NamedQueries({
             @NamedQuery(name="Order.findAll", query = "SELECT o FROM Order o"),
-            @NamedQuery(name="Order.countAll", query = "SELECT COUNT(*) FROM Order o")
+            @NamedQuery(name="Order.countAll", query = "SELECT COUNT(*) FROM Order o"),
+
     })
     public class Order implements Serializable {
         @GeneratedValue(strategy = GenerationType.IDENTITY)
