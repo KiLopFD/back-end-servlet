@@ -18,14 +18,19 @@ public class OrderdetailDAO extends JpaDAO<Orderdetail> implements GenericDAO<Or
 
     }
 
-
+    public  boolean  hasUserPurchasedProduct(User user,Product product){
+        List<Orderdetail> result = findWithNamedQuery(
+                "Orderdetail.hasUserPurchasedProduct",
+                new String[]{"user", "product"},
+                new Object[]{user, product}
+        );
+        return !result.isEmpty();
+    }
     @Override
     public List<Orderdetail> listAll() {
         return super.findWithNamedQuery("Orderdetail.findAll");
     }
-//    public List<Product> findPaidProductsByUser(User user){
-//        return super.findWithNamedQuery("Orderdetail.findPaidProductsByUser", "user", user);
-//    }
+
 
 
 

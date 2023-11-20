@@ -35,16 +35,16 @@ class OrderDAOTest {
     @Test
     void create() {
         Order order = new Order();
-        User user = new UserDAO().get(3);
+        User user = new UserDAO().get(10);
 
         order.setInfoUser(user);
 
         Set<Orderdetail> orderdetails = new HashSet<>();
         Orderdetail orderdetail = new Orderdetail();
 
-        Product product = new ProductDAO().get(3);
+        Product product = new ProductDAO().get(4);
         orderdetail.setProductOfOrderDetail(product);
-        orderdetail.setQuantity(1);
+        orderdetail.setQuantity(2);
         orderdetail.setDetailTime( new Date());
         orderdetail.setTotalPrice(BigDecimal.valueOf(1000));
         orderdetails.add(orderdetail);
@@ -60,7 +60,7 @@ class OrderDAOTest {
 
     @Test
     void update() {
-        Order order = orderDAO.get(14);
+        Order order = orderDAO.get(18);
         order.setStatusPayment("paid");
         Order newOrder = orderDAO.update(order);
         assertEquals("paid",newOrder.getStatusPayment());
@@ -79,6 +79,7 @@ class OrderDAOTest {
 
     @Test
     void delete() {
+
     }
 
     @Test

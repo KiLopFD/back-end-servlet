@@ -13,7 +13,7 @@ public class OrderDAO extends JpaDAO<Order> implements GenericDAO<Order>{
     @Override
     public Order create(Order order){
        order.setOrderDate(new Date());
-       order.setStatusPayment("Cash on Delivery");
+       order.setStatusPayment("Pending");
        return super.create(order);
     }
     @Override
@@ -24,6 +24,7 @@ public class OrderDAO extends JpaDAO<Order> implements GenericDAO<Order>{
     public Order get(Object id) {
         return super.find(Order.class, id);
     }
+
 
     public Order get(int orderId, int userId){
         Map<String,Object> parameters = new HashMap<>();
@@ -36,11 +37,13 @@ public class OrderDAO extends JpaDAO<Order> implements GenericDAO<Order>{
         }
         return null;
     }
+
     @Override
     public void delete(Object id) {
         super.delete(Order.class,id);
 
     }
+
 
     @Override
     public List<Order> listAll() {

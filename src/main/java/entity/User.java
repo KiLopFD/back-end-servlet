@@ -3,6 +3,7 @@ package entity;
 import jakarta.persistence.*;
 
 import java.io.Serializable;
+import java.util.HashSet;
 import java.util.Set;
 
 @Entity
@@ -42,7 +43,26 @@ public class User implements Serializable {
     @Column(name = "phone_number", nullable = false)
     private String phoneNumber;
     @OneToMany(mappedBy = "infoUser", cascade = CascadeType.ALL)
-    private Set<Order> orders;
+    private Set<Order> orders = new HashSet<>(0);
+
+    public Set<Order> getOrders() {
+        return orders;
+    }
+
+    public void setOrders(Set<Order> orders) {
+        this.orders = orders;
+    }
+
+    public Set<Review> getReviews() {
+        return reviews;
+    }
+
+    public void setReviews(Set<Review> reviews) {
+        this.reviews = reviews;
+    }
+
+    @OneToMany(mappedBy = "userReview", cascade = CascadeType.ALL)
+    private Set<Review> reviews = new HashSet<>(0);
 
     public User() {
     }

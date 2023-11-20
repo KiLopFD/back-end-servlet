@@ -6,7 +6,7 @@ import entity.Category;
 import java.util.List;
 
 public class CategoryService {
-    private CategoryDAO categoryDAO;
+    private static CategoryDAO categoryDAO;
 
     public CategoryService() {
         categoryDAO = new CategoryDAO();

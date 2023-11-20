@@ -14,8 +14,7 @@ import java.util.*;
         @NamedQuery(
                 name = "Order.findByIdAndUser",
                 query = "SELECT o FROM Order o WHERE o.orderId = :orderId AND o.infoUser = :user"
-        ),
-
+        )
 })
 public class Order implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)

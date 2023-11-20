@@ -2,7 +2,6 @@ package dao;
 
 import common.HashGenerator;
 import entity.User;
-import org.junit.Assert;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
@@ -29,10 +28,10 @@ class UserDAOTest {
     @Test
     void create() throws ParseException, IOException {
         User user = new User();
-        user.setUsername("Iggy");
+        user.setUsername("thanh minh");
         user.setPassword("1234");
-        user.setEmail("sdfsd@gmail.com");
-        user.setFullName("Nanunaka");
+        user.setEmail("asdffassd@gmail.com");
+        user.setFullName("Gineay");
         user.setPhoneNumber("098678923");
         user.setRole("user");
         user.setAddress("dnvt");
@@ -61,7 +60,7 @@ class UserDAOTest {
 
     @Test
     void testDelete() {
-        int userId = 4;
+        int userId = 15;
         userDAO.delete(userId);
         User user = userDAO.get(userId);
 

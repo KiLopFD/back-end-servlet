@@ -40,20 +40,20 @@ public class TestData {
 //        emf.close();
 //        try{
 //            //          checkLogin();
-//            createUser();
+            createUser();
 ////        deleteUser();
 ////        listProducts();
 //        }
 //        catch (Exception ex){
 //            System.out.println("UserName or Email already exist");
 //        }
-        createReview();
+//        createReview();
 
     }
     public static void  createUser(){
         UserService userService = new UserService();
 
-       boolean check =  userService.create("thanhduc2","12234","admin","tuyenquanghpkt2@gmail.com","Dinh Thanh Duc ","Ho chi Minh","0984839604");
+       boolean check =  userService.create("thanhduc232003","12234","user","21110765@student.hcmute.edu.vn","Đinh Thành Đức ","Đăk Lăk","0984839604");
         if(check){
             System.out.println("Register successfully");
         }

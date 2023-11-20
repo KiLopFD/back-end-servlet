@@ -23,6 +23,20 @@ class OrderdetailDAOTest {
     void tearDown() throws Exception {
         orderdetailDAO = null;
     }
+    @Test
+    void checkUserPurchasedProduct(){
+        User user = new UserDAO().get(10);
+        Product product = new ProductDAO().get(6);
+        boolean check = orderdetailDAO.hasUserPurchasedProduct(user,product);
+        if(check){
+            System.out.println("User "+user.getUsername()+" ĐÃ mua sản phẩm "+product.getProductName());
+        }
+        else{
+            System.out.println("User "+user.getUsername()+" chưa mua sản phẩm "+product.getProductName());
+        }
+        assertTrue(check);
+
+    }
 
 //    @Test
 //    void findPaidProductsByUser() {

@@ -9,12 +9,13 @@ import java.util.Date;
 import java.util.List;
 
 public class ReviewService {
-    private static ReviewDAO reviewDAO;
+    private  ReviewDAO reviewDAO =new ReviewDAO();;
 
     public ReviewService() {
-         reviewDAO = new ReviewDAO();
+
     }
     public boolean createReview(User user, Product product, String comment, int rating) {
+
         // Kiểm tra null cho User và Product
         if (user == null || product == null) {
             System.out.println("User hoặc Product không được để trống.");

@@ -2,6 +2,7 @@ package dao;
 
 import entity.Order;
 import entity.Product;
+import entity.User;
 
 import java.util.List;
 
@@ -28,7 +29,10 @@ public class ProductDAO extends JpaDAO<Product> implements GenericDAO<Product> {
     @Override
     public void delete(Object productId) {
         super.delete(Product.class, productId);
-
+    }
+    public List<Product> findPaidProductsByUser(User user){
+        List<Product > listPaidProductsByUser = super.findWithNamedQuery("Product.findPaidProductsByUser","user",user);
+        return listPaidProductsByUser;
     }
 
     @Override
