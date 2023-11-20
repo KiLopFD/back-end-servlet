@@ -1,5 +1,6 @@
 package controler;
 
+import common.Utility;
 import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
@@ -21,8 +22,7 @@ public class HomeServlet extends HttpServlet {
             System.out.println(req.getAttribute("listProducts"));
         }
 
-        RequestDispatcher requestDispatcher = req.getRequestDispatcher("index.jsp");
-        requestDispatcher.forward(req, resp);
+        Utility.forwardToPage("./index.jsp",req, resp);
     }
 
     @Override

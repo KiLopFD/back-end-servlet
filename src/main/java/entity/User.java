@@ -7,8 +7,11 @@ import java.io.Serializable;
 @Entity
 @Table(name = "users", schema = "public", catalog = "backend-servlet")
 @NamedQueries({
-    @NamedQuery(name="User.findAll", query = "SELECT u FROM User u"),
-    @NamedQuery(name="User.countAll", query = "SELECT COUNT(*) FROM User u")
+        @NamedQuery(name = "User.findByUserName", query = "SELECT u FROM User u WHERE u.username = :username"),
+        @NamedQuery(name = "User.findAll", query = "SELECT u FROM User u"),
+        @NamedQuery(name = "User.countAll", query = "SELECT COUNT(*) FROM User u"),
+        @NamedQuery(name = "User.checkLogin", query = "SELECT u FROM User u WHERE u.username = :username AND u.password = :password"),
+        @NamedQuery(name = "User.findByEmail", query = "SELECT u FROM User u WHERE u.email = :email"),
 })
 public class User implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -25,7 +28,7 @@ public class User implements Serializable {
     @Column(name = "role", nullable = false)
     private String role;
     @Basic
-    @Column(name = "email", nullable = false)
+    @Column(name = "email", nullable = false, unique = true)
     private String email;
     @Basic
     @Column(name = "full_name", nullable = false)
@@ -34,7 +37,7 @@ public class User implements Serializable {
     @Column(name = "address")
     private String address;
     @Basic
-    @Column(name = "phone_number", nullable = false)
+    @Column(name = "phone_number", nullable = false, unique = true)
     private String phoneNumber;
 
     public User() {
