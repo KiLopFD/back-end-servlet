@@ -12,19 +12,19 @@ import java.io.IOException;
 import java.util.List;
 
 public class ProductServices {
-    static private ProductDAO productDAO;
-    static {
+    private ProductDAO productDAO;
+
+    public ProductServices() {
         productDAO = new ProductDAO();
     }
 
-    static public boolean listAllProducts(HttpServletRequest request,
-                                          HttpServletResponse response,
-                                          String attributeName) {
+    public boolean listAllProducts(HttpServletRequest request,
+                                   HttpServletResponse response,
+                                   String attributeName) {
         try {
             request.setAttribute(attributeName, productDAO.listAll());
             return true;
-        }
-        catch (Exception exception) {
+        } catch (Exception exception) {
             return false;
         }
     }

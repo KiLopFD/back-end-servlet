@@ -17,9 +17,7 @@ public class HomeServlet extends HttpServlet {
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String name = "Nguyen Van A";
         req.setAttribute("name", name);
-        if (ProductServices.listAllProducts(req, resp, "listProducts") == true) {
-            System.out.println(req.getAttribute("listProducts"));
-        }
+
         System.out.println(req.getSession().getAttribute("isLogin"));
 
         Utility.forwardToPage("./index.jsp",req, resp);

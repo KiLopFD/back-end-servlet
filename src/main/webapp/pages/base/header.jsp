@@ -20,7 +20,7 @@
         </div>
         <div class="hidden lg:flex lg:gap-x-12">
             <a href="<c:url value="/"/>" class="text-sm font-semibold leading-6 text-gray-900">Home</a>
-            <a href="#" class="text-sm font-semibold leading-6 text-gray-900">Product</a>
+            <a href="<c:url value="/product"/>" class="text-sm font-semibold leading-6 text-gray-900">Product</a>
             <a href="#" class="text-sm font-semibold leading-6 text-gray-900">Contact</a>
             <a href="#" class="text-sm font-semibold leading-6 text-gray-900">About</a>
         </div>
@@ -62,7 +62,7 @@
                     <div class="space-y-2 py-6">
                         <a href="#"
                            class="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50">Home</a>
-                        <a href="#"
+                        <a href="<c:url value="/product"/>"
                            class="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50">Product</a>
                         <a href="#"
                            class="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50">Contact</a>

@@ -17,7 +17,7 @@ public class ProductDaoTest extends JpaDAO<Product>{
 
     static {
         try {
-            products = gson.fromJson(new FileReader("C:\\Work_Space\\Web_Tech\\Inteliji\\back-end-servlet\\src\\test\\java\\data\\phones.json"), new TypeToken<List<Product>>() {}.getType());
+            products = gson.fromJson(new FileReader("D:\\Users\\Inteliji\\back-end-servlet\\src\\test\\java\\data\\phones.json"), new TypeToken<List<Product>>() {}.getType());
         } catch (FileNotFoundException e) {
             throw new RuntimeException(e);
         }

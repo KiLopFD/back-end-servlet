@@ -40,6 +40,7 @@ public class AuthenticationFilter implements Filter {
             System.out.println("Filter on: " + action);
             if (authen) {
                 filterChain.doFilter(servletRequest, servletResponse);
+                return;
             }
             resp.sendRedirect(domain + "/login");
         }
