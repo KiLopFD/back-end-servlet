@@ -17,7 +17,9 @@ public class ProductServices {
         productDAO = new ProductDAO();
     }
 
-    static public boolean listAllProducts(HttpServletRequest request, HttpServletResponse response, String attributeName) {
+    static public boolean listAllProducts(HttpServletRequest request,
+                                          HttpServletResponse response,
+                                          String attributeName) {
         try {
             request.setAttribute(attributeName, productDAO.listAll());
             return true;
