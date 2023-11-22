@@ -79,6 +79,9 @@ public class Orderdetail implements Serializable {
     public void setTotalPrice(BigDecimal totalPrice) {
         this.totalPrice = totalPrice;
     }
+    public void setTotalPrice() {
+        this.totalPrice = productOfOrderDetail.getPrice().multiply(BigDecimal.valueOf(quantity));
+    }
 
     public Date getDetailTime() {
         return detailTime;

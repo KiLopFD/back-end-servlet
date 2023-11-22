@@ -44,7 +44,6 @@ public class CartService {
         return total;
     }
 
-
     public BigDecimal getTotalAmount() {
         BigDecimal total = BigDecimal.valueOf(0);
         Iterator<Product> iterator = cart.keySet().iterator();

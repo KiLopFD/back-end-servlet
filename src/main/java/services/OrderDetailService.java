@@ -9,9 +9,12 @@ import entity.User;
 
 public class OrderDetailService {
     private static OrderdetailDAO orderdetailDAO;
-
     public  OrderDetailService(){
         orderdetailDAO = new OrderdetailDAO();
+    }
+    public void addOrderDetail(Product product)
+    {
+
     }
     boolean checkUserPurchasedProduct(){
         User user = new UserDAO().get(10);
