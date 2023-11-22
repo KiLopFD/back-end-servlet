@@ -1,5 +1,6 @@
 package services;
 
+import dao.ProductDAO;
 import dao.ReviewDAO;
 import entity.Product;
 import entity.Review;
@@ -13,6 +14,17 @@ public class ReviewService {
 
     public ReviewService() {
 
+    }
+    public boolean checkUserHasBoughtProduct(User user,Product product){
+        boolean check = false;
+        List<Product> listProductsOfUser = new ProductDAO().findPaidProductsByUser(user);
+        for(Product productItem : listProductsOfUser){
+            if(product.equals(productItem)){
+                check =true;
+                break;
+            }
+        }
+        return  check;
     }
     public boolean createReview(User user, Product product, String comment, int rating) {
 
@@ -31,6 +43,11 @@ public class ReviewService {
         // Kiểm tra giá trị hợp lệ cho rating
         if (rating < 1 || rating > 5) {
             System.out.println("Rating phải nằm trong khoảng từ 1 đến 5.");
+            return false;
+        }
+        boolean check = checkUserHasBoughtProduct(user,product);
+        if(!check){
+            System.out.println(user.getUsername()+" chưa mua sản phẩm 0"+product.getProductId());
             return false;
         }
 

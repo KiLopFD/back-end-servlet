@@ -11,10 +11,7 @@ import java.util.Date;
 @Table(name = "order_details", schema = "public", catalog = "backend-servlet")
 @NamedQueries({
         @NamedQuery(name = "Orderdetail.findAll", query = "SELECT od FROM Orderdetail od"),
-        @NamedQuery(name = "Orderdetail.countAll", query = "SELECT COUNT(*) FROM Orderdetail od"),
-        @NamedQuery(name = "Orderdetail.hasUserPurchasedProduct",
-                query = "SELECT COUNT(od) FROM Orderdetail od WHERE od.order.infoUser = :user AND od.productOfOrderDetail = :product AND od.order.statusPayment = 'paid'"
-        )
+        @NamedQuery(name = "Orderdetail.countAll", query = "SELECT COUNT(*) FROM Orderdetail od")
 })
 public class Orderdetail implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)

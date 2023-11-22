@@ -5,6 +5,7 @@ import jakarta.persistence.*;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.Date;
+import java.util.Objects;
 
 
 @Entity
@@ -52,6 +53,9 @@ public class Product implements Serializable {
 
 
     public Product() {
+    }
+    public Product(int id){
+        this.productId = id;
     }
 
     public Product(int productId, String productName, String description, Date datePublic, BigDecimal price, String urlImg, Category category) {
@@ -110,5 +114,18 @@ public class Product implements Serializable {
 
     public void setCategory(Category category) {
         this.category = category;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Product)) return false;
+        Product product = (Product) o;
+        return getProductId() == product.getProductId();
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(getProductId());
     }
 }

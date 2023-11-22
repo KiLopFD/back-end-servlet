@@ -10,10 +10,6 @@
         <class>entity.Order</class>
         <class>entity.Orderdetail</class>
         <class>entity.Review</class>
-
-
-
-
         <properties>
             <!-- Database connection properties -->
             <property name="jakarta.persistence.jdbc.driver" value="org.postgresql.Driver" />

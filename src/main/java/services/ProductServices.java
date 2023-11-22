@@ -3,6 +3,7 @@ package services;
 import dao.CategoryDAO;
 import dao.ProductDAO;
 import entity.Product;
+import entity.User;
 
 import java.util.List;
 
@@ -27,6 +28,10 @@ public class ProductServices {
 //        }
 //        return request;
 //    }
+    public List<Product> findPaidProductsByUser(User user){
+        List<Product> listProductByUser =  productDAO.findPaidProductsByUser(user);
+        return  listProductByUser;
+    }
     public List<Product> listAllProduct (){
         return productDAO.listAll();
     }
