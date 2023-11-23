@@ -84,6 +84,11 @@ class OrderDAOTest {
 
     @Test
     void listAll() {
+        List<Order> orderList = orderDAO.listAll();
+
+        for(Order order : orderList){
+            System.out.println(order.getOrderId());
+        }
     }
 
     @Test

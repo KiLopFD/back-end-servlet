@@ -10,6 +10,7 @@
         <class>entity.Order</class>
         <class>entity.Orderdetail</class>
         <class>entity.Review</class>
+        <class>entity.Cart</class>
         <properties>
             <!-- Database connection properties -->
             <property name="jakarta.persistence.jdbc.driver" value="org.postgresql.Driver" />
@@ -37,6 +38,7 @@
             <property name="hibernate.connection.url" value="jdbc:postgresql://localhost:5432/PhoneStore"/>
             <property name="hibernate.connection.username" value="postgres"/>
             <property name="hibernate.connection.password" value="232003"/>
+            <property name="hibernate.enable_lazy_load_no_trans" value="true"/>
         </properties>
     </persistence-unit>
 </persistence>

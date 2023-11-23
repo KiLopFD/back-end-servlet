@@ -53,7 +53,7 @@ public class TestData {
     public static void  createUser(){
         UserService userService = new UserService();
 
-       boolean check =  userService.create("QuyVuong","12234","user","vuongquy51@gmail.com","Vương Đình Quý ","Sài gòn","0984839604");
+       boolean check =  userService.create("testCart1","12234","user","test1@gmail.com","Test 01 ","Sài gòn","0984839604");
         if(check){
             System.out.println("Register successfully");
         }

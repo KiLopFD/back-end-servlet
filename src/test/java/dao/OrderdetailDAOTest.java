@@ -37,6 +37,13 @@ class OrderdetailDAOTest {
         assertTrue(check);
 
     }
+    @Test
+    void ListAll(){
+        List<Orderdetail> orderdetails = orderdetailDAO.listAll();
+        for(Orderdetail orderdetail : orderdetails){
+            System.out.println(orderdetail.getProductOfOrderDetail());
+        }
+    }
 
 //    @Test
 //    void findPaidProductsByUser() {

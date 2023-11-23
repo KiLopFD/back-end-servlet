@@ -1,5 +1,6 @@
 package services;
 
+import dao.JpaDAO;
 import dao.OrderDAO;
 import dao.OrderdetailDAO;
 import dao.ProductDAO;
@@ -20,6 +21,7 @@ public class OrderService {
     private OrderDAO orderDAO = new OrderDAO();
     private OrderdetailDAO orderdetailDAO = new OrderdetailDAO();
     private ProductDAO productDAO = new ProductDAO();
+
 
     public void addOrder(List<Product> products, User user) {
         Map<Product, Integer> prods = new HashMap<Product, Integer>();
@@ -61,12 +63,12 @@ public class OrderService {
 
     public BigDecimal Total_Price(User user)
     {
-        EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("StorePhone");
-        EntityManager entityManager = entityManagerFactory.createEntityManager();
-        entityManager.getTransaction().begin();
-
-        Query query = entityManager.createNamedQuery("Order.findAll");
-        List<Order> result = query.getResultList();
+//        EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("StorePhone");
+//        EntityManager entityManager = entityManagerFactory.createEntityManager();
+//        entityManager.getTransaction().begin();
+//
+//        Query query = entityManager.createNamedQuery("Order.findAll");
+        List<Order> result = orderDAO.listAll();
 
         List<Order> ords = result;
         BigDecimal sum = BigDecimal.valueOf(0);
@@ -82,8 +84,9 @@ public class OrderService {
                     }
                 }
 
-        entityManager.getTransaction().commit();
-        entityManager.close();
+//        entityManager.getTransaction().commit();
+//        entityManager.close();
+        orderDAO.close();
         return total;
     }
 

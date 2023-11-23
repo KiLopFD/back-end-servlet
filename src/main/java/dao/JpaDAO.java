@@ -130,7 +130,7 @@ public class JpaDAO<E> {
         Query query = entityManager.createNamedQuery(queryName);
 
         long result = (long) query.getSingleResult();
-        entityManager.close();
+//        entityManager.close();
 
         return result;
     }

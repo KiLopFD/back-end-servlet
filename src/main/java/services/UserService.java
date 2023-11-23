@@ -35,7 +35,7 @@ public class UserService {
     public boolean create(String username, String password, String role, String email, String fullName, String address, String phoneNumber) {
         boolean checkExist = checkExistUser(username, email);
         MailService mailService = new MailService();
-
+        CartService cartService = new CartService();
         if (!checkExist) {
             User user = new User();
             user.setUsername(username);
@@ -46,6 +46,7 @@ public class UserService {
             user.setAddress(address);
             user.setPhoneNumber(phoneNumber);
             userDAO.create(user);
+
 //            Send mail to user
             mailService.sendMailToUser(fullName,username,email);
             return true;
