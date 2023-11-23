@@ -27,6 +27,7 @@ public class CartDAO extends JpaDAO<Cart> implements GenericDAO<Cart> {
 
     @Override
     public void delete(Object id) {
+        super.delete(Cart.class, id);
     }
 
     @Override

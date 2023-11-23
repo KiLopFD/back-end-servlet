@@ -8,6 +8,9 @@ import entity.User;
 import java.math.BigDecimal;
 import java.util.*;
 
+/**
+ *
+ */
 public class CartService {
     private CartDAO cartDAO;
 
@@ -15,89 +18,133 @@ public class CartService {
         cartDAO = new CartDAO();
     }
 
-    public Cart createCart(User user) {
+    public Cart createCart(User user, Product prod) {
         Cart cart = new Cart();
         cart.setUser(user);
-        cart.setProducts(new HashSet<>()); // Khởi tạo với danh sách Product rỗng
+        cart.setProducts(prod);
+        cart.setQuantity(1);
         return cartDAO.create(cart);
     }
 
-    public void addItem(Cart cart, Product product) {
-        Map<Product, Integer> productQuantities = cart.getProductQuantities();
-
-        if (productQuantities.containsKey(product)) {
-            productQuantities.put(product, productQuantities.get(product) + 1);
-        } else {
-            productQuantities.put(product, 1);
+    public void addItem(User user, Product product) {
+        Map<String, Object> parameter = new HashMap<String, Object>();
+        parameter.put("user", user);
+        List<Cart> res =  cartDAO.findWithNamedQuery("Cart.GetbyUser", parameter);
+        if(res.isEmpty())
+            createCart(user, product);
+        else {
+            boolean found = false;
+            for (Cart cart : res)
+                if (cart.getProducts().equals(product)) {
+                    cart.setQuantity(cart.getQuantity() + 1);
+                    cartDAO.update(cart);
+                    found = true;
+                    return;
+                }
+            if(!found)
+                createCart(user, product);
         }
-
-        cart.setProductQuantities(productQuantities);
-        cartDAO.update(cart);
     }
 
-    //    Người dùng nhập số lượng
-    public void updateItemQuantity(Cart cart, Product product, int quantity) {
-        Map<Product, Integer> productQuantities = cart.getProductQuantities();
-        if (quantity <= 0) {
-            productQuantities.remove(product);
-        } else {
-            productQuantities.put(product, quantity);
-        }
-
-        cart.setProductQuantities(productQuantities);
-        cartDAO.update(cart);
+    public boolean updateItemQuantity(User user, Product product, int quantity) {
+        Map<String, Object> parameter = new HashMap<String, Object>();
+        parameter.put("user", user);
+        List<Cart> res =  cartDAO.findWithNamedQuery("Cart.GetbyUser", parameter);
+        if(res.isEmpty())
+            return false;
+        else
+            for (Cart cart: res)
+                if(cart.getProducts().equals(product)) {
+                    cart.setQuantity(quantity);
+                    cartDAO.update(cart);
+                    return true;
+                }
+        return false;
     }
 
-    public void removeItem(Cart cart, Product product) {
-        Map<Product, Integer> productQuantities = cart.getProductQuantities();
-        productQuantities.remove(product);
-        cart.setProductQuantities(productQuantities);
-        cartDAO.update(cart);
+    public boolean removeItem(User user, Product product) {
+        Map<String, Object> parameter = new HashMap<String, Object>();
+        parameter.put("user", user);
+        List<Cart> res =  cartDAO.findWithNamedQuery("Cart.GetbyUser", parameter);
+        if(res.isEmpty())
+            return false;
+        else
+            for (Cart cart: res)
+                if(cart.getProducts().equals(product)) {
+                    cartDAO.delete(cart.getCartId());
+                    return true;
+                }
+        return false;
     }
-    public int getQuantityOfItem(Cart cart, Product product) {
-        Map<Product, Integer> productQuantities = cart.getProductQuantities();
-        return productQuantities.getOrDefault(product, 0); // Trả về số lượng của sản phẩm, hoặc 0 nếu không có sản phẩm trong giỏ hàng
+    public int getQuantityOfItem(User user, Product product) {
+        Map<String, Object> parameter = new HashMap<String, Object>();
+        parameter.put("user", user);
+        List<Cart> res =  cartDAO.findWithNamedQuery("Cart.GetbyUser", parameter);
+        if(res.isEmpty())
+            return 0;
+        else
+            for (Cart cart: res)
+                if(cart.getProducts().equals(product)) {
+                    return cart.getQuantity();
+                }
+        return 0;
     }
-    public BigDecimal getTotalPriceOfItem(Cart cart, Product product) {
-       int quantity = getQuantityOfItem(cart,product);
-        return product.getPrice().multiply(BigDecimal.valueOf(quantity));
+    public BigDecimal getTotalPriceOfItem(User user, Product product) {
+        Map<String, Object> parameter = new HashMap<String, Object>();
+        parameter.put("user", user);
+        List<Cart> res =  cartDAO.findWithNamedQuery("Cart.GetbyUser", parameter);
+        if(res.isEmpty())
+            return new BigDecimal(0);
+        else
+            for (Cart cart: res)
+                if(cart.getProducts().equals(product)) {
+                    return product.getPrice().multiply( new BigDecimal(cart.getQuantity()) );
+                }
+        return new BigDecimal(0);
     }
 
 
-    public int getTotalQuantity(Cart cart) {
+    public int getTotalQuantity(User user) {
         int totalQuantity = 0;
-        Set<Product> products = cart.getProducts();
-
-        for (Product product : products) {
-            int quantity = getQuantityOfItem(cart, product);
-            totalQuantity += quantity;
-        }
-
+        Map<String, Object> parameter = new HashMap<String, Object>();
+        parameter.put("user", user);
+        List<Cart> res =  cartDAO.findWithNamedQuery("Cart.GetbyUser", parameter);
+        if(res.isEmpty())
+            return 0;
+        else
+            for (Cart cart: res)
+                totalQuantity += cart.getQuantity();
         return totalQuantity;
     }
 
 
-    public BigDecimal getTotalAmount(Cart cart) {
+    public BigDecimal getTotalAmount(User user) {
         BigDecimal total = BigDecimal.valueOf(0);
-        Set<Product> productList = cart.getProducts();
-        for (Product product : productList) {
-            total = total.add(getTotalPriceOfItem(cart,product)); // Tính tổng giá tiền
-        }
+        BigDecimal sum = BigDecimal.valueOf(0);
+        Map<String, Object> parameter = new HashMap<String, Object>();
+        parameter.put("user", user);
+        List<Cart> res =  cartDAO.findWithNamedQuery("Cart.GetbyUser", parameter);
+        if(res.isEmpty())
+            return new BigDecimal(0);
+        else
+            for (Cart cart: res)
+            {
+                total = sum.add(cart.getProducts().getPrice().multiply(BigDecimal.valueOf(cart.getQuantity())));
+                sum = total;
+            }
         return total;
     }
-//Buggggg
-//    public int getQuantityItemInCart(Cart cart) {
-//        return cart.getProducts().size(); // Số lượng sản phẩm trong giỏ hàng
-//    }
-    public void clear(Cart cart) {
-        // Xóa tất cả sản phẩm khỏi Set<Product>
-        cart.setProducts(new HashSet<>());
 
-        // Xóa tất cả các entry trong Map<Product, Integer>
-        cart.setProductQuantities(new HashMap<>());
-
-        // Cập nhật giỏ hàng trong cơ sở dữ liệu để phản ánh những thay đổi này
-        cartDAO.update(cart);
+    public void clear(User user) {
+        BigDecimal total = BigDecimal.valueOf(0);
+        Map<String, Object> parameter = new HashMap<String, Object>();
+        parameter.put("user", user);
+        List<Cart> res =  cartDAO.findWithNamedQuery("Cart.GetbyUser", parameter);
+        if(res.isEmpty())
+            return;
+        else
+            for (Cart cart: res)
+                cartDAO.delete(cart.getCartId());
     }
 
 

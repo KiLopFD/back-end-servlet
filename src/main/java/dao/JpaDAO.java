@@ -58,7 +58,7 @@ public class JpaDAO<E> {
         if (entity != null) {
             entityManager.refresh(entity);
         }
-        entityManager.close();
+//        entityManager.close();
 
         return entity;
     }
@@ -80,7 +80,7 @@ public class JpaDAO<E> {
         Query query = entityManager.createNamedQuery(queryName);
         List<E> result = query.getResultList();
 
-        entityManager.close();
+//        entityManager.close();
 
         return result;
     }
@@ -92,7 +92,7 @@ public class JpaDAO<E> {
 
         List<E> result = query.getResultList();
 
-        entityManager.close();
+//        entityManager.close();
 
         return result;
     }
@@ -105,7 +105,7 @@ public class JpaDAO<E> {
         }
 
         List<E> result = query.getResultList();
-        entityManager.close();
+//        entityManager.close();
         return result;
     }
     public List<E> findWithNamedQuery(String queryName, Map<String, Object> parameters) {
@@ -120,7 +120,7 @@ public class JpaDAO<E> {
 
         List<E> result = query.getResultList();
 
-        entityManager.close();
+//        entityManager.close();
 
         return result;
     }

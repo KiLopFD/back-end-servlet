@@ -9,6 +9,9 @@ import java.util.Set;
 
 @Entity
 @Table(name = "cart", schema = "public", catalog = "backend-servlet")
+@NamedQueries({
+        @NamedQuery(name="Cart.GetbyUser", query = "SELECT c FROM Cart c where c.userId = :user"),
+})
 public class Cart implements Serializable {
 
     @Id
@@ -16,31 +19,26 @@ public class Cart implements Serializable {
     @Column(name = "cart_id")
     private int cartId;
 
-    @OneToOne
-    @JoinColumn(name = "user_id", referencedColumnName = "user_id")
-    private User user;
+    @ManyToOne
+    @JoinColumn(name = "user_id")
+    private User userId;
 
-    @ManyToMany
-    @JoinTable(
-            name = "cart_product",
-            joinColumns = @JoinColumn(name = "cart_id"),
-            inverseJoinColumns = @JoinColumn(name = "product_id")
-    )
-    private Set<Product> products = new HashSet<>(0);
-    @ElementCollection
-    @CollectionTable(name = "cart_product_quantities", joinColumns = @JoinColumn(name = "cart_id"))
-    @MapKeyJoinColumn(name = "product_id")
+    @ManyToOne
+    @JoinColumn(name = "cart_product")
+    private Product products;
+
     @Column(name = "quantity")
-    private Map<Product, Integer> productQuantities = new HashMap<>(); //Chứa số lượng của product
+    private Integer quantity;
+
     public Cart() {
     }
 
-    public Map<Product, Integer> getProductQuantities() {
-        return productQuantities;
+    public Integer getQuantity() {
+        return quantity;
     }
 
-    public void setProductQuantities(Map<Product, Integer> productQuantities) {
-        this.productQuantities = productQuantities;
+    public void setQuantity(Integer quantity) {
+        this.quantity = quantity;
     }
 // Getters and setters
 
@@ -53,18 +51,18 @@ public class Cart implements Serializable {
     }
 
     public User getUser() {
-        return user;
+        return this.userId;
     }
 
     public void setUser(User user) {
-        this.user = user;
+        this.userId = user;
     }
 
-    public Set<Product> getProducts() {
+    public Product getProducts() {
         return products;
     }
 
-    public void setProducts(Set<Product> products) {
+    public void setProducts(Product products) {
         this.products = products;
     }
 }

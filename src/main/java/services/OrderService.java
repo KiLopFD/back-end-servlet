@@ -63,11 +63,6 @@ public class OrderService {
 
     public BigDecimal Total_Price(User user)
     {
-//        EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("StorePhone");
-//        EntityManager entityManager = entityManagerFactory.createEntityManager();
-//        entityManager.getTransaction().begin();
-//
-//        Query query = entityManager.createNamedQuery("Order.findAll");
         List<Order> result = orderDAO.listAll();
 
         List<Order> ords = result;
@@ -83,9 +78,6 @@ public class OrderService {
                         sum = total;
                     }
                 }
-
-//        entityManager.getTransaction().commit();
-//        entityManager.close();
         orderDAO.close();
         return total;
     }

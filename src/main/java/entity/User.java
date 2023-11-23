@@ -44,16 +44,6 @@ public class User implements Serializable {
     private String phoneNumber;
     @OneToMany(mappedBy = "infoUser", cascade = CascadeType.ALL)
     private Set<Order> orders = new HashSet<>(0);
-    @OneToOne(mappedBy = "user", cascade = CascadeType.ALL)
-    private Cart cart;
-
-    public Cart getCart() {
-        return cart;
-    }
-
-    public void setCart(Cart cart) {
-        this.cart = cart;
-    }
 
     public Set<Order> getOrders() {
         return orders;
