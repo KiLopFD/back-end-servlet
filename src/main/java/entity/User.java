@@ -3,15 +3,18 @@ package entity;
 import jakarta.persistence.*;
 
 import java.io.Serializable;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
-@Table(name = "users", schema = "public", catalog = "backend-servlet")
+@Table(name = "user", schema = "public", catalog = "backend-servlet")
 @NamedQueries({
         @NamedQuery(name = "User.findByUserName", query = "SELECT u FROM User u WHERE u.username = :username"),
         @NamedQuery(name = "User.findAll", query = "SELECT u FROM User u"),
         @NamedQuery(name = "User.countAll", query = "SELECT COUNT(*) FROM User u"),
         @NamedQuery(name = "User.checkLogin", query = "SELECT u FROM User u WHERE u.username = :username AND u.password = :password"),
         @NamedQuery(name = "User.findByEmail", query = "SELECT u FROM User u WHERE u.email = :email"),
+
 })
 public class User implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -28,7 +31,7 @@ public class User implements Serializable {
     @Column(name = "role", nullable = false)
     private String role;
     @Basic
-    @Column(name = "email", nullable = false, unique = true)
+    @Column(name = "email", nullable = false)
     private String email;
     @Basic
     @Column(name = "full_name", nullable = false)
@@ -37,8 +40,29 @@ public class User implements Serializable {
     @Column(name = "address")
     private String address;
     @Basic
-    @Column(name = "phone_number", nullable = false, unique = true)
+    @Column(name = "phone_number", nullable = false)
     private String phoneNumber;
+    @OneToMany(mappedBy = "infoUser", cascade = CascadeType.ALL)
+    private Set<Order> orders = new HashSet<>(0);
+
+    public Set<Order> getOrders() {
+        return orders;
+    }
+
+    public void setOrders(Set<Order> orders) {
+        this.orders = orders;
+    }
+
+    public Set<Review> getReviews() {
+        return reviews;
+    }
+
+    public void setReviews(Set<Review> reviews) {
+        this.reviews = reviews;
+    }
+
+    @OneToMany(mappedBy = "userReview", cascade = CascadeType.ALL)
+    private Set<Review> reviews = new HashSet<>(0);
 
     public User() {
     }

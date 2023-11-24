@@ -7,7 +7,7 @@ import java.sql.Timestamp;
 import java.util.Date;
 
 @Entity
-@Table(name = "reviews", schema = "public", catalog = "backend-servlet")
+@Table(name = "review", schema = "public", catalog = "backend-servlet")
 @NamedQueries({
         @NamedQuery(name="Review.findAll", query = "SELECT r FROM Review r"),
         @NamedQuery(name="Review.countAll", query = "SELECT COUNT(*) FROM Review r")
@@ -20,17 +20,18 @@ public class Review implements Serializable {
     @Basic
     @Column(name = "rating")
     private int rating;
-    @Basic
+    @Basic(optional = false)
+    @Temporal(TemporalType.DATE)
     @Column(name = "review_date", nullable = false)
     private Date reviewDate;
     @Basic
     @Column(name = "comment")
     private String comment;
-    @Basic
-    @Column(name = "product_id")
+    @ManyToOne
+    @JoinColumn(name = "product_id", referencedColumnName = "product_id")
     private Product productReview;
-    @Basic
-    @Column(name = "user_id")
+    @ManyToOne
+    @JoinColumn(name = "user_id", referencedColumnName = "user_id")
     private User userReview;
 
     public Review() {
@@ -79,6 +80,7 @@ public class Review implements Serializable {
     public Product getProductReview() {
         return productReview;
     }
+
 
     public void setProductReview(Product productReview) {
         this.productReview = productReview;

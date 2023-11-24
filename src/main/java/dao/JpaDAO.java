@@ -4,9 +4,7 @@ import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityManagerFactory;
 import jakarta.persistence.Persistence;
 import jakarta.persistence.Query;
-import org.hibernate.Session;
-import org.hibernate.SessionFactory;
-import org.hibernate.cfg.Configuration;
+
 
 import java.util.List;
 import java.util.Map;
@@ -60,7 +58,7 @@ public class JpaDAO<E> {
         if (entity != null) {
             entityManager.refresh(entity);
         }
-        entityManager.close();
+//        entityManager.close();
 
         return entity;
     }
@@ -82,8 +80,32 @@ public class JpaDAO<E> {
         Query query = entityManager.createNamedQuery(queryName);
         List<E> result = query.getResultList();
 
-        entityManager.close();
+//        entityManager.close();
 
+        return result;
+    }
+    public List<E> findWithNamedQuery(String queryName, String paramName, Object paramValue) {
+        EntityManager entityManager = entityManagerFactory.createEntityManager();
+        Query query = entityManager.createNamedQuery(queryName);
+
+        query.setParameter(paramName, paramValue);
+
+        List<E> result = query.getResultList();
+
+//        entityManager.close();
+
+        return result;
+    }
+    public  List<E> findWithNamedQuery(String queryName, String[] paramNames, Object[] paramValues) {
+        EntityManager entityManager = entityManagerFactory.createEntityManager();
+        Query query = entityManager.createNamedQuery(queryName);
+
+        for (int i = 0; i < paramNames.length; i++) {
+            query.setParameter(paramNames[i], paramValues[i]);
+        }
+
+        List<E> result = query.getResultList();
+//        entityManager.close();
         return result;
     }
     public List<E> findWithNamedQuery(String queryName, Map<String, Object> parameters) {
@@ -98,7 +120,7 @@ public class JpaDAO<E> {
 
         List<E> result = query.getResultList();
 
-        entityManager.close();
+//        entityManager.close();
 
         return result;
     }
@@ -108,7 +130,7 @@ public class JpaDAO<E> {
         Query query = entityManager.createNamedQuery(queryName);
 
         long result = (long) query.getSingleResult();
-        entityManager.close();
+//        entityManager.close();
 
         return result;
     }

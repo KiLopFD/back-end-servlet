@@ -6,10 +6,11 @@ import java.io.Serializable;
 import java.util.List;
 
 @Entity
-@Table(name = "categories", schema = "public", catalog = "backend-servlet")
+@Table(name = "category", schema = "public", catalog = "backend-servlet")
 @NamedQueries({
         @NamedQuery(name="Category.findAll", query = "SELECT c FROM Category c"),
         @NamedQuery(name="Category.countAll", query="SELECT COUNT(*) FROM Category c"),
+        @NamedQuery(name= "Category.findByName", query = "SELECT c FROM Category c WHERE c.categoryName = :name")
 })
 public class Category implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -19,8 +20,8 @@ public class Category implements Serializable {
     @Basic
     @Column(name = "category_name", nullable = false, unique = true)
     private String categoryName;
-    @OneToMany(mappedBy = "category")
-    private List<Product> listProducts;
+
+
 
     public Category() {
     }
@@ -30,11 +31,7 @@ public class Category implements Serializable {
         this.categoryName = categoryName;
     }
 
-    public Category(int categoryId, String categoryName, List<Product> listProducts) {
-        this.categoryId = categoryId;
-        this.categoryName = categoryName;
-        this.listProducts = listProducts;
-    }
+
 
     public int getCategoryId() {
         return categoryId;
@@ -52,11 +49,5 @@ public class Category implements Serializable {
         this.categoryName = categoryName;
     }
 
-    public List<Product> getListProduct() {
-        return listProducts;
-    }
 
-    public void setListProduct(List<Product> listProducts) {
-        this.listProducts = listProducts;
-    }
 }

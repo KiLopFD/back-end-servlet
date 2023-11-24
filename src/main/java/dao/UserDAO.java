@@ -1,6 +1,7 @@
 package dao;
 
 import common.HashGenerator;
+import entity.Order;
 import entity.User;
 
 import java.util.HashMap;
@@ -28,7 +29,6 @@ public class UserDAO extends JpaDAO<User> implements GenericDAO<User>  {
     public void delete(Object id) {
         super.delete(User.class, id);
     }
-
     @Override
     public List<User> listAll() {
         return super.findWithNamedQuery("User.findAll");
@@ -38,6 +38,20 @@ public class UserDAO extends JpaDAO<User> implements GenericDAO<User>  {
     public long count() {
         return super.countWithNamedQuery("User.countAll");
     }
+    public User findByUserName(String userName){
+        List<User> listUsers = super.findWithNamedQuery("User.findByUserName","username",userName);
+        if(listUsers != null && listUsers.size()>0){
+            return listUsers.get(0);
+        }
+        return  null;
+     }
 
+    public User findByEmail(String email){
+        List<User> listUsers = super.findWithNamedQuery("User.findByEmail","email",email);
+        if(listUsers != null && listUsers.size()>0){
+            return listUsers.get(0);
+        }
+        return  null;
+    }
 
 }

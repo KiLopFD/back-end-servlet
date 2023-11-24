@@ -28,8 +28,18 @@ public class AuthenticationFilter implements Filter {
             authen = false;
             req.getSession().setAttribute("isLogin", false);
         }
-        if (((HttpServletRequest) servletRequest).getRequestURI().endsWith(".png")) {
+
+
+        String requestURI = ((HttpServletRequest) req).getRequestURI();;
+        if (requestURI.endsWith(".jpg") || requestURI.endsWith("png")) {
+            // If it's an image request, let it pass through
+            System.out.println("Access allow for image: " + requestURI);
+
             filterChain.doFilter(servletRequest, servletResponse);
+            return;
+        } else {
+            // If it's not an image request, you can redirect or handle it as needed
+            System.out.println("Access denied. Only images are allowed.");
         }
 
 

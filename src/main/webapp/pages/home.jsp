@@ -76,6 +76,7 @@
 <script>
     <%@include file="../assets/scripts/jquery.js"%>
     <%@include file="../assets/scripts/header.js"%>
+    <jsp:include page="../assets/scripts/swipper.js" />
 </script>
 <script>
     const swiper = new Swiper('.swiper', {
