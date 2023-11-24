@@ -5,15 +5,29 @@ import entity.Category;
 
 import java.util.List;
 
+/**
+ * Handling all the category function
+ */
 public class CategoryService {
     private static CategoryDAO categoryDAO;
 
     public CategoryService() {
         categoryDAO = new CategoryDAO();
     }
+
+    /**
+     *
+     * @return A list of categories
+     */
     public List<Category> listAllCategory() {
         return categoryDAO.listAll();
     }
+
+    /**
+     *
+     * @param nameCategory
+     * @return Find an exist category
+     */
     public Category findNameCategory(String nameCategory){
         try{
             return categoryDAO.findByName(nameCategory);
@@ -23,6 +37,12 @@ public class CategoryService {
             return null;
         }
     }
+
+    /**
+     *
+     * @param nameCategory
+     * @return Create a category
+     */
     public boolean createCategory(String nameCategory){
             if(findNameCategory(nameCategory) == null){
                 Category category = new Category();
@@ -33,6 +53,12 @@ public class CategoryService {
             return false;
     }
 
+    /**
+     *
+     * @param categoryId
+     * @param nameCategory
+     * @return Update a category
+     */
     public boolean updateCategory(int categoryId, String nameCategory){
 
         if (categoryDAO.get(categoryId) != null){
@@ -43,7 +69,13 @@ public class CategoryService {
         }
         return false;
     }
-     public boolean deleteCategory(int categoryId){
+
+    /**
+     *
+     * @param categoryId
+     * @return Delete a category
+     */
+    public boolean deleteCategory(int categoryId){
         if(categoryDAO.get(categoryId) != null){
             Category category =categoryDAO.get(categoryId);
             categoryDAO.delete(category);

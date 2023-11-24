@@ -51,6 +51,12 @@ public class OrderServiceTest {
         Order ord = orderDAO.get(8);
         orderService.delete(ord);
     }
+    @Test
+    void List_AllbyUser()
+    {
+        User user = userService.listUser().get(0);
+        System.out.println(orderService.List_OrderbyUser(user));
+    }
 
     @Test
     void Total_Price()
@@ -58,4 +64,5 @@ public class OrderServiceTest {
         User user = userService.listUser().get(0);
         System.out.println(orderService.Total_Price(user));
     }
+
 }

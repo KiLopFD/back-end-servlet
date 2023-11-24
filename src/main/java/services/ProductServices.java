@@ -7,6 +7,9 @@ import entity.User;
 
 import java.util.List;
 
+/**
+ * Handling all the product function
+ */
 public class ProductServices {
     private static ProductDAO productDAO;
     private CategoryDAO categoryDAO;
@@ -28,10 +31,21 @@ public class ProductServices {
 //        }
 //        return request;
 //    }
+
+    /**
+     *
+     * @param user
+     * @return A list of products that has been purchased by a user
+     */
     public List<Product> findPaidProductsByUser(User user){
         List<Product> listProductByUser =  productDAO.findPaidProductsByUser(user);
         return  listProductByUser;
     }
+
+    /**
+     *
+     * @return A list of exist products
+     */
     public List<Product> listAllProduct (){
         return productDAO.listAll();
     }

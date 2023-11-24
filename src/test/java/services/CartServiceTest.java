@@ -12,6 +12,8 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -39,12 +41,22 @@ class CartServiceTest {
     @Test
     void addItem() {
         User user = new UserDAO().get(1);
-        Product product1 = new ProductDAO().get(1);
+        Product product1 = new ProductDAO().get(3);
         cartService.addItem(user, product1);
     }
 
     @Test
     void updateItemQuantity() {
+        User user = new UserDAO().get(1);
+        Product product1 = new ProductDAO().get(1);
+        int quantity = 4;
+        cartService.updateItemQuantity(user, product1, quantity);
+    }
+    @Test
+    void getItemQuantity() {
+        User user = new UserDAO().get(1);
+        Product product1 = new ProductDAO().get(1);
+        System.out.println( cartService.getQuantityOfItem(user, product1) );
     }
 
     @Test
@@ -52,6 +64,13 @@ class CartServiceTest {
         User user = new UserDAO().get(1);
         Product product1 = new ProductDAO().get(1);
         cartService.removeItem(user, product1);
+    }
+
+    @Test
+    void removeItems() {
+        User user = new UserDAO().get(1);
+        Product product1 = new ProductDAO().get(1);
+        cartService.removeItems(user, product1);
     }
 
     @Test
@@ -70,12 +89,33 @@ class CartServiceTest {
     }
 
     @Test
-    void getQuantityCart() {
+    void getTotalPriceOfItem()
+    {
+        User user = new UserDAO().get(1);
+        Product product1 = new ProductDAO().get(1);
+        BigDecimal totalAmount = cartService.getTotalPriceOfItem(user, product1);
+        System.out.println(totalAmount);
     }
 
     @Test
     void clear() {
         User user = new UserDAO().get(1);
         cartService.clear(user);
+    }
+    @Test
+    void CheckOut_all()
+    {
+        User user = new UserDAO().get(1);
+        cartService.checkoutall(user);
+    }
+
+    @Test
+    void CheckOut_idx()
+    {
+        User user = new UserDAO().get(1);
+        List<Integer> idx = new ArrayList<Integer>();
+        idx.add(0);
+        idx.add(2);
+        cartService.checkoutidx(user, idx);
     }
 }

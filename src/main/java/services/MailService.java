@@ -6,7 +6,17 @@ import jakarta.mail.internet.MimeMessage;
 
 import java.util.Properties;
 
+/**
+ * Handling all the mail function
+ */
 public class MailService {
+    /**
+     *
+     * @param fullName
+     * @param userName
+     * @param email
+     * @Function Send an email to a user email address
+     */
    public void sendMailToUser(String fullName, String userName,String email){
        // Email and password from which you want to send the email
        final String senderMail = "tuyenquanghpkt@gmail.com";

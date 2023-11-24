@@ -9,12 +9,22 @@ import entity.User;
 import java.util.Date;
 import java.util.List;
 
+/**
+ * Handling all the review function
+ */
 public class ReviewService {
     private  ReviewDAO reviewDAO =new ReviewDAO();;
 
     public ReviewService() {
 
     }
+
+    /**
+     *
+     * @param user
+     * @param product
+     * @return Check a user has bought a product in order to allow review
+     */
     public boolean checkUserHasBoughtProduct(User user,Product product){
         boolean check = false;
         List<Product> listProductsOfUser = new ProductDAO().findPaidProductsByUser(user);
@@ -26,6 +36,15 @@ public class ReviewService {
         }
         return  check;
     }
+
+    /**
+     *
+     * @param user
+     * @param product
+     * @param comment
+     * @param rating
+     * @return Create a new review
+     */
     public boolean createReview(User user, Product product, String comment, int rating) {
 
         // Kiểm tra null cho User và Product
@@ -67,6 +86,14 @@ public class ReviewService {
             return false;
         }
     }
+
+    /**
+     *
+     * @param reviewId
+     * @param comment
+     * @param rating
+     * @return Edit a review
+     */
     public boolean editReview(int reviewId, String comment, int rating){
         if (comment == null || comment.isBlank()) {
             System.out.println("Comment không được để trống.");
@@ -92,6 +119,12 @@ public class ReviewService {
             return false;
         }
     }
+
+    /**
+     *
+     * @param reviewId
+     * @return Delete a review
+     */
     public boolean deleteReview(int reviewId){
         try {
             Review review = reviewDAO.get(reviewId);
@@ -102,6 +135,11 @@ public class ReviewService {
             return false;
         }
     }
+
+    /**
+     *
+     * @return A list of all reviews
+     */
     public List<Review> listAllReview(){
        return reviewDAO.listAll();
     }

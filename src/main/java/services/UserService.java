@@ -5,6 +5,9 @@ import entity.User;
 
 import java.util.List;
 
+/**
+ * Handling all the user function
+ */
 public class UserService {
 
     private static UserDAO userDAO;
@@ -13,14 +16,30 @@ public class UserService {
         userDAO = new UserDAO();
     }
 
+    /**
+     *
+     * @param username
+     * @param password
+     * @return Check login
+     */
     public boolean checkLogin(String username, String password) {
         return userDAO.checkLogin(username, password);
     }
 
+    /**
+     *
+     * @return List of all users
+     */
     public List<User> listUser() {
         return userDAO.listAll();
     }
 
+    /**
+     *
+     * @param userName
+     * @param email
+     * @return Check if a user exist
+     */
     public boolean checkExistUser(String userName, String email) {
         boolean exist = false;
         User checkedByUserName = userDAO.findByUserName(userName);
@@ -31,7 +50,17 @@ public class UserService {
         return exist;
     }
 
-
+    /**
+     *
+     * @param username
+     * @param password
+     * @param role
+     * @param email
+     * @param fullName
+     * @param address
+     * @param phoneNumber
+     * @return Create a new user
+     */
     public boolean create(String username, String password, String role, String email, String fullName, String address, String phoneNumber) {
         boolean checkExist = checkExistUser(username, email);
         MailService mailService = new MailService();
@@ -56,20 +85,39 @@ public class UserService {
 
     }
 
+    /**
+     *
+     * @param id
+     * @return Find user by ID
+     */
     public User findByIdentity(int id) {
         return userDAO.get(id);
 
     }
 
+    /**
+     *
+     * @param userName
+     * @return Find user by name
+     */
     public User findByUserName(String userName) {
         return userDAO.findByUserName(userName);
     }
 
+    /**
+     *
+     * @param email
+     * @return Find user by email
+     */
     public User findByEmail(String email) {
         return userDAO.findByEmail(email);
     }
 
-
+    /**
+     *
+     * @param id
+     * @return Delete a user
+     */
     public boolean deleteUser(int id) {
         User user = userDAO.get(id);
         if (user == null) {
@@ -79,6 +127,14 @@ public class UserService {
         return true;
     }
 
+    /**
+     *
+     * @param fullName
+     * @param password
+     * @param address
+     * @param phoneNumber
+     * @return Update a user
+     */
     public boolean updateUser(String fullName, String password, String address, String phoneNumber) {
         if (fullName != null && !fullName.isEmpty() && password != null && !password.isEmpty() && address != null && !address.isEmpty() && phoneNumber != null && !phoneNumber.isEmpty()) {
             User user = new User();

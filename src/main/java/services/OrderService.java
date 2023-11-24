@@ -4,10 +4,7 @@ import dao.JpaDAO;
 import dao.OrderDAO;
 import dao.OrderdetailDAO;
 import dao.ProductDAO;
-import entity.Order;
-import entity.Orderdetail;
-import entity.Product;
-import entity.User;
+import entity.*;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityManagerFactory;
 import jakarta.persistence.Persistence;
@@ -17,12 +14,20 @@ import java.io.Console;
 import java.math.BigDecimal;
 import java.util.*;
 
+/**
+ * Handling all the order function
+ */
 public class OrderService {
     private OrderDAO orderDAO = new OrderDAO();
     private OrderdetailDAO orderdetailDAO = new OrderdetailDAO();
     private ProductDAO productDAO = new ProductDAO();
 
-
+    /**
+     *
+     * @param products
+     * @param user
+     * @Function Create an order based on a list of prods and a specific user
+     */
     public void addOrder(List<Product> products, User user) {
         Map<Product, Integer> prods = new HashMap<Product, Integer>();
         for(Product prod : products)
@@ -56,11 +61,50 @@ public class OrderService {
         orderDAO.update(ord);
     }
 
+    /**
+     *
+     * @return A list of all orders
+     */
     public List<Order> List_Order()
     {
         return orderDAO.listAll();
     }
 
+    /**
+     *
+     * @param user
+     * @return A list of all orders from a user
+     */
+    public List<Order> List_OrderbyUser(User user)
+    {
+        Map<String, Object> parameter = new HashMap<String, Object>();
+        parameter.put("user", user);
+        List<Order> res =  orderDAO.findWithNamedQuery("Order.findBydUser", parameter);
+        return res;
+    }
+
+    /**
+     *
+     * @param order
+     * @return Total price of a specific order
+     */
+    public BigDecimal Total_PriceOrder(Order order)
+    {
+        BigDecimal sum = BigDecimal.valueOf(0);
+        BigDecimal total = BigDecimal.valueOf(0);
+        Set<Orderdetail> orderdetails = order.getListOrderDetails();
+        for(Orderdetail detail: orderdetails) {
+            total = sum.add(detail.getTotalPrice());
+            sum = total;
+        }
+        return total;
+    }
+
+    /**
+     *
+     * @param user
+     * @return Total price of all orders from a user
+     */
     public BigDecimal Total_Price(User user)
     {
         List<Order> result = orderDAO.listAll();
@@ -82,6 +126,11 @@ public class OrderService {
         return total;
     }
 
+    /**
+     *
+     * @param order
+     * @Function delete an order that is not pending
+     */
     public void delete(Order order)
     {
         if(order.getStatusPayment().equals("Pending"))
