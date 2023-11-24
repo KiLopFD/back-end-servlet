@@ -14,3 +14,10 @@ let closeBarMenu = document.getElementById('header-close-menu-bar')
 closeBarMenu.addEventListener('click', () =>{
     headerMenuBar.classList.add('hidden')
 })
+
+
+let headerAvatar = document.getElementById('header-avatar')
+
+headerAvatar.addEventListener('click', (e) => {
+
+})

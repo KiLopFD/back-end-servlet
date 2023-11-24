@@ -7,7 +7,7 @@
         <jsp:param name="title" value="Product"/>
     </jsp:include>
 </head>
-<body>
+<body class="min-h-[60vh] bg-slate-200">
 <jsp:include page="base/header.jsp"/>
 <main class="home-main-ctn relative">
     <div class="inner-wrap container mx-auto py-10">
@@ -15,18 +15,27 @@
             <c:set var="listProducts" value="${requestScope.get('listProducts')}" scope="request"/>
             <c:if test="${listProducts != null}">
                 <c:forEach var="item" items="${listProducts}">
-                    <div class="cart-item max-w-[20rem] h-[30rem] bg-slate-700 p-3 rounded-md">
-                        <div class="wrap-img p-7 overflow-hidden">
-                            <img class="w-full object-fit-contain rounded-md" src="<c:out value="${item.getUrlImg()}"/>"
-                                 alt="<c:out value="${item.getProductName()}"/>"/>
+                    <div class="cart-item max-w-[20rem] h-auto bg-slate-700 p-3 rounded-md">
+                        <div class="ctn-wrapper h-[25rem] overflow-auto">
+                            <div class="wrap-img p-7 overflow-hidden rounded-md mb-3">
+                                <img class="w-full object-fit-contain rounded-md transition-all duration-500 hover:scale-150"
+                                     src="<c:out value="${item.getUrlImg()}"/>"
+                                     alt="<c:out value="${item.getProductName()}"/>"/>
+                            </div>
+
+                            <p class="product-name"><c:out value="${item.getProductName()}"/></p>
+                            <p class="product-price">
+                                <span class="">Price:</span>
+                                <c:out value="${item.getPrice()}"/>
+                            </p>
                         </div>
 
-                        <p class="product-name"><c:out value="${item.getProductName()}"/></p>
-                        <p class="product-price">
-                            <span class="">Price:</span>
-                            <c:out value="${item.getPrice()}"/>
-                        </p>
-
+                        <div class="py-5 flex flex-wrap justify-center gap-3 items-center">
+                            <a class="block px-5 py-2 bg-slate-600 rounded-sm transition-all duration-150 hover:scale-110"
+                               href="<c:url value="/product?action=add-cart"/>">Add Cart</a>
+                            <a class="block px-5 py-2 bg-slate-600 rounded-sm transition-all duration-150 hover:scale-110"
+                               href="<c:url value="/product?action=detail-cart"/>">Detail</a>
+                        </div>
                     </div>
                 </c:forEach>
             </c:if>

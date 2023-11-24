@@ -1,5 +1,5 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<header class="bg-white">
+<header class="bg-white sticky top-0 left-0 z-[9999] box-shadow-sm">
     <nav class="mx-auto flex max-w-7xl items-center justify-between p-6 lg:px-8" aria-label="Global">
         <div class="flex lg:flex-1">
             <a href="<c:url value="/"/>" class="-m-1.5 p-1.5">
@@ -28,7 +28,19 @@
             <%--            Check User Logged In To Show Avatar--%>
             <c:set var="isLogin" value="${sessionScope.get('isLogin')}" scope="session"/>
             <c:if test="${isLogin.equals(true)}">
-                <p>Avatar</p>
+                <div class="avatar-wrapper relative">
+                    <div class="avatar border-2 border-cyan-500 rounded-full cursor-pointer" id="header-avatar">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-7 h-7">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 6a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0zM4.501 20.118a7.5 7.5 0 0114.998 0A17.933 17.933 0 0112 21.75c-2.676 0-5.216-.584-7.499-1.632z" />
+                        </svg>
+                    </div>
+                    <div class="model-settings absolute bottom-[-11rem] right-[-1rem] rounded-md flex flex-col bg-slate-700 w-[10rem] overflow-hidden" id="settings-avatar">
+                        <a class="block p-2 transition-all hover:bg-slate-600 duration-300 ease cursor-pointer">Profile</a>
+                        <a class="block p-2 transition-all hover:bg-slate-600 duration-300 ease cursor-pointer">Cart</a>
+                        <a class="block p-2 transition-all hover:bg-slate-600 duration-300 ease cursor-pointer">History Payment</a>
+                        <a class="block p-2 transition-all hover:bg-slate-600 duration-300 ease cursor-pointer">Log out</a>
+                    </div>
+                </div>
             </c:if>
             <c:if test="${isLogin.equals(false)}">
                 <a href="<c:url value="/login"/>" class="text-sm font-semibold leading-6 text-gray-900">Log in <span
@@ -46,8 +58,7 @@
             <div class="flex items-center justify-between">
                 <a href="#" class="-m-1.5 p-1.5">
                     <span class="sr-only">Your Company</span>
-                    <img class="h-8 w-auto" src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=600"
-                         alt="">
+                    <img class="h-8 w-auto" src="<c:url value="/assets/images/brand_web/logo.png"/>" alt="">
                 </a>
                 <button type="button" class="-m-2.5 rounded-md p-2.5 text-gray-700" id="header-close-menu-bar">
                     <span class="sr-only">Close menu</span>
@@ -79,3 +90,4 @@
         </div>
     </div>
 </header>
+
