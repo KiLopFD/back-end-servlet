@@ -2,10 +2,6 @@ package entity;
 
 import jakarta.persistence.*;
 import java.io.Serializable;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Map;
-import java.util.Set;
 
 @Entity
 @Table(name = "cart", schema = "public", catalog = "backend-servlet")
@@ -25,7 +21,7 @@ public class Cart implements Serializable {
 
     @ManyToOne
     @JoinColumn(name = "cart_product")
-    private Product products;
+    private Product product;
 
     @Column(name = "quantity")
     private Integer quantity;
@@ -58,11 +54,11 @@ public class Cart implements Serializable {
         this.userId = user;
     }
 
-    public Product getProducts() {
-        return products;
+    public Product getProduct() {
+        return product;
     }
 
-    public void setProducts(Product products) {
-        this.products = products;
+    public void setProduct(Product product) {
+        this.product = product;
     }
 }

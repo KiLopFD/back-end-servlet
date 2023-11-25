@@ -20,28 +20,41 @@ public class ProductServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         ProductServices productServices = new ProductServices();
+        CartServices cartServices = new CartServices();
+        // After authentication:
+        User user = (User) req.getSession().getAttribute("userAccount");
         // Main domain of servlet app.
         String domain = req.getContextPath();
         // param to decide kind of actions:
         String sortProducts = req.getParameter("sort");
+
+        if (sortProducts == null) {
+            req.setAttribute("sort", "all");
+            sortProducts = "all";
+        }
         String action = req.getParameter("action");
-        System.out.println(action);
+        // Action: add or detail
         if (action != null)
-            System.out.println(action.split("-")[action.split("-").length-1]);
-        if (action != null && action.contains("add-item")) {
-            CartServices cartServices = new CartServices();
-            User user = (User) req.getSession().getAttribute("userAccount");
+            System.out.println("/product with action: " + action.split("-")[action.split("-").length-1]);
+        if (action != null) {
             Integer productId =  Integer.parseInt(action.split("-")[action.split("-").length-1]);
             ProductDAO productDAO = new ProductDAO();
             Product product = productDAO.get(productId);
-            cartServices.addItem(user, product);
-            cartServices.clear(user);
-            System.out.println(cartServices.getTotalQuantity(user));
+            if (action.contains("add-item")) {
+                cartServices.addItem(user, product);
+                req.getSession().setAttribute("quantityCart", cartServices.getTotalQuantity(user));
+            }
+            else if (action.contains("detail")) {
+                req.getSession().setAttribute("detailItem", product);
+                resp.sendRedirect(domain + "/detail-item");
+                return;
+            }
         }
-
-        if (sortProducts == null){
+        if (sortProducts.equals("all")){
             try {
                 if (productServices.listAllProducts(req, resp, "listProducts")) {
+
+                    req.setAttribute("sort", sortProducts); // Update to save current state
                     Utility.forwardToPage("./pages/product.jsp", req, resp);
                 } else {
                     resp.sendRedirect(domain + '/');

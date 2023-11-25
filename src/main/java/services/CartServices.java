@@ -33,7 +33,7 @@ public class CartServices {
     public Cart createCart(User user, Product prod) {
         Cart cart = new Cart();
         cart.setUser(user);
-        cart.setProducts(prod);
+        cart.setProduct(prod);
         cart.setQuantity(1);
         return cartDAO.create(cart);
     }
@@ -53,7 +53,7 @@ public class CartServices {
         else {
             boolean found = false;
             for (Cart cart : res)
-                if (cart.getProducts().equals(product)) {
+                if (cart.getProduct().equals(product)) {
                     cart.setQuantity(cart.getQuantity() + 1);
                     cartDAO.update(cart);
                     found = true;
@@ -79,7 +79,7 @@ public class CartServices {
             return false;
         else
             for (Cart cart: res)
-                if(cart.getProducts().equals(product)) {
+                if(cart.getProduct().equals(product)) {
                     cart.setQuantity(quantity);
                     cartDAO.update(cart);
                     return true;
@@ -113,7 +113,7 @@ public class CartServices {
             return false;
         else
             for (Cart cart: res)
-                if(cart.getProducts().equals(product)) {
+                if(cart.getProduct().equals(product)) {
                     cartDAO.delete(cart.getCartId());
                     return true;
                 }
@@ -134,7 +134,7 @@ public class CartServices {
             return false;
         else
             for (Cart cart: res)
-                if(cart.getProducts().equals(product)) {
+                if(cart.getProduct().equals(product)) {
                     int quantity = cart.getQuantity();
                     if(quantity - 1 <= 0)
                         cartDAO.delete(cart.getCartId());
@@ -162,7 +162,7 @@ public class CartServices {
             return 0;
         else
             for (Cart cart: res)
-                if(cart.getProducts().equals(product)) {
+                if(cart.getProduct().equals(product)) {
                     return cart.getQuantity();
                 }
         return 0;
@@ -182,7 +182,7 @@ public class CartServices {
             return new BigDecimal(0);
         else
             for (Cart cart: res)
-                if(cart.getProducts().equals(product)) {
+                if(cart.getProduct().equals(product)) {
                     return product.getPrice().multiply( new BigDecimal(cart.getQuantity()) );
                 }
         return new BigDecimal(0);
@@ -222,7 +222,7 @@ public class CartServices {
         else
             for (Cart cart: res)
             {
-                total = sum.add(cart.getProducts().getPrice().multiply(BigDecimal.valueOf(cart.getQuantity())));
+                total = sum.add(cart.getProduct().getPrice().multiply(BigDecimal.valueOf(cart.getQuantity())));
                 sum = total;
             }
         return total;
@@ -262,7 +262,7 @@ public class CartServices {
             for (Cart cart: res) {
                 int len = cart.getQuantity();
                 for(int i =0 ; i < len; i++)
-                    prods.add(cart.getProducts());
+                    prods.add(cart.getProduct());
             }
             clear(user);
             orderService.addOrder(prods, user);
@@ -292,7 +292,7 @@ public class CartServices {
                 if(check_idx.containsKey(count)) {
                     int len = cart.getQuantity();
                     for (int i = 0; i < len; i++)
-                        prods.add(cart.getProducts());
+                        prods.add(cart.getProduct());
                     cartDAO.delete(cart.getCartId());
                 }
                 count += 1;

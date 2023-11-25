@@ -3,12 +3,16 @@ package filter;
 import com.fasterxml.jackson.databind.node.BooleanNode;
 import com.oracle.wls.shaded.org.apache.xpath.operations.Bool;
 import common.Utility;
+import entity.Cart;
+import entity.User;
 import jakarta.servlet.*;
 import jakarta.servlet.annotation.WebFilter;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import services.CartServices;
 
 import java.io.IOException;
+import java.util.List;
 
 @WebFilter("/*")
 public class AuthenticationFilter implements Filter {
@@ -44,11 +48,36 @@ public class AuthenticationFilter implements Filter {
 
 
         if ("".equals(action) || "/".equals(action) || "/login".equals(action) || "/sign-up".equals(action)) {
+            if (authen) {
+                if (action.equals("") || action.equals("/")){
+                    User user = (User) req.getSession().getAttribute("userAccount");
+                    CartServices cartServices = new CartServices();
+                    Integer quantityCart = cartServices.getTotalQuantity(user);
+                    if (quantityCart != null) {
+                        req.getSession().setAttribute("quantityCart", quantityCart); // all pages track user
+                    }
+                    else {
+                        req.getSession().setAttribute("quantityCart", 0);
+                    }
+                }
+            }
             System.out.println("Filter on: " + action);
             filterChain.doFilter(servletRequest, servletResponse);
         } else {
             System.out.println("Filter on: " + action);
             if (authen) {
+                if (action.equals("/cart")) {
+                    User user = (User) req.getSession().getAttribute("userAccount");
+                    CartServices cartServices = new CartServices();
+                    Integer quantityCart = cartServices.getTotalQuantity(user);
+                    if (quantityCart != null) {
+                        req.getSession().setAttribute("quantityCart", quantityCart); // all pages track
+                    }
+                    else {
+                        req.getSession().setAttribute("quantityCart", 0); // all pages track
+                    }
+                }
+
                 filterChain.doFilter(servletRequest, servletResponse);
                 return;
             }

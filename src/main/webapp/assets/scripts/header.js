@@ -17,7 +17,13 @@ closeBarMenu.addEventListener('click', () =>{
 
 
 let headerAvatar = document.getElementById('header-avatar')
-
+let settingAvatar = document.getElementById('settings-avatar')
+let closeSetting = document.getElementById('close-settings')
 headerAvatar.addEventListener('click', (e) => {
-
+    settingAvatar.classList.remove('hidden');
 })
+
+closeSetting.addEventListener('click', (e)=>{
+    settingAvatar.classList.add('hidden')
+})
+

@@ -31,10 +31,11 @@
                         </div>
 
                         <div class="py-5 flex flex-wrap justify-center gap-3 items-center">
+                            <c:set var="sort" value="${requestScope.get('sort')}" scope="request"/>
                             <a class="block px-5 py-2 bg-slate-600 rounded-sm transition-all duration-150 hover:scale-110"
-                               href="<c:url value="/product?action=add-item-${item.getProductId()}"/>">Add Cart</a>
+                               href="<c:url value="/product?action=add-item-${item.getProductId()}&sort=${sort}"/>">Add Cart</a>
                             <a class="block px-5 py-2 bg-slate-600 rounded-sm transition-all duration-150 hover:scale-110"
-                               href="<c:url value="/product?action=detail-cart"/>">Detail</a>
+                               href="<c:url value="/product?action=detail-cart-${item.getProductId()}"/>">Detail</a>
                         </div>
                     </div>
                 </c:forEach>

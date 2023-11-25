@@ -15,16 +15,18 @@ import java.io.IOException;
 public class HomeServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        String name = "Nguyen Van A";
-        req.setAttribute("name", name);
-
-        System.out.println(req.getSession().getAttribute("isLogin"));
+        String domain = req.getContextPath();
+        String action = req.getParameter("action");
+        if (action != null){
+            if (action.equals("logout")) {
+                req.getSession().removeAttribute("isLogin");
+                req.getSession().removeAttribute("userAccount");
+                resp.sendRedirect(domain + "/");
+                return;
+            }
+        }
 
         Utility.forwardToPage("./index.jsp",req, resp);
     }
 
-    @Override
-    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        doGet(req, resp);
-    }
 }
