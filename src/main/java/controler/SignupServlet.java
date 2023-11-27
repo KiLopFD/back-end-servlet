@@ -28,11 +28,12 @@ public class SignupServlet extends HttpServlet {
         try {
             if (userServices.signUp(req, resp)) {
                 System.out.println("Sign Up Successfully");
-
+                req.getSession().setAttribute("notice", "success");
                 resp.sendRedirect(domain + "/");
 
             } else {
                 System.out.println("Sign Up Fail");
+                req.getSession().setAttribute("notice", "danger");
                 resp.sendRedirect(domain+"/sign-up");
             }
         } catch (Exception e) {

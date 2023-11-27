@@ -1,9 +1,6 @@
 package filter;
 
-import com.fasterxml.jackson.databind.node.BooleanNode;
-import com.oracle.wls.shaded.org.apache.xpath.operations.Bool;
-import common.Utility;
-import entity.Cart;
+
 import entity.User;
 import jakarta.servlet.*;
 import jakarta.servlet.annotation.WebFilter;
@@ -13,16 +10,12 @@ import services.CartServices;
 
 import java.io.IOException;
 import java.math.BigDecimal;
-import java.util.List;
 
 @WebFilter("/*")
 public class AuthenticationFilter implements Filter {
     @Override
     public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain) throws IOException, ServletException {
-//        System.out.println("AuthenticationFilter ---1-------");
-
-//        http://localhost:8080/filter_demo_war_exploded/login
-
+        ImageFilter imageFilter = new ImageFilter();
         HttpServletRequest req = (HttpServletRequest) servletRequest;
         HttpServletResponse resp = (HttpServletResponse) servletResponse;
         String domain = req.getContextPath();
@@ -39,16 +32,39 @@ public class AuthenticationFilter implements Filter {
             req.getSession().setAttribute("money", new BigDecimal(0));
         }
 
-        // Filter images before sending to servlet
-        String requestURI = ((HttpServletRequest) req).getRequestURI();;
-        if (requestURI.endsWith(".jpg") || requestURI.endsWith("png")) {
-            // If it's an image request, let it pass through
-            System.out.println("Access allow for image: " + requestURI);
-            filterChain.doFilter(servletRequest, servletResponse);
-        } else {
-            // If it's not an image request, you can redirect or handle it as needed
-            System.out.println("Access denied. Only images are allowed.");
+        // Set Domain to Scroll Page:
+        req.getSession().setAttribute("subDomain", req.getServletPath());
+
+        // Set Notice For All Pages:
+        String notice = (String) req.getSession().getAttribute("notice");
+        Integer countNotice = (Integer) req.getSession().getAttribute("countNotice");
+
+        if (countNotice == null){
+            countNotice = 0;
+            req.getSession().setAttribute("countNotice", countNotice);
         }
+
+        if (countNotice == 1) {
+            req.getSession().setAttribute("notice", "no notice");
+            req.getSession().setAttribute("countNotice", 0);
+        }
+        if (notice == null){
+            req.getSession().setAttribute("notice", "no notice");
+        }
+        else if (notice.equals("success") || notice.equals("danger")){
+            req.getSession().setAttribute("countNotice", 1);
+        }
+
+
+        System.out.println("Count Notice: " + countNotice);
+
+
+
+        String requestURI = req.getRequestURI();;
+        if (requestURI.contains("/assets/")){
+            imageFilter.doFilter(servletRequest, servletResponse, filterChain);
+        }
+
 
 
         if ("".equals(action) || "/".equals(action) || "/login".equals(action) || "/sign-up".equals(action)) {
@@ -65,11 +81,13 @@ public class AuthenticationFilter implements Filter {
                     }
                 }
             }
+
             System.out.println("Filter on: " + action);
             filterChain.doFilter(servletRequest, servletResponse);
         } else {
-            System.out.println("Filter on: " + action);
+
             if (authen) {
+
                 if (action.equals("/cart")) {
                     User user = (User) req.getSession().getAttribute("userAccount");
                     CartServices cartServices = new CartServices();
@@ -81,12 +99,13 @@ public class AuthenticationFilter implements Filter {
                         req.getSession().setAttribute("quantityCart", 0); // all pages track
                     }
                 }
-
                 filterChain.doFilter(servletRequest, servletResponse);
                 return;
             }
             resp.sendRedirect(domain + "/login");
         }
     }
+
+
 
 }
