@@ -6,6 +6,7 @@ import entity.Product;
 import entity.Review;
 import entity.User;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -144,4 +145,12 @@ public class ReviewServices {
        return reviewDAO.listAll();
     }
 
+
+    public List<Review> listAllReviewOfProduct(Product product){
+        List<Review> reviewList = new ArrayList<Review>();
+        if(product!= null){
+            reviewList = reviewDAO.findReviewsByProduct(product);
+        }
+        return reviewList;
+    }
 }

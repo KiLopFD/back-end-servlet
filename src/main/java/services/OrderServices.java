@@ -4,6 +4,7 @@ import dao.OrderDAO;
 import dao.OrderdetailDAO;
 import dao.ProductDAO;
 import entity.*;
+import jakarta.servlet.http.HttpServletRequest;
 
 import java.math.BigDecimal;
 import java.util.*;
@@ -22,7 +23,7 @@ public class OrderServices {
      * @param user
      * @Function Create an order based on a list of prods and a specific user
      */
-    public void addOrder(List<Product> products, User user) {
+    public void addOrder(List<Product> products, User user, String status) {
         Map<Product, Integer> prods = new HashMap<Product, Integer>();
         for(Product prod : products)
         {
@@ -52,6 +53,7 @@ public class OrderServices {
             orderdetails.add(orderdetail);
         }
         ord.setListOrderDetails(orderdetails);
+        ord.setStatusPayment(status);
         orderDAO.update(ord);
     }
 
@@ -69,7 +71,7 @@ public class OrderServices {
      * @param user
      * @return A list of all orders from a user
      */
-    public List<Order> List_OrderbyUser(User user)
+    public List<Order> listOrderByUser(User user)
     {
         Map<String, Object> parameter = new HashMap<String, Object>();
         parameter.put("user", user);
@@ -99,7 +101,7 @@ public class OrderServices {
      * @param user
      * @return Total price of all orders from a user
      */
-    public BigDecimal Total_Price(User user)
+    public BigDecimal totalPricePending(User user)
     {
         List<Order> result = orderDAO.listAll();
 
@@ -107,7 +109,7 @@ public class OrderServices {
         BigDecimal sum = BigDecimal.valueOf(0);
         BigDecimal total = BigDecimal.valueOf(0);
         for(Order ord: ords)
-            if(ord.getStatusPayment().equals("Pending"))
+            if(ord.getStatusPayment().equals("pending"))
                 if(ord.getInfoUser().getUserId() == user.getUserId())
                 {
                     Set<Orderdetail> orderdetails = ord.getListOrderDetails();
@@ -116,8 +118,23 @@ public class OrderServices {
                         sum = total;
                     }
                 }
-        orderDAO.close();
         return total;
+    }
+
+    public void payForPendingItems(User user) {
+        List<Order> result = orderDAO.listAll();
+
+        List<Order> ords = result;
+        BigDecimal sum = BigDecimal.valueOf(0);
+        BigDecimal total = BigDecimal.valueOf(0);
+        for(Order ord: ords) {
+            if(ord.getStatusPayment().equals("pending"))
+                if(ord.getInfoUser().getUserId() == user.getUserId())
+                {
+                    ord.setStatusPayment("paid");
+                    orderDAO.update(ord);
+                }
+        }
     }
 
     /**
@@ -127,12 +144,12 @@ public class OrderServices {
      */
     public void delete(Order order)
     {
-        if(order.getStatusPayment().equals("Pending"))
+        if(order.getStatusPayment().equals("pending"))
         {
             Set<Orderdetail> orderdetails = order.getListOrderDetails();
             if(!orderdetails.isEmpty())
                 for(Orderdetail detail: orderdetails)
-                    orderdetailDAO.delete(detail.getOrder_detail_id());
+                    orderdetailDAO.delete(detail.getOrderDetailId());
             orderDAO.delete(order.getOrderId());
         }
         else

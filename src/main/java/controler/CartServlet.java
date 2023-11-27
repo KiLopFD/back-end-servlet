@@ -1,6 +1,7 @@
 package controler;
 
 import common.Utility;
+import dao.CartDAO;
 import dao.ProductDAO;
 import entity.Cart;
 import entity.Product;
@@ -14,6 +15,7 @@ import services.CartServices;
 
 import java.io.IOException;
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.List;
 
 @WebServlet("/cart")
@@ -30,7 +32,16 @@ public class CartServlet extends HttpServlet {
         try {
             if (action != null){
                 if (action.equals("checkOutAll")){
-                    cartServices.checkoutall(user);
+                    BigDecimal myWallet = new BigDecimal(String.valueOf(req.getSession().getAttribute("money")));
+                    if (cartServices.getTotalAmount(user).compareTo(myWallet) == -1) {
+                        req.getSession().setAttribute("money", myWallet.subtract(cartServices.getTotalAmount(user)));
+                        cartServices.checkoutall(user, "paid");
+                    }
+                    else {
+                        cartServices.checkoutall(user, "pending");
+                    }
+                    resp.sendRedirect(domain+"/cart");
+                    return;
                 }
                 else if(action.equals("update")) {
                     Integer productId = Integer.parseInt(req.getParameter("pkProduct"));
@@ -39,6 +50,47 @@ public class CartServlet extends HttpServlet {
                     Integer quantity = Integer.parseInt(req.getParameter("quantity"));
                     if (product != null && quantity > 0)
                         cartServices.updateItemQuantity(user, product, quantity);
+                    resp.sendRedirect(domain+"/cart");
+                    return;
+                }
+                else if (action.equals("remove")) {
+                    Integer productId = Integer.parseInt(req.getParameter("pkProduct"));
+                    ProductDAO productDAO = new ProductDAO();
+                    Product product = productDAO.get(productId);
+                    cartServices.removeItem(user, product);
+                    resp.sendRedirect(domain+"/cart");
+                    return;
+                }
+                else if (action.equals("checkOutIdx")) {
+                    System.out.println(req.getParameter("Idx"));
+                    String checkExist = req.getParameter("Idx");
+                    if (checkExist != null && checkExist != "None") {
+                        String[] idxes = (req.getParameter("Idx").split("-"));
+                        List<Integer> listIdx = new ArrayList<Integer>();
+                        List<BigDecimal> priceItems = new ArrayList<BigDecimal>();
+                        CartDAO cartDAO = new CartDAO();
+                        for (String idx: idxes) {
+                            priceItems.add(cartServices.getTotalPriceOfItem(user, cartDAO.get(Integer.valueOf(idx)).getProduct()));
+                            listIdx.add(Integer.valueOf(idx));
+                        }
+                        System.out.println(listIdx);
+                        BigDecimal totalPriceIdx = BigDecimal.valueOf(0);
+                        BigDecimal tmp = BigDecimal.valueOf(0);
+                        for (BigDecimal price : priceItems) {
+                            totalPriceIdx = tmp.add(price);
+                            tmp = totalPriceIdx;
+                        }
+                        BigDecimal myWallet = new BigDecimal(String.valueOf(req.getSession().getAttribute("money")));
+                        if (totalPriceIdx.compareTo(myWallet) == -1) {
+                            req.getSession().setAttribute("money", myWallet.subtract(totalPriceIdx));
+                            cartServices.checkoutidx(user, listIdx,"paid");
+                        }
+                        else {
+                            cartServices.checkoutidx(user, listIdx,"pending");
+                        }
+                        resp.sendRedirect(domain+"/cart");
+                        return;
+                    }
                 }
             }
 
@@ -53,6 +105,7 @@ public class CartServlet extends HttpServlet {
             Utility.forwardToPage("./pages/cart.jsp", req, resp);
         }
         catch (Exception error) {
+            System.out.println(error);
             resp.sendRedirect(domain + "/"); // Back to home if error.
         }
 

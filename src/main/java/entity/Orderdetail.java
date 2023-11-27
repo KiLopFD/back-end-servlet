@@ -51,11 +51,11 @@ public class Orderdetail implements Serializable {
     }
 
 
-    public int getOrder_detail_id() {
+    public int getOrderDetailId() {
         return order_detail_id;
     }
 
-    public void setOrder_detail_id(int order_detail_id) {
+    public void setOrderDetailId(int order_detail_id) {
         this.order_detail_id = order_detail_id;
     }
     public Order getOrder() {

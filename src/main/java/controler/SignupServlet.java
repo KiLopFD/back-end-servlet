@@ -33,9 +33,10 @@ public class SignupServlet extends HttpServlet {
 
             } else {
                 System.out.println("Sign Up Fail");
-                Utility.forwardToPage("./pages/sign_up.jsp", req, resp);
+                resp.sendRedirect(domain+"/sign-up");
             }
         } catch (Exception e) {
+            System.out.println(e);
             resp.sendRedirect(domain + "/sign-up");
         }
     }

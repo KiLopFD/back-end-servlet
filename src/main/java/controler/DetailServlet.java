@@ -55,8 +55,9 @@ public class DetailServlet extends HttpServlet {
                     }
                 }
             }
-//            List<Review> reviews = reviewServices.listAllReview();
-//            req.setAttribute("reviews", reviews);
+            List<Review> reviews = reviewServices.listAllReviewOfProduct(product);
+            req.setAttribute("reviews", reviews);
+
             Utility.forwardToPage("./pages/detail.jsp", req, resp);
         }
         else {

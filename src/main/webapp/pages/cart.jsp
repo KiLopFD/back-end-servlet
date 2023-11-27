@@ -23,14 +23,14 @@
 
                 </div>
                 <c:set var="listCarts" value="${requestScope.get('listCarts')}" scope="request"/>
-                <c:if test="${listCarts!=null}">
+                <c:if test="${listCarts.size()>0}">
                     <div class="">
 <%--                        Create Information Cart--%>
                         <c:forEach var="cart" items="${listCarts}">
                             <form class="" method="get" action="<c:url value="/cart"/>">
                                 <div class="row-data flex items-stretch block w-full">
                                     <div class="w-[6rem] hidden md:grid border-r-2 border-b-2 border-black place-items-center">
-                                        <input checked class="h-5 w-5 check-<c:out value="${cart.getCartId()}"/>" type="checkbox" name="pkCart"
+                                        <input checked class="h-5 w-5 check-box check-<c:out value="${cart.getCartId()}"/>" type="checkbox" name="pkCart"
                                                value="<c:out value="${cart.getCartId()}"/>">
                                     </div>
                                     <p class="text-lg sm:w-[20rem] w-[12rem] border-r-2 border-b-2 border-black py-2"><c:out
@@ -70,23 +70,27 @@
                             Total Price:
                             <c:out value="${totalAmount}"/>
                         </p>
-                        <div class="action flex py-10 grid place-items-center">
-                            <div class="flex flex-wrap gap-5 relative">
-                                <a class="text-xl text-black font-[500] check-out-all px-5 py-3 bg-slate-300 rounded-md hover:bg-slate-900 hover:text-white transition-all duration-300 ease-in-out" href="<c:url value="/cart?actionCart=checkOutAll"/>">Checkout All</a>
-                                <a class="text-xl text-black font-[500] check-out-idx px-5 py-3 bg-slate-300 rounded-md hover:bg-slate-900 hover:text-white transition-all duration-300 ease-in-out" href="<c:url value="/cart?actionCart=checkOutIdx"/>">Checkout Selected</a>
-<%--                                Disable Action When Not Exist Cart--%>
-                                <c:set var="quantityCart" value="${sessionScope.get('quantityCart')}" scope="session"/>
-                                <c:if test="${quantityCart==0}">
-                                    <div class="disable-cart-action absolute w-full h-full z-[50] cursor-not-allowed">
-                                    </div>
-                                </c:if>
-                            </div>
 
-
-                        </div>
                     </div>
 
                 </c:if>
+                <div class="action flex py-10 grid place-items-center">
+                    <div class="flex flex-wrap gap-5 relative">
+                        <a class="text-xl text-black font-[500] check-out-all px-5 py-3 bg-slate-300 rounded-md hover:bg-slate-900 hover:text-white transition-all duration-300 ease-in-out" href="<c:url value="/cart?actionCart=checkOutAll"/>">Checkout All</a>
+                        <a id="check-out-idx" class="text-xl text-black font-[500] check-out-idx px-5 py-3 bg-slate-300 rounded-md hover:bg-slate-900 hover:text-white transition-all duration-300 ease-in-out" href="<c:url value="/cart?actionCart=checkOutIdx"/>">Checkout Selected</a>
+                        <%--                                Disable Action When Not Exist Cart--%>
+                        <c:set var="quantityCart" value="${sessionScope.get('quantityCart')}" scope="session"/>
+                        <c:if test="${quantityCart==0}">
+                            <div class="disable-cart-action absolute w-full h-full z-[50] cursor-not-allowed">
+                            </div>
+                        </c:if>
+                        <div id="loading-state">
+                            <%--                                    DOM CODE LOADING --%>
+                        </div>
+                    </div>
+
+
+                </div>
             </div>
 
         </div>
@@ -98,6 +102,99 @@
     <%@include file="../assets/scripts/header.js"%>
 </script>
 <script>
+    /**
+     * @note Event for checking idx
+     */
+    // Find all checkbox
+    let checkBoxes = document.getElementsByClassName('check-box ');
+    let checkOutIdx = document.getElementById('check-out-idx');
+    let loadingState = document.getElementById('loading-state')
+    let urlCheckOutIdx = checkOutIdx.href;
+    let loadingClass = " disable-cart-action absolute w-full h-full z-[50] cursor-wait";
+
+
+    const fetchAllIdx = () => {
+        let selectedIdx = "";
+        [...checkBoxes].forEach((value, index) => {
+            if (value.checked) {
+                let splitVal = value.className.split("-");
+                let idx = splitVal[splitVal.length-1];
+                selectedIdx += "-" + idx;
+            }
+            if (selectedIdx.length!==0)
+                selectedIdx[0]="";
+        });
+
+        let listIdx = selectedIdx.split("-");
+        listIdx.shift();
+
+        [...checkBoxes].forEach((value, index) => {
+            value.addEventListener('click', (e) => {
+                if (value.checked===false) {
+                    let splitVal = value.className.split("-");
+                    let idx = splitVal[splitVal.length-1];
+                    listIdx = listIdx.filter((value, index) => {return value !== idx});
+                    if (listIdx.length !== 0){
+                        loadingState.className = '';
+                        checkOutIdx.href = urlCheckOutIdx + "&Idx=" + listIdx.join("-");
+                    }
+                    else{
+                        checkOutIdx.href = urlCheckOutIdx + "&Idx=None";
+                        loadingState.className += loadingClass;
+                    }
+                    console.log(checkOutIdx.href)
+                }
+                if (value.checked===true) {
+                    let splitVal = value.className.split("-");
+                    let idx = splitVal[splitVal.length-1];
+                    listIdx.push(idx);
+
+                    if (listIdx.length !== 0){
+                        loadingState.className = '';
+                        checkOutIdx.href = urlCheckOutIdx + "&Idx=" + listIdx.join("-");
+                    }
+                    else{
+                        checkOutIdx.href = urlCheckOutIdx + "&Idx=None";
+                        loadingState.className += loadingClass;
+                    }
+                    console.log(checkOutIdx.href)
+                }
+            })
+
+        });
+    }
+
+
+    window.addEventListener('load', (e) => {
+        loadingState.className += loadingClass;
+        setTimeout(() => {
+            let selectedIdx = "";
+
+            [...checkBoxes].forEach((value, index) => {
+                if (value.checked) {
+                    let splitVal = value.className.split("-");
+                    let idx = splitVal[splitVal.length-1];
+                    selectedIdx += "-" + idx;
+                }
+            });
+            if (selectedIdx.length!==0)
+                selectedIdx = selectedIdx.replace("-", "");
+            // console.log(selectedIdx)
+            checkOutIdx.href = urlCheckOutIdx + `&Idx=` + selectedIdx;
+            console.log(checkOutIdx.href);
+            loadingState.className="";
+        }, 1000);
+
+        setTimeout(() => {
+            fetchAllIdx();
+        }, 1000);
+
+        setTimeout(() => {
+            checkOutIdx.addEventListener('click', (e) => {
+                loadingState.className += loadingClass;
+            })
+        }, 1000)
+    })
 
 </script>
 </body>

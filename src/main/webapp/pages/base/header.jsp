@@ -36,10 +36,10 @@
                                   d="M15.75 6a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0zM4.501 20.118a7.5 7.5 0 0114.998 0A17.933 17.933 0 0112 21.75c-2.676 0-5.216-.584-7.499-1.632z"/>
                         </svg>
                     </div>
-                    <div class="model-settings absolute bottom-[-11rem] right-[-1rem] hidden"
+                    <div class="model-settings absolute bottom-[-12.8rem] right-[-1rem] hidden"
                          id="settings-avatar">
-                        <div class=" rounded-md flex flex-col bg-slate-700 w-[10rem] overflow-hidden">
-                            <a class="block p-2 transition-all hover:bg-slate-600 duration-300 ease cursor-pointer">Profile</a>
+                        <div class=" rounded-md flex flex-col bg-slate-700 w-[12rem] overflow-hidden">
+                            <a href="<c:url value="/profile"/>" class="block p-2 transition-all hover:bg-slate-600 duration-300 ease cursor-pointer">Profile</a>
                             <a href="<c:url value="/cart"/>"
                                class="block p-2 transition-all hover:bg-slate-600 duration-300 ease cursor-pointer flex justify-between">
                                 Cart
@@ -48,17 +48,28 @@
                                     <span class="bg-slate-900 text-white px-2 rounded-full">0</span>
                                 </c:if>
                                 <c:if test="${quantityCart!=null}">
-                                    <span class="bg-slate-900 text-white px-2 rounded-full"><c:out value="${quantityCart}"/></span>
+                                    <span class="bg-slate-900 text-white px-2 rounded-full"><c:out
+                                            value="${quantityCart}"/></span>
                                 </c:if>
                             </a>
-                            <a class="block p-2 transition-all hover:bg-slate-600 duration-300 ease cursor-pointer">History
+                            <a href="<c:url value="/payment?action=history"/>"
+                               class="block p-2 transition-all hover:bg-slate-600 duration-300 ease cursor-pointer">History
                                 Payment</a>
+                            <a href="<c:url value="/payment?action=wallet"/>"
+                               class="block p-2 transition-all hover:bg-slate-600 duration-300 ease cursor-pointer flex justify-between">
+                                Wallet
+                                <c:set var="money" value="${sessionScope.get('money')}" scope="session"/>
+                                <span class="bg-slate-900 text-white px-2 rounded-full">
+                                    <c:out value="${money}"/>
+                                </span>
+                            </a>
                             <a href="<c:url value="/?action=logout"/>"
                                class="block p-2 transition-all hover:bg-slate-600 duration-300 ease cursor-pointer">Log
                                 out</a>
                         </div>
 
-                        <div id="close-settings" class="absolute -top-2 -right-2 bg-slate-700 p-2 rounded-full border-2 cursor-pointer hover:bg-slate-900 hover:stroke-white transition-all duration-300 ease">
+                        <div id="close-settings"
+                             class="absolute -top-2 -right-2 bg-slate-700 p-2 rounded-full border-2 cursor-pointer hover:bg-slate-900 hover:stroke-white transition-all duration-300 ease">
                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
                                  stroke="currentColor" class="w-6 h-6">
                                 <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"/>
@@ -97,7 +108,7 @@
             <div class="mt-6 flow-root">
                 <div class="-my-6 divide-y divide-gray-500/10">
                     <div class="space-y-2 py-6">
-                        <a href="#"
+                        <a href="<c:url value="/"/>"
                            class="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50">Home</a>
                         <a href="<c:url value="/product"/>"
                            class="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50">Product</a>
@@ -107,9 +118,16 @@
                            class="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50">About</a>
                     </div>
                     <div class="py-6">
-                        <a href="<c:url value="/login"/>"
-                           class="-mx-3 block rounded-lg px-3 py-2.5 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50">Log
-                            in</a>
+                        <c:if test="${isLogin.equals(false)}">
+                            <a href="<c:url value="/login"/>"
+                               class="-mx-3 block rounded-lg px-3 py-2.5 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50">Log
+                                in</a>
+                        </c:if>
+                        <c:if test="${isLogin.equals(true)}">
+                            <a href="<c:url value="/"/>"
+                               class="-mx-3 block rounded-lg px-3 py-2.5 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50">Log
+                                in</a>
+                        </c:if>
                     </div>
                 </div>
             </div>

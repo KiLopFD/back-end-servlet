@@ -13,7 +13,7 @@
     <div class="inner-wrap container mx-auto py-10">
         <div class="wrapper cart flex flex-wrap gap-3 justify-center">
             <c:set var="listProducts" value="${requestScope.get('listProducts')}" scope="request"/>
-            <c:if test="${listProducts != null}">
+            <c:if test="${listProducts.size()>0}">
                 <c:forEach var="item" items="${listProducts}">
                     <div class="cart-item max-w-[20rem] h-auto bg-slate-700 p-3 rounded-md">
                         <div class="ctn-wrapper h-[25rem] overflow-auto">

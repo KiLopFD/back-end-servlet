@@ -23,13 +23,36 @@ public class UserServices {
     public UserServices() {
     }
 
-    public boolean signUp (HttpServletRequest request, HttpServletResponse response) throws Exception {
+    public boolean checkExistUser(String userName, String email) {
+        boolean exist = false;
+        User checkedByUserName = userDAO.findByUserName(userName);
+        User checkedByEmail = userDAO.findByEmail(email);
+        if (checkedByEmail != null || checkedByUserName != null) {
+            exist = true;
+        }
+        return exist;
+    }
+
+    public boolean signUp(HttpServletRequest request, HttpServletResponse response) throws Exception {
         String email = (String) request.getParameter("email");
         String password = (String) request.getParameter("password");
         String phone = (String) request.getParameter("phone");
         String username = (String) request.getParameter("username");
-        System.out.println(email + " " + password +" " + phone +" "+ username);
-        if (email != null && password != null && username != null && phone != null && !email.isEmpty() && !password.isEmpty() && !phone.isEmpty() && !username.isEmpty()) {
+        System.out.println(email + " " + password + " " + phone + " " + username);
+        if (
+                email != null &&
+                        password != null &&
+                        username != null &&
+                        phone != null &&
+                        !email.isBlank() &&
+                        !password.isBlank() &&
+                        !phone.isBlank() &&
+                        !username.isBlank() &&
+                        !email.isEmpty() &&
+                        !password.isEmpty() &&
+                        !phone.isEmpty() &&
+                        !username.isEmpty() &&
+                        !checkExistUser(username, email)) {
             User user = new User();
             user.setEmail(email);
             user.setPassword(password);
@@ -46,19 +69,20 @@ public class UserServices {
         }
         return false;
     }
-    public boolean checkLoginUsername(HttpServletRequest request, HttpServletResponse response){
+
+    public boolean checkLoginUsername(HttpServletRequest request, HttpServletResponse response) {
         Map<String, Object> params = new HashMap<>();
         String username = (String) request.getParameter("username");
         String password = (String) request.getParameter("password");
         if (username != null && password != null && !username.isEmpty() && !password.isEmpty()) {
             String encryptedPassword = HashGenerator.generateMD5(password);
-            params.put("username",username);
-            params.put("password",encryptedPassword);
+            params.put("username", username);
+            params.put("password", encryptedPassword);
         }
 
 
-        List<User> listUsers = userDAO.findWithNamedQuery("User.checkLogin",params);
-        if(listUsers.size() == 1){
+        List<User> listUsers = userDAO.findWithNamedQuery("User.checkLogin", params);
+        if (listUsers.size() == 1) {
             System.out.println("Đăng nhập thành công");
             request.getSession().setAttribute("isLogin", true);
             request.getSession().setAttribute("userAccount", listUsers.get(0));

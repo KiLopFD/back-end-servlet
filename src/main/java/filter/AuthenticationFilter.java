@@ -12,6 +12,7 @@ import jakarta.servlet.http.HttpServletResponse;
 import services.CartServices;
 
 import java.io.IOException;
+import java.math.BigDecimal;
 import java.util.List;
 
 @WebFilter("/*")
@@ -27,20 +28,23 @@ public class AuthenticationFilter implements Filter {
         String domain = req.getContextPath();
         String action = req.getServletPath();
         Boolean authen = (Boolean) req.getSession().getAttribute("isLogin");
-//        System.out.println(domain);
+        BigDecimal money = (BigDecimal) req.getSession().getAttribute("money");
+        // Filter authentication before sending to servlet
         if (authen == null) {
             authen = false;
             req.getSession().setAttribute("isLogin", false);
         }
+        // Filter money before sending to servlet
+        if (money == null) {
+            req.getSession().setAttribute("money", new BigDecimal(0));
+        }
 
-
+        // Filter images before sending to servlet
         String requestURI = ((HttpServletRequest) req).getRequestURI();;
         if (requestURI.endsWith(".jpg") || requestURI.endsWith("png")) {
             // If it's an image request, let it pass through
             System.out.println("Access allow for image: " + requestURI);
-
             filterChain.doFilter(servletRequest, servletResponse);
-            return;
         } else {
             // If it's not an image request, you can redirect or handle it as needed
             System.out.println("Access denied. Only images are allowed.");
@@ -83,12 +87,6 @@ public class AuthenticationFilter implements Filter {
             }
             resp.sendRedirect(domain + "/login");
         }
-//        System.out.println("AuthenticationFilter ---2-------");
     }
-
-    public void checkAuthentication(HttpServletRequest request, HttpServletResponse response) {
-
-    }
-
 
 }

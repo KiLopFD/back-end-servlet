@@ -1,6 +1,7 @@
 package dao;
 
 import entity.Order;
+import entity.Product;
 import entity.Review;
 
 import java.util.Date;
@@ -46,5 +47,8 @@ public class ReviewDAO extends JpaDAO<Review> implements GenericDAO<Review> {
     @Override
     public long count() {
         return super.countWithNamedQuery("Review.countAll");
+    }
+    public List<Review> findReviewsByProduct(Product product){
+        return  super.findWithNamedQuery("Review.findByProduct","product",product);
     }
 }

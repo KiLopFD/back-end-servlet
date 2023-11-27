@@ -10,7 +10,8 @@ import java.util.Date;
 @Table(name = "review", schema = "public", catalog = "backend-servlet")
 @NamedQueries({
         @NamedQuery(name="Review.findAll", query = "SELECT r FROM Review r"),
-        @NamedQuery(name="Review.countAll", query = "SELECT COUNT(*) FROM Review r")
+        @NamedQuery(name="Review.countAll", query = "SELECT COUNT(*) FROM Review r"),
+        @NamedQuery(name ="Review.findByProduct",query = "SELECT r from Review  r WHERE  r.productReview=:product"),
 })
 public class Review implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)

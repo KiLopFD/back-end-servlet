@@ -27,7 +27,7 @@ public class ProductServlet extends HttpServlet {
         String domain = req.getContextPath();
         // param to decide kind of actions:
         String sortProducts = req.getParameter("sort");
-
+        // sort Products
         if (sortProducts == null) {
             req.setAttribute("sort", "all");
             sortProducts = "all";
@@ -43,6 +43,8 @@ public class ProductServlet extends HttpServlet {
             if (action.contains("add-item")) {
                 cartServices.addItem(user, product);
                 req.getSession().setAttribute("quantityCart", cartServices.getTotalQuantity(user));
+                resp.sendRedirect(domain+"/product");
+                return;
             }
             else if (action.contains("detail")) {
                 req.getSession().setAttribute("detailItem", product);
@@ -51,15 +53,11 @@ public class ProductServlet extends HttpServlet {
             }
         }
         if (sortProducts.equals("all")){
-            try {
-                if (productServices.listAllProducts(req, resp, "listProducts")) {
+            if (productServices.listAllProducts(req, resp, "listProducts")) {
 
-                    req.setAttribute("sort", sortProducts); // Update to save current state
-                    Utility.forwardToPage("./pages/product.jsp", req, resp);
-                } else {
-                    resp.sendRedirect(domain + '/');
-                }
-            } catch (Exception error) {
+                req.setAttribute("sort", sortProducts); // Update to save current state
+                Utility.forwardToPage("./pages/product.jsp", req, resp);
+            } else {
                 resp.sendRedirect(domain + '/');
             }
         }

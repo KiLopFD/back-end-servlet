@@ -22,22 +22,22 @@ public class User implements Serializable {
     @Column(name = "user_id")
     private int userId;
     @Basic
-    @Column(name = "username", nullable = false, unique = true)
+    @Column(name = "username", nullable = false, length = 10)
     private String username;
     @Basic
-    @Column(name = "password", nullable = false)
+    @Column(name = "password", nullable = false, length = 5000)
     private String password;
     @Basic
-    @Column(name = "role", nullable = false)
+    @Column(name = "role", nullable = false, length = 10)
     private String role;
     @Basic
-    @Column(name = "email", nullable = false)
+    @Column(name = "email", nullable = false, length = 20)
     private String email;
     @Basic
-    @Column(name = "full_name", nullable = false)
+    @Column(name = "full_name", length = 20)
     private String fullName;
     @Basic
-    @Column(name = "address")
+    @Column(name = "address", length = 50)
     private String address;
     @Basic
     @Column(name = "phone_number", nullable = false)

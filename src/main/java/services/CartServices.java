@@ -4,6 +4,7 @@ import dao.CartDAO;
 import entity.Cart;
 import entity.Product;
 import entity.User;
+import jakarta.servlet.http.HttpServletRequest;
 
 import java.math.BigDecimal;
 import java.util.*;
@@ -250,22 +251,25 @@ public class CartServices {
      * @param user
      * @Function Check Out feature, Create an order based on all carts that a user have
      */
-    public void checkoutall(User user)
+    public void checkoutall(User user, String status)
     {
         Map<String, Object> parameter = new HashMap<String, Object>();
         parameter.put("user", user);
         List<Cart> res =  cartDAO.findWithNamedQuery("Cart.GetbyUser", parameter);
         List<Product> prods = new ArrayList<Product>();
+
         if(res.isEmpty())
             return;
-        else
+        else {
             for (Cart cart: res) {
                 int len = cart.getQuantity();
                 for(int i =0 ; i < len; i++)
                     prods.add(cart.getProduct());
             }
             clear(user);
-            orderService.addOrder(prods, user);
+            orderService.addOrder(prods, user, status);
+        }
+
     }
 
     /**
@@ -274,14 +278,15 @@ public class CartServices {
      * @param idx
      * @Function Check Out feature, Create an order based on idx of carts that a user have
      */
-    public void checkoutidx(User user, List<Integer> idx)
+    public void checkoutidx(User user, List<Integer> idx, String status)
     {
         Map<String, Object> parameter = new HashMap<String, Object>();
         parameter.put("user", user);
         List<Cart> res =  cartDAO.findWithNamedQuery("Cart.GetbyUser", parameter);
         List<Product> prods = new ArrayList<Product>();
-        int count = 0;
         Map<Integer, Integer> check_idx = new HashMap<Integer, Integer>();
+
+        //
         for(int i: idx)
             check_idx.put(i, i);
 
@@ -289,15 +294,16 @@ public class CartServices {
             return;
         else
             for (Cart cart: res) {
-                if(check_idx.containsKey(count)) {
+                if(check_idx.containsKey(cart.getCartId())) {
                     int len = cart.getQuantity();
-                    for (int i = 0; i < len; i++)
+                    for (int i = 0; i < len; i++){
                         prods.add(cart.getProduct());
+
+                    }
                     cartDAO.delete(cart.getCartId());
                 }
-                count += 1;
             }
-        orderService.addOrder(prods, user);
+        orderService.addOrder(prods, user, status);
     }
 
 }
