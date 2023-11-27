@@ -54,6 +54,8 @@
             });
         })
     }
+    // Check Loading and Check Notice
+    // UI Loading DOM pushing before check ???
     document.addEventListener('readystatechange', (e)=>{
         if (document.readyState === 'interactive' || document.readyState === 'loading') {
             console.log('loading')
@@ -76,10 +78,14 @@
         }
     })
 
-
+    // Effect HomePage and Loading, Notice
     window.addEventListener("load", () => {
         // Route
-        // animateSR("items-0");
+        // Loading Ui
+        animateSR('loading-component',"bottom", 500, 0)
+        // Notice UI
+        animateSR('toast-success', 'bottom', 3000, 0)
+        //
         document.addEventListener('readystatechange', (e)=> {
             if (document.readyState === 'interactive' || document.readyState === 'loading') {
                 console.log('loading')
@@ -89,8 +95,10 @@
                     loading.classList.remove('hidden')
                 });
             } else {
+                //
                 let loading = document.getElementById('loading')
                 loading.classList.add('hidden')
+                //
                 animateSR("items-1");
                 // Section Home
                 animateSR("sec1-title", "top");
@@ -98,11 +106,9 @@
 
                 // Slide products
                 animateSR("slide-products");
-                // Loading Ui
-                animateSR('loading-component',"bottom", 500, 0)
+
                 // animateSR("slide-product");
-                // Notice UI
-                animateSR('toast-success', 'bottom', 3000, 0)
+
             }
         })
 
