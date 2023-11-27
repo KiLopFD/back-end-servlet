@@ -85,7 +85,13 @@
         animateSR('loading-component',"bottom", 500, 0)
         // Notice UI
         animateSR('toast-success', 'bottom', 3000, 0)
-        //
+        // Section Home
+        animateSR("items-1");
+        animateSR("sec1-title", "top");
+        animateSR("product-text", "top");
+        animateSR("slide-products"); // if exist, els if no effect
+
+        // Enough files and signal
         document.addEventListener('readystatechange', (e)=> {
             if (document.readyState === 'interactive' || document.readyState === 'loading') {
                 console.log('loading')
@@ -98,15 +104,8 @@
                 //
                 let loading = document.getElementById('loading')
                 loading.classList.add('hidden')
-                //
-                animateSR("items-1");
-                // Section Home
-                animateSR("sec1-title", "top");
-                animateSR("product-text", "top");
-
-                // Slide products
+                // Slide products: waiting for jsp render.
                 animateSR("slide-products");
-
                 // animateSR("slide-product");
 
             }
