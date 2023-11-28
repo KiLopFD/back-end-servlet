@@ -38,6 +38,7 @@ public class UserServices {
         String password = (String) request.getParameter("password");
         String phone = (String) request.getParameter("phone");
         String username = (String) request.getParameter("username");
+        String role = (String) request.getAttribute("role");
         System.out.println(email + " " + password + " " + phone + " " + username);
         if (
                 email != null &&
@@ -59,7 +60,11 @@ public class UserServices {
             user.setPhoneNumber(phone);
             user.setUsername(username);
             user.setFullName("");
-            user.setRole("endUser");
+            if (role == null)
+                user.setRole("endUser");
+            else if (role == "admin") {
+                user.setRole("admin");
+            }
             user.setAddress("");
             this.userDAO.create(user);
             request.getSession().setAttribute("userAccount", user);

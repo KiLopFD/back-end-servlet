@@ -1,6 +1,7 @@
 package filter;
 
 
+import common.Utility;
 import entity.User;
 import jakarta.servlet.*;
 import jakarta.servlet.annotation.WebFilter;
@@ -55,19 +56,16 @@ public class AuthenticationFilter implements Filter {
             req.getSession().setAttribute("countNotice", 1);
         }
 
-
-        System.out.println("Count Notice: " + countNotice);
-
-
-
+        // Filter Images
         String requestURI = req.getRequestURI();;
         if (requestURI.contains("/assets/")){
             imageFilter.doFilter(servletRequest, servletResponse, filterChain);
         }
 
 
+        String page = req.getParameter("page");
 
-        if ("".equals(action) || "/".equals(action) || "/login".equals(action) || "/sign-up".equals(action)) {
+        if (("/admin".equals(action) )||"".equals(action) || "/".equals(action) || "/login".equals(action) || "/sign-up".equals(action)) {
             if (authen) {
                 if (action.equals("") || action.equals("/")){
                     User user = (User) req.getSession().getAttribute("userAccount");
@@ -80,14 +78,26 @@ public class AuthenticationFilter implements Filter {
                         req.getSession().setAttribute("quantityCart", 0);
                     }
                 }
-            }
+                else if (action.equals("/admin")){
+                    User userAccount = (User) req.getSession().getAttribute("userAccount");
+                    String role = userAccount.getRole();
+                    if (role!= null && role.equals("admin")){
+                        filterChain.doFilter(servletRequest, servletResponse);
+                        return;
+                    }
+                }
 
+            }
+            // If not authen in admin site => allow to sign-up, login
+            if (page == "sign-up" || page == "login") {
+                filterChain.doFilter(servletRequest, servletResponse);
+            }
+            //
             System.out.println("Filter on: " + action);
             filterChain.doFilter(servletRequest, servletResponse);
         } else {
 
             if (authen) {
-
                 if (action.equals("/cart")) {
                     User user = (User) req.getSession().getAttribute("userAccount");
                     CartServices cartServices = new CartServices();
@@ -100,6 +110,10 @@ public class AuthenticationFilter implements Filter {
                     }
                 }
                 filterChain.doFilter(servletRequest, servletResponse);
+                return;
+            }
+            if ("/admin".equals(action)){
+                resp.sendRedirect(domain+"/admin?page=login");
                 return;
             }
             resp.sendRedirect(domain + "/login");
