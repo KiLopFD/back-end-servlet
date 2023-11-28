@@ -20,10 +20,8 @@ public class SignupServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        System.out.println("Post Sign Up");
-        HttpSession session = req.getSession();
-        UserServices userServices = new UserServices();
         String domain = req.getContextPath();
+        UserServices userServices = new UserServices();
 
         try {
             if (userServices.signUp(req, resp)) {
@@ -37,7 +35,7 @@ public class SignupServlet extends HttpServlet {
                 resp.sendRedirect(domain+"/sign-up");
             }
         } catch (Exception e) {
-            System.out.println(e);
+            req.getSession().setAttribute("notice", "danger");
             resp.sendRedirect(domain + "/sign-up");
         }
     }

@@ -21,48 +21,63 @@ public class DetailServlet extends HttpServlet {
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         // Main domain of servlet app.
         String domain = req.getContextPath();
-        Product product = (Product) req.getSession().getAttribute("detailItem");
-        // after check authentication
-        User user = (User) req.getSession().getAttribute("userAccount");
-        // action of user
-        String action = req.getParameter("action");
-        CartServices cartServices = new CartServices();
-        ReviewServices reviewServices = new ReviewServices();
+        try {
+            Product product = (Product) req.getSession().getAttribute("detailItem");
+            // after check authentication
+            User user = (User) req.getSession().getAttribute("userAccount");
+            // action of user
+            String action = req.getParameter("action");
+            CartServices cartServices = new CartServices();
+            ReviewServices reviewServices = new ReviewServices();
 
-        if (product != null){
-            if (action!= null) {
-                if (action.equals("addCart")) {
-                    cartServices.addItem(user, product);
-                    Integer quantityCart = cartServices.getTotalQuantity(user);
-                    req.getSession().setAttribute("quantityCart", quantityCart);
-                }
-                else if(action.equals("buyNow")) {
-                    Integer quantity = cartServices.getQuantityOfItem(user, product);
-                    if (quantity==0) {
+            if (product != null){
+                if (action!= null) {
+                    if (action.equals("addCart")) {
                         cartServices.addItem(user, product);
+                        Integer quantityCart = cartServices.getTotalQuantity(user);
+                        req.getSession().setAttribute("quantityCart", quantityCart);
+                        req.getSession().setAttribute("notice", "success");
                     }
-                    Integer quantityCart = cartServices.getTotalQuantity(user);
-                    req.getSession().setAttribute("quantityCart", quantityCart);
-                    resp.sendRedirect(domain+"/cart");
-                    return;
-                }
-                else if(action.equals("review")) {
-                    String comment = req.getParameter("comment").trim();
-                    Integer rating = Integer.parseInt(req.getParameter("rating").trim());
-                    if (reviewServices.createReview(user, product, comment, rating)) {
-                        resp.sendRedirect(domain+"/detail-item");
+                    else if(action.equals("buyNow")) {
+                        Integer quantity = cartServices.getQuantityOfItem(user, product);
+                        if (quantity==0) {
+                            cartServices.addItem(user, product);
+                        }
+                        Integer quantityCart = cartServices.getTotalQuantity(user);
+                        req.getSession().setAttribute("quantityCart", quantityCart);
+                        req.getSession().setAttribute("notice", "success");
+                        resp.sendRedirect(domain+"/cart");
                         return;
                     }
+                    else if(action.equals("review")) {
+                        String comment = req.getParameter("comment").trim();
+                        Integer rating = Integer.parseInt(req.getParameter("rating").trim());
+                        if (reviewServices.createReview(user, product, comment, rating)) {
+                            req.getSession().setAttribute("notice", "success");
+                            resp.sendRedirect(domain+"/detail-item");
+                            return;
+                        }
+                        else {
+                            req.getSession().setAttribute("notice", "danger");
+                            resp.sendRedirect(domain+"/detail-item");
+                            return;
+                        }
+                    }
                 }
-            }
-            List<Review> reviews = reviewServices.listAllReviewOfProduct(product);
-            req.setAttribute("reviews", reviews);
+                List<Review> reviews = reviewServices.listAllReviewOfProduct(product);
+                req.setAttribute("reviews", reviews);
 
-            Utility.forwardToPage("./pages/detail.jsp", req, resp);
+                Utility.forwardToPage("./pages/detail.jsp", req, resp);
+            }
+            else {
+                // Back to home if not exist product detail
+                resp.sendRedirect(domain + "/");
+            }
         }
-        else {
-            // Back to home if not exist product detail
+        catch (Exception e){
+            req.getSession().setAttribute("notice", "danger");
             resp.sendRedirect(domain + "/");
         }
+
     }
 }

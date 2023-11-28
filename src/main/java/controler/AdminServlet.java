@@ -1,44 +1,102 @@
 package controler;
 
 import common.Utility;
+import dao.ProductDAO;
+import entity.Category;
+import entity.Product;
 import entity.User;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import services.CategoryServices;
+import services.ProductServices;
 import services.UserServices;
 
 import java.io.IOException;
+import java.util.List;
+
 @WebServlet({"/admin"})
 public class AdminServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        String page = req.getParameter("page");
-        Boolean isLogin = (Boolean) req.getSession().getAttribute("isLogin");
-        User userAccount;
-        try {
-            userAccount = (User) req.getSession().getAttribute("userAccount");
-        } catch (Exception e) {
-            throw new RuntimeException(e);
-        }
         String domain = req.getContextPath();
 
-        if (isLogin && userAccount.getRole().equals("admin")){
-            Utility.forwardToPage("./pages/admin/dashboard.jsp", req, resp);
-            return;
-        }
-        if (page != null) {
-            if (page.equals("sign-up")) {
-                Utility.forwardToPage("./pages/admin/sign_up.jsp", req, resp);
-                return;
-            } else if (page.equals("login")) {
-                Utility.forwardToPage("./pages/admin/login.jsp", req, resp);
+        try {
+            String page = req.getParameter("page");
+            Boolean isLogin = (Boolean) req.getSession().getAttribute("isLogin");
+            User userAccount = (User) req.getSession().getAttribute("userAccount");
+
+
+            if (page != null) {
+                if (page.equals("sign-up")) {
+                    req.getSession().setAttribute("adminPage", "./pages/admin/sign_up.jsp");
+                    resp.sendRedirect(domain + "/admin");
+                    return;
+                } else if (page.equals("login")) {
+                    req.getSession().setAttribute("adminPage", "./pages/admin/login.jsp");
+                    resp.sendRedirect(domain + "/admin");
+                    return;
+                } else if (page.equals("product")) {
+                    String action = req.getParameter("action");
+                    String productAction = req.getParameter("productAction");
+                    if (action != null && action.equals("delete")){
+                        Integer idProduct = Integer.parseInt(req.getParameter("idProduct"));
+                        ProductDAO productDAO = new ProductDAO();
+                        productDAO.delete(idProduct);
+                        resp.sendRedirect(domain+"/admin");
+                        return;
+                    }
+                    if (productAction!=null && !productAction.equals("")){
+                        ProductServices productServices = new ProductServices();
+                        if (productServices.actionProduct(req, resp)) {
+                            req.getSession().setAttribute("notice", "success");
+                            resp.sendRedirect(domain+"/admin");
+                            System.out.println("Action success");
+                            return;
+                        }
+                        else{
+                            req.getSession().setAttribute("notice", "danger");
+                            resp.sendRedirect(domain+"/admin");
+                            System.out.println("Action fail");
+
+                            return;
+                        }
+                    }
+
+                    CategoryServices categoryServices = new CategoryServices();
+                    ProductDAO productDAO = new ProductDAO();
+                    List<Product> productList = productDAO.listAll();
+                    List<Category> categoryList = categoryServices.listAllCategory();
+                    req.setAttribute("categoryList", categoryList);
+                    req.setAttribute("productList", productList);
+                    req.setAttribute("showPage", "product");
+                }
+            }
+            if (isLogin && userAccount.getRole().equals("admin")) {
+                // Render section product into first time.
+                // Dont set method with query param when submitting form.
+                if (req.getAttribute("productList") == null || req.getAttribute("categoryList") == null || req.getAttribute("showPage") == null) {
+                    resp.sendRedirect(domain+"/admin?page=product");
+                    return;
+                }
+                Utility.forwardToPage("./pages/admin/dashboard.jsp", req, resp);
                 return;
             }
+            String adminPage = (String) req.getSession().getAttribute("adminPage");
+            if (adminPage != null) {
+
+                Utility.forwardToPage(adminPage, req, resp);
+                return;
+            }
+            resp.sendRedirect(domain + "/admin?page=login");
+        }
+        catch (Exception e){
+            req.getSession().setAttribute("notice", "danger");
+            resp.sendRedirect(domain + "/admin?page=login");
         }
 
-        resp.sendRedirect(domain+"/admin?page=login");
     }
 
     @Override
@@ -66,21 +124,19 @@ public class AdminServlet extends HttpServlet {
                     return;
                 }
 
-            }
-            else if (options.equals("login")){
+            } else if (options.equals("login")) {
                 UserServices userServices = new UserServices();
-                if (userServices.checkLoginUsername(req, resp)){
+                if (userServices.checkLoginUsername(req, resp)) {
                     req.getSession().setAttribute("notice", "success");
-                    resp.sendRedirect(domain+"/admin");
+                    resp.sendRedirect(domain + "/admin");
                     return;
-                }
-                else {
+                } else {
                     req.getSession().setAttribute("notice", "danger");
                     Utility.forwardToPage("./pages/admin/login.jsp", req, resp);
                     return;
                 }
             }
         }
-        resp.sendRedirect(domain+"/admin");
+        resp.sendRedirect(domain + "/admin");
     }
 }

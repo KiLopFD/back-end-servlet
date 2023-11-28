@@ -29,26 +29,27 @@
         let home = document.getElementById('home')
         let product = document.getElementById('product')
         let contact = document.getElementById('contact')
-
+        let about = document.getElementById('about')
         if (subDomain.value === ''){
             home.href = "#sec1"
             product.href = "#slide-product"
             contact.href ="#slide-contact"
+            about.href = "#slide-about"
         }
     })
 
-    const animateSR = (className, direction = "bottom", duration = 1000, delay = 300) => {
+    const animateSR = (className, direction = "bottom", duration = 1000, delay = 300, distance = '100%', reset=true) => {
         let cartItem = document.getElementsByClassName(className);
         [...cartItem].forEach((value, index) => {
             let nameSr = "sr-" + (index);
             value.classList.add(nameSr);
             ScrollReveal().reveal("." + nameSr, {
-                distance: '100%',
+                distance: distance,
                 origin: direction,
                 opacity: '0',
                 delay: index * delay + delay,
                 duration: duration + (index * delay + delay),
-                reset: true,
+                reset: reset,
                 viewFactor: 0.3,
                 viewOffset: { top: 64 },
             });
@@ -70,29 +71,39 @@
                 loading.classList.add('hidden')
             }, (subDomain.value===''?3000:1000))
             setTimeout(()=>{
-                let loading = document.getElementById('toast-success')
-                loading.classList.add('hidden')
+                let loadingSuccess = document.getElementById('toast-success')
+                loadingSuccess.classList.add('hidden')
                 animateSR('toast-success', 'bottom', 3000, 0)
 
             }, 4000)
+            setTimeout(()=>{
+                let loadingDanger = document.getElementById('toast-danger')
+                loadingDanger.classList.add('hidden')
+                animateSR('toast-danger', 'bottom', 3000, 0)
+            }, 4000)
+
         }
     })
 
-    // Effect HomePage and Loading, Notice
-    window.addEventListener("load", () => {
+    window.addEventListener('load', () => {
         // Route
         // Loading Ui
         animateSR('loading-component',"bottom", 500, 0)
         // Notice UI
         animateSR('toast-success', 'bottom', 3000, 0)
+        animateSR('toast-danger', 'bottom', 3000, 0)
+
         // Section Home
         animateSR("items-1");
+        animateSR("items-2");
+        animateSR("sec2-title", "top");
         animateSR("sec1-title", "top");
         animateSR("product-text", "top");
         animateSR("slide-products"); // if exist, els if no effect
 
-        // Enough files and signal
+
         document.addEventListener('readystatechange', (e)=> {
+
             if (document.readyState === 'interactive' || document.readyState === 'loading') {
                 console.log('loading')
                 // still loading, wait for the event
@@ -104,29 +115,88 @@
                 //
                 let loading = document.getElementById('loading')
                 loading.classList.add('hidden')
-                // Slide products: waiting for jsp render.
-                animateSR("slide-products");
-                // animateSR("slide-product");
+                // Loading Ui
+                animateSR('loading-component',"bottom", 500, 0)
+                // Notice UI
+                animateSR('toast-success', 'bottom', 3000, 0)
+                animateSR('toast-danger', 'bottom', 3000, 0)
+
+                // Section Home: /
+                animateSR("items-1");
+                animateSR("items-2");
+                animateSR("sec2-title", "top");
+                animateSR("sec1-title", "top");
+                animateSR("product-text", "top");
+
+
+
+                animateSR("slide-products");  // Slide products: waiting for jsp render.
+                // /product
+                // animateSR("cart-item", "bottom", 1000, 300, "100%", false);
+                //
+                //
+                document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                    anchor.addEventListener('click', function (e) {
+                        e.preventDefault();
+
+                        document.querySelector(this.getAttribute('href')).scrollIntoView({
+                            behavior: 'smooth',
+                            duration: 1000,
+                        });
+                    });
+                });
 
             }
         })
 
+    })
+    // Enough files and signal
+    document.addEventListener('readystatechange', (e)=> {
 
+        if (document.readyState === 'interactive' || document.readyState === 'loading') {
+            console.log('loading')
+            // still loading, wait for the event
+            document.addEventListener('DOMContentLoaded', () => {
+                let loading = document.getElementById('loading')
+                loading.classList.remove('hidden')
+            });
+        } else {
+            //
+            let loading = document.getElementById('loading')
+            loading.classList.add('hidden')
+            // Loading Ui
+            animateSR('loading-component',"bottom", 500, 0)
+            // Notice UI
+            animateSR('toast-success', 'bottom', 3000, 0)
+            animateSR('toast-danger', 'bottom', 3000, 0)
 
+            // Section Home: /
+            animateSR("items-1");
+            animateSR("items-2");
+            animateSR("sec2-title", "top");
+            animateSR("sec1-title", "top");
+            animateSR("product-text", "top");
+            animateSR("slide-products");  // Slide products: waiting for jsp render.
+            // /product
+            // animateSR("cart-item", "bottom", 1000, 300, "100%", false);
+            //
+            //
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function (e) {
+                    e.preventDefault();
 
-        //
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function (e) {
-                e.preventDefault();
-
-                document.querySelector(this.getAttribute('href')).scrollIntoView({
-                    behavior: 'smooth',
-                    duration: 1000,
+                    document.querySelector(this.getAttribute('href')).scrollIntoView({
+                        behavior: 'smooth',
+                        duration: 1000,
+                    });
                 });
             });
-        });
 
-        // let loading = document.getElementById('loading')
-        // loading.classList.add('hidden')
+            if (!settingAvatar.className.includes('translate-x-full')){
+                // Show toggle header
+                settingAvatar.classList.add('translate-x-full')
+                settingAvatar.classList.add('opacity-0')
+            }
+        }
     })
 </script>

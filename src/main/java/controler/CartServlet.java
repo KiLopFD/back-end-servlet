@@ -23,12 +23,13 @@ public class CartServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        String domain = req.getContextPath();
+
         Boolean authen = (Boolean) req.getSession().getAttribute("isLogin");
         String action = req.getParameter("actionCart");
 
         User user = (User) req.getSession().getAttribute("userAccount"); // after authen
         CartServices cartServices = new CartServices(); // cart service
-        String domain = req.getContextPath();
         try {
             if (action != null){
                 if (action.equals("checkOutAll")){

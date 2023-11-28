@@ -20,10 +20,14 @@ let headerAvatar = document.getElementById('header-avatar')
 let settingAvatar = document.getElementById('settings-avatar')
 let closeSetting = document.getElementById('close-settings')
 headerAvatar.addEventListener('click', (e) => {
-    settingAvatar.classList.remove('hidden');
+    settingAvatar.classList.remove('translate-x-full');
+    settingAvatar.classList.remove('opacity-0')
 })
 
 closeSetting.addEventListener('click', (e)=>{
-    settingAvatar.classList.add('hidden')
+    // Show toggle header
+    settingAvatar.classList.add('translate-x-full')
+    settingAvatar.classList.add('opacity-0')
+
 })
 

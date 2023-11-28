@@ -2,6 +2,7 @@ package controler;
 
 import common.Utility;
 import dao.ProductDAO;
+import entity.Product;
 import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
@@ -12,6 +13,8 @@ import services.MailServices;
 import services.ProductServices;
 
 import java.io.IOException;
+import java.util.List;
+
 // chuỗi "": trang chủ.
 @WebServlet(value = {""})
 public class HomeServlet extends HttpServlet {
@@ -42,7 +45,8 @@ public class HomeServlet extends HttpServlet {
             }
         }
         // Set data to show for home page:
-        req.setAttribute("listProducts", productDAO.listAll().subList(0, 5));
+        List<Product> products = productDAO.listAll();
+        req.setAttribute("listProducts", products.subList(0, products.size() % 8));
 
         Utility.forwardToPage("./index.jsp",req, resp);
     }

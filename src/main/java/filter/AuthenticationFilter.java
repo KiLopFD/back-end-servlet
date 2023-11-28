@@ -68,7 +68,7 @@ public class AuthenticationFilter implements Filter {
         if (("/admin".equals(action) )||"".equals(action) || "/".equals(action) || "/login".equals(action) || "/sign-up".equals(action)) {
             if (authen) {
                 if (action.equals("") || action.equals("/")){
-                    User user = (User) req.getSession().getAttribute("userAccount");
+                    User user = (User) (req.getSession().getAttribute("userAccount"));
                     CartServices cartServices = new CartServices();
                     Integer quantityCart = cartServices.getTotalQuantity(user);
                     if (quantityCart != null) {
@@ -78,6 +78,7 @@ public class AuthenticationFilter implements Filter {
                         req.getSession().setAttribute("quantityCart", 0);
                     }
                 }
+                // allow page: dashboard, product dash board
                 else if (action.equals("/admin")){
                     User userAccount = (User) req.getSession().getAttribute("userAccount");
                     String role = userAccount.getRole();

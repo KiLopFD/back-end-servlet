@@ -269,6 +269,42 @@
         </div>
 
     </section>
+    <section id="slide-about" class="min-h-screen grid place-items-center">
+        <div class="ctn">
+            <p class="sm:text-3xl text-xl text-black font-[600] mb-3 text-center sec2-title">WHAT MAKES THE
+                ESSENTIAL DIFFERENT?</p>
+            <p class="sm:text-xl text-lg text-center mb-3 sec2-title">EXPERIENCE HIGH PERFORMANCE AND SECURE</p>
+            <div class="flex justify-center flex-wrap py-5">
+                <div class="flex flex-col items-center gap-2 p-10 w-[20rem] hover:bg-slate-200 rounded-md cursor-pointer items-2">
+                    <img src="https://phono-demo.myshopify.com/cdn/shop/files/ic12.png?v=1613704474&width=275"/>
+                    <div>
+                        <p class="text-black sm:text-xl text-lg text-center font-[500]">PERFECT CUT
+                            DUAL CAMERA</p>
+                        <p class="text-center text-md">Tristique senectus et netus et malesuada ant reiet fames.</p>
+                    </div>
+                </div>
+                <div class="flex flex-col items-center gap-2 p-10 w-[20rem] hover:bg-slate-200 rounded-md cursor-pointer items-2">
+                    <img src="https://phono-demo.myshopify.com/cdn/shop/files/ic13.png?v=1613704474&width=275"/>
+                    <div>
+                        <p class="text-black sm:text-xl text-lg text-center font-[500]">PRETTY
+                            INTELLIGENT PROCESSING</p>
+                        <p class="text-center text-md">Consequat ac habit amet asse felis donec et odio pellentesque
+                            diam.</p>
+                    </div>
+                </div>
+                <div class="flex flex-col items-center gap-2 p-10 w-[20rem] hover:bg-slate-200 rounded-md cursor-pointer items-2">
+                    <img src="https://phono-demo.myshopify.com/cdn/shop/files/ic11.png?v=1613704474&width=275"/>
+                    <div>
+                        <p class="text-black sm:text-xl text-lg text-center font-[500]">MOST POPULAR
+                            8GB DDR5 RAM</p>
+                        <p class="text-center text-md">Dictum varius duis at consectetur lorem donec massa sap
+                            faucibus.</p>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </section>
 </main>
 
 <%--<%= request.getServletContext().getInitParameter("title-home")%>--%>

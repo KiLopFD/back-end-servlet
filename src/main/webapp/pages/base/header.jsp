@@ -22,10 +22,11 @@
             <a id="home" href="<c:url value="/"/>" class="text-sm font-semibold leading-6 text-gray-900">Home</a>
             <a id="product" href="<c:url value="/product"/>" class="text-sm font-semibold leading-6 text-gray-900">Product</a>
             <a id="contact" href="<c:url value="/"/>" class="text-sm font-semibold leading-6 text-gray-900">Contact</a>
-            <a href="#" class="text-sm font-semibold leading-6 text-gray-900">About</a>
+            <a id="about" href="<c:url value="/"/>" class="text-sm font-semibold leading-6 text-gray-900">About</a>
         </div>
         <div class="hidden lg:flex lg:flex-1 lg:justify-end">
             <%--            Check User Logged In To Show Avatar--%>
+            <c:set var="userAccount" value="${sessionScope.get('userAccount')}" scope="session"/>
             <c:set var="isLogin" value="${sessionScope.get('isLogin')}" scope="session"/>
             <c:if test="${isLogin.equals(true)}">
                 <div class="avatar-wrapper relative">
@@ -36,7 +37,7 @@
                                   d="M15.75 6a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0zM4.501 20.118a7.5 7.5 0 0114.998 0A17.933 17.933 0 0112 21.75c-2.676 0-5.216-.584-7.499-1.632z"/>
                         </svg>
                     </div>
-                    <div class="model-settings absolute bottom-[-12.8rem] right-[-1rem] hidden"
+                    <div class="model-settings absolute bottom-[-12.8rem] right-[-1.5rem] transition-all duration-300 ease"
                          id="settings-avatar">
                         <div class=" rounded-md flex flex-col bg-slate-700 w-[12rem] overflow-hidden">
                             <a href="<c:url value="/profile"/>" class="block p-2 transition-all hover:bg-slate-600 duration-300 ease cursor-pointer">Profile</a>
@@ -63,6 +64,10 @@
                                     <c:out value="${money}"/>
                                 </span>
                             </a>
+<%--                            Dash Board --%>
+                            <c:if test="${userAccount != null && userAccount.getRole().equals('admin')}">
+                                <a class="block p-2 transition-all hover:bg-slate-600 duration-300 ease cursor-pointer" href="<c:url value="/admin"/>">Dash Board Admin</a>
+                            </c:if>
                             <a href="<c:url value="/?action=logout"/>"
                                class="block p-2 transition-all hover:bg-slate-600 duration-300 ease cursor-pointer">Log
                                 out</a>
@@ -112,9 +117,9 @@
                            class="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50">Home</a>
                         <a href="<c:url value="/product"/>"
                            class="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50">Product</a>
-                        <a href="#"
+                        <a href="<c:url value="/"/>"
                            class="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50">Contact</a>
-                        <a href="#"
+                        <a href="<c:url value="/"/>"
                            class="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50">About</a>
                     </div>
                     <div class="py-6">
@@ -126,6 +131,9 @@
                         <c:if test="${isLogin.equals(true)}">
                             <a href="<c:url value="/profile"/>"
                                class="-mx-3 block rounded-lg px-3 py-2.5 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50">My Profile</a>
+                            <c:if test="${userAccount != null && userAccount.getRole().equals('admin')}">
+                                <a class="-mx-3 block rounded-lg px-3 py-2.5 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50" href="<c:url value="/admin"/>">Dash Board Admin</a>
+                            </c:if>
                         </c:if>
                     </div>
                 </div>
@@ -163,9 +171,26 @@
             </svg>
             <span class="sr-only">Check icon</span>
         </div>
-        <div class="ms-3 text-sm font-normal">successfully.</div>
+        <div class="ms-3 text-sm font-normal">Successfully, Validation for Action</div>
         <button type="button" class="ms-auto -mx-1.5 -my-1.5 bg-white text-gray-400 hover:text-gray-900 rounded-lg focus:ring-2 focus:ring-gray-300 p-1.5 hover:bg-gray-100 inline-flex items-center justify-center h-8 w-8 dark:text-gray-500 dark:hover:text-white dark:bg-gray-800 dark:hover:bg-gray-700" data-dismiss-target="#toast-success" aria-label="Close">
             <span class="sr-only" id="close-notice">Close</span>
+            <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14">
+                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6"/>
+            </svg>
+        </button>
+    </div>
+</c:if>
+<c:if test="${notice=='danger'}">
+    <div id="toast-danger" class="absolute toast-danger top-[5rem] right-0 z-[9999] flex items-center w-full max-w-xs p-4 mb-4 text-gray-500 bg-white rounded-lg shadow dark:text-gray-400 dark:bg-gray-800" role="alert">
+        <div class="inline-flex items-center justify-center flex-shrink-0 w-8 h-8 text-red-500 bg-red-100 rounded-lg dark:bg-red-800 dark:text-red-200">
+            <svg class="w-5 h-5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
+                <path d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5Zm3.707 11.793a1 1 0 1 1-1.414 1.414L10 11.414l-2.293 2.293a1 1 0 0 1-1.414-1.414L8.586 10 6.293 7.707a1 1 0 0 1 1.414-1.414L10 8.586l2.293-2.293a1 1 0 0 1 1.414 1.414L11.414 10l2.293 2.293Z"/>
+            </svg>
+            <span class="sr-only">Error icon</span>
+        </div>
+        <div class="ms-3 text-sm font-normal">Has Some Errors, Please Check Again</div>
+        <button type="button" class="ms-auto -mx-1.5 -my-1.5 bg-white text-gray-400 hover:text-gray-900 rounded-lg focus:ring-2 focus:ring-gray-300 p-1.5 hover:bg-gray-100 inline-flex items-center justify-center h-8 w-8 dark:text-gray-500 dark:hover:text-white dark:bg-gray-800 dark:hover:bg-gray-700" data-dismiss-target="#toast-danger" aria-label="Close">
+            <span class="sr-only">Close</span>
             <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14">
                 <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6"/>
             </svg>

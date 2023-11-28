@@ -16,7 +16,7 @@ public class CategoryDAOTest extends JpaDAO<Category> {
 
     static {
         try {
-            categories = gson.fromJson(new FileReader("C:\\Work_Space\\Web_Tech\\Inteliji\\back-end-servlet\\src\\test\\java\\data\\categories.json"), new TypeToken<List<Category>>() {}.getType());
+            categories = gson.fromJson(new FileReader("src/test/java/data/categories.json"), new TypeToken<List<Category>>() {}.getType());
         } catch (FileNotFoundException e) {
             throw new RuntimeException(e);
         }

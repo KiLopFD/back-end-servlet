@@ -37,11 +37,11 @@ public class LoginServlet extends HttpServlet {
             else {
                 System.out.println("Login Fail");
                 req.getSession().setAttribute("notice", "danger");
-
                 Utility.forwardToPage("./pages/login.jsp", req, resp);
             }
         }
         catch (Exception error) {
+            req.getSession().setAttribute("notice", "danger");
             resp.sendRedirect(domain + "/");
         }
     }
