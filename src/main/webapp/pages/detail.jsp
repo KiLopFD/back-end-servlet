@@ -8,9 +8,9 @@
         <jsp:param name="title" value="Detail Item"/>
     </jsp:include>
 </head>
-<body>
+<body class="overflow-x-hidden w-full h-auto">
 <jsp:include page="base/header.jsp"/>
-<main>
+<main class="min-h-[90vh]">
     <section class="detail-product container mx-auto py-10">
         <c:set var="product" value="${sessionScope.get('detailItem')}" scope="session"/>
         <c:if test="${product!=null}">
@@ -166,7 +166,8 @@
         </c:if>
     </section>
 </main>
-
+<%--Footer --%>
+<jsp:include page="base/footer.jsp" />
 <script>
     <%@include file="../assets/scripts/header.js"%>
 </script>

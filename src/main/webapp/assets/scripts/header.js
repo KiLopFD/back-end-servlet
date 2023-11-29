@@ -20,14 +20,20 @@ let headerAvatar = document.getElementById('header-avatar')
 let settingAvatar = document.getElementById('settings-avatar')
 let closeSetting = document.getElementById('close-settings')
 headerAvatar.addEventListener('click', (e) => {
-    settingAvatar.classList.remove('translate-x-full');
-    settingAvatar.classList.remove('opacity-0')
+    // Header
+    if (settingAvatar.className.includes('translate-x-full')){
+        // Show toggle header
+        settingAvatar.classList.remove('translate-x-full')
+        settingAvatar.classList.remove('opacity-0')
+    }
 })
 
 closeSetting.addEventListener('click', (e)=>{
-    // Show toggle header
-    settingAvatar.classList.add('translate-x-full')
-    settingAvatar.classList.add('opacity-0')
-
+    // Header
+    if (!settingAvatar.className.includes('translate-x-full')){
+        // Show toggle header
+        settingAvatar.classList.add('translate-x-full')
+        settingAvatar.classList.add('opacity-0')
+    }
 })
 

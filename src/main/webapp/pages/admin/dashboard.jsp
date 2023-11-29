@@ -8,10 +8,10 @@
         <jsp:param name="title" value="Dash Board"/>
     </jsp:include>
 </head>
-<body class="bg-slate-700">
+<body class="bg-slate-700 overflow-x-hidden w-full h-auto">
 <jsp:include page="../base/header.jsp"/>
 
-<main>
+<main class="min-h-[90vh]">
     <section class="dash-board relative min-h-screen h-auto w-full">
         <div class="col-1 flex flex-col items-start gap-2 absolute top-2 left-0">
             <!-- drawer init and show -->
@@ -180,7 +180,8 @@
 
     </section>
 </main>
-
+<%--Footer --%>
+<jsp:include page="../base/footer.jsp" />
 <script>
     <%@include file="../../assets/scripts/header.js"%>
 </script>

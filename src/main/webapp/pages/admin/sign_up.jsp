@@ -8,9 +8,9 @@
         <jsp:param name="title" value="Sign up"/>
     </jsp:include>
 </head>
-<body>
+<body class="overflow-x-hidden w-full h-auto">
 <jsp:include page="../base/header.jsp"/>
-<main>
+<main class="min-h-[90vh]">
     <section class="form">
 
         <div class="flex min-h-full flex-col justify-center px-6 py-12 lg:px-8">
@@ -53,7 +53,7 @@
                     </div>
 
                     <div>
-                        <button type="submit" name="options" value="sign-up" class="flex w-full justify-center rounded-md bg-indigo-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">Sign Up</button>
+                        <button type="submit" name="options" value="sign-up" class="effect-lazy flex w-full justify-center rounded-md bg-indigo-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">Sign Up</button>
                     </div>
                 </form>
 
@@ -65,7 +65,8 @@
         </div>
     </section>
 </main>
-
+<%--Footer --%>
+<jsp:include page="../base/footer.jsp" />
 <script>
     <%@include file="../../assets/scripts/header.js"%>
 </script>

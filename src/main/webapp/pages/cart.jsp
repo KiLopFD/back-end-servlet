@@ -8,32 +8,34 @@
         <jsp:param name="title" value="Cart"/>
     </jsp:include>
 </head>
-<body>
+<body class="overflow-x-hidden w-full h-auto">
 <jsp:include page="base/header.jsp"/>
-<main class="cart grid place-items-center min-h-[60vh] h-auto sm:p-0 p-3">
+<main class="cart grid place-items-center min-h-[90vh] h-auto sm:p-0 p-3">
     <section class="cart-section w-full sm:w-[75vw] bg-slate-200 p-2 sm:p-5 rounded-md overflow-x-auto h-auto">
         <div class="info-cart">
             <div class="name-cart-item p-0 sm:p-3">
-                <div class="title-data flex border-b-2 border-black">
-                    <p class="name hidden sm:block font-[600] text-2xl text-black w-[6rem] text-center">Index</p>
-                    <p class="name font-[600] text-md sm:text-2xl text-black sm:w-[20rem] w-[12rem] text-center">Name Product</p>
-                    <p class="name font-[600] text-md sm:text-2xl text-black w-[6rem] text-center">Quantity</p>
-                    <p class="name font-[600] text-md sm:text-2xl text-black w-[10rem] text-center">Action</p>
-                    <p class="name hidden sm:block font-[600] text-2xl text-black w-[10rem] text-center">Price</p>
-
+                <div class="grid place-items-center w-auto">
+                    <div class="title-data flex border-b-2 border-black">
+                        <p class="name hidden sm:block font-[600] text-2xl text-black w-[6rem] text-center">Index</p>
+                        <p class="name font-[600] text-md sm:text-2xl text-black sm:w-[20rem] w-[12rem] text-center">Name Product</p>
+                        <p class="name font-[600] text-md sm:text-2xl text-black w-[6rem] text-center">Quantity</p>
+                        <p class="name font-[600] text-md sm:text-2xl text-black w-[10rem] text-center">Action</p>
+                        <p class="name hidden sm:block font-[600] text-2xl text-black w-[10rem] text-center">Price</p>
+                    </div>
                 </div>
+
                 <c:set var="listCarts" value="${requestScope.get('listCarts')}" scope="request"/>
                 <c:if test="${listCarts.size()>0}">
-                    <div class="">
+                    <div class="grid place-items-center w-auto">
 <%--                        Create Information Cart--%>
                         <c:forEach var="cart" items="${listCarts}">
                             <form class="" method="get" action="<c:url value="/cart"/>">
                                 <div class="row-data flex items-stretch block w-full">
-                                    <div class="w-[6rem] hidden md:grid border-r-2 border-b-2 border-black place-items-center">
+                                    <div class="w-[6rem] hidden md:grid border-l-2 border-r-2 border-b-2 border-black place-items-center">
                                         <input checked class="h-5 w-5 check-box check-<c:out value="${cart.getCartId()}"/>" type="checkbox" name="pkCart"
                                                value="<c:out value="${cart.getCartId()}"/>">
                                     </div>
-                                    <p class="text-lg sm:w-[20rem] w-[12rem] border-r-2 border-b-2 border-black py-2"><c:out
+                                    <p class="text-lg sm:w-[20rem] w-[12rem] border-r-2 border-b-2 border-black p-2"><c:out
                                             value="${cart.getProduct().getProductName()}"/></p>
                                     <div class="border-r-2 border-b-2 border-black px-2 grid place-items-center w-[6rem]">
                                         <input type="hidden" name="pkProduct" value="${cart.getProduct().getProductId()}">
@@ -97,7 +99,8 @@
 
     </section>
 </main>
-
+<%--Footer --%>
+<jsp:include page="base/footer.jsp" />
 <script>
     <%@include file="../assets/scripts/header.js"%>
 </script>

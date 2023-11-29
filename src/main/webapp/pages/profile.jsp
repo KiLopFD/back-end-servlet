@@ -8,9 +8,9 @@
         <jsp:param name="title" value="Profile"/>
     </jsp:include>
 </head>
-<body class="relative" oncopy="return false" oncut="return false" onpaste="return false">
+<body class="overflow-x-hidden w-full h-auto " oncopy="return false" oncut="return false" onpaste="return false">
 <jsp:include page="base/header.jsp"/>
-<main class="relative">
+<main class="relative min-h-[90vh]">
     <div class="absolute top-0 right-0" id="showNotice">
 
     </div>
@@ -59,7 +59,8 @@
         </div>
     </section>
 </main>
-
+<%--Footer --%>
+<jsp:include page="base/footer.jsp" />
 <script>
     <%@include file="../assets/scripts/header.js"%>
 </script>

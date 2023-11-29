@@ -8,9 +8,9 @@
     </jsp:include>
 
 </head>
-<body class="min-h-[60vh] bg-slate-200">
+<body class=" bg-slate-200 overflow-x-hidden w-full h-auto">
 <jsp:include page="base/header.jsp"/>
-<main class="home-main-ctn relative">
+<main class="home-main-ctn relative min-h-[90vh]">
     <div class="inner-wrap container mx-auto py-10">
         <div class="wrapper cart flex flex-wrap gap-3 justify-center">
             <c:set var="listProducts" value="${requestScope.get('listProducts')}" scope="request"/>
@@ -50,7 +50,8 @@
 
 <%--    My Script --%>
 
-
+<%--Footer --%>
+<jsp:include page="base/footer.jsp" />
 <script>
     <%@include file="../assets/scripts/jquery.js"%>
     <%@include file="../assets/scripts/header.js"%>

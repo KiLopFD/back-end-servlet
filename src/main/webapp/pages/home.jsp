@@ -7,9 +7,9 @@
         <jsp:param name="title" value="Home"/>
     </jsp:include>
 </head>
-<body class="bg-[#fdfdfd]">
+<body class="bg-[#fdfdfd] overflow-x-hidden w-full h-auto">
 <jsp:include page="base/header.jsp"/>
-<main class="home-main-ctn h-auto">
+<main class="home-main-ctn h-auto min-h-[90vh]">
     <section class="w-full p-0 min-h-screen h-auto" id="sec1">
         <div class="wrapper h-auto w-full flex flex-col items-center">
             <!-- Slider main container -->
@@ -133,7 +133,7 @@
             </div>
         </div>
     </section>
-    <section id="slide-product" class="">
+    <section id="slide-product" class="overflow-hidden">
         <div class="min-h-screen flex flex-col justify-center h-auto w-full overflow-hidden gap-2 slide-products">
             <p class="sm:text-3xl text-xl text-black font-[600] mb-3 text-center product-text">FIND YOUR PERFECT
                 MATCH</p>
@@ -271,32 +271,28 @@
     </section>
     <section id="slide-about" class="min-h-screen grid place-items-center">
         <div class="ctn">
-            <p class="sm:text-3xl text-xl text-black font-[600] mb-3 text-center sec2-title">WHAT MAKES THE
-                ESSENTIAL DIFFERENT?</p>
+            <p class="sm:text-3xl text-xl text-black font-[600] mb-3 text-center sec2-title">NEWEST MODERN PRODUCTS IS CASTED BY PROFESSOR DEVELOPER</p>
             <p class="sm:text-xl text-lg text-center mb-3 sec2-title">EXPERIENCE HIGH PERFORMANCE AND SECURE</p>
             <div class="flex justify-center flex-wrap py-5">
                 <div class="flex flex-col items-center gap-2 p-10 w-[20rem] hover:bg-slate-200 rounded-md cursor-pointer items-2">
-                    <img src="https://phono-demo.myshopify.com/cdn/shop/files/ic12.png?v=1613704474&width=275"/>
+                    <img src="<c:url value="/assets/images/logo_admin/logo-admin-1.jpg"/>"/>
                     <div>
-                        <p class="text-black sm:text-xl text-lg text-center font-[500]">PERFECT CUT
-                            DUAL CAMERA</p>
+                        <p class="text-black sm:text-xl text-lg text-center font-[500]">TD FULLSTACK</p>
                         <p class="text-center text-md">Tristique senectus et netus et malesuada ant reiet fames.</p>
                     </div>
                 </div>
                 <div class="flex flex-col items-center gap-2 p-10 w-[20rem] hover:bg-slate-200 rounded-md cursor-pointer items-2">
-                    <img src="https://phono-demo.myshopify.com/cdn/shop/files/ic13.png?v=1613704474&width=275"/>
+                    <img src="<c:url value="/assets/images/logo_admin/logo-admin-2.jpg"/>"/>
                     <div>
-                        <p class="text-black sm:text-xl text-lg text-center font-[500]">PRETTY
-                            INTELLIGENT PROCESSING</p>
+                        <p class="text-black sm:text-xl text-lg text-center font-[500]">DQ FULLSTACK</p>
                         <p class="text-center text-md">Consequat ac habit amet asse felis donec et odio pellentesque
                             diam.</p>
                     </div>
                 </div>
                 <div class="flex flex-col items-center gap-2 p-10 w-[20rem] hover:bg-slate-200 rounded-md cursor-pointer items-2">
-                    <img src="https://phono-demo.myshopify.com/cdn/shop/files/ic11.png?v=1613704474&width=275"/>
+                    <img src="https://avatars.githubusercontent.com/u/115167404?v=4"/>
                     <div>
-                        <p class="text-black sm:text-xl text-lg text-center font-[500]">MOST POPULAR
-                            8GB DDR5 RAM</p>
+                        <p class="text-black sm:text-xl text-lg text-center font-[500]">AT FULLSTACK</p>
                         <p class="text-center text-md">Dictum varius duis at consectetur lorem donec massa sap
                             faucibus.</p>
                     </div>
@@ -307,6 +303,8 @@
     </section>
 </main>
 
+<%--Footer --%>
+<jsp:include page="base/footer.jsp" />
 <%--<%= request.getServletContext().getInitParameter("title-home")%>--%>
 
 <%--    My Script --%>

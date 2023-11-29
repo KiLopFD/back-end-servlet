@@ -37,7 +37,7 @@
                                   d="M15.75 6a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0zM4.501 20.118a7.5 7.5 0 0114.998 0A17.933 17.933 0 0112 21.75c-2.676 0-5.216-.584-7.499-1.632z"/>
                         </svg>
                     </div>
-                    <div class="model-settings absolute bottom-[-12.8rem] right-[-1.5rem] transition-all duration-300 ease"
+                    <div class="model-settings absolute bottom-[-12.8rem] right-[-1.5rem] translate-x-full opacity-0 transition-all duration-300 ease"
                          id="settings-avatar">
                         <div class=" rounded-md flex flex-col bg-slate-700 w-[12rem] overflow-hidden">
                             <a href="<c:url value="/profile"/>" class="block p-2 transition-all hover:bg-slate-600 duration-300 ease cursor-pointer">Profile</a>
@@ -147,7 +147,7 @@
 
 
 <%--Loading Page--%>
-<div id="loading" role="status" class="absolute top-0 left-0 w-full h-[1300px] z-[9999]  grid place-items-center loading-component">
+<div id="loading" role="status" class="translate-x-full opacity-1 transition-all duration-300 ease absolute top-0 left-0 w-full h-full z-[9999]  grid place-items-center loading-component">
     <div class="absolute top-0 left-0 bg-slate-900 opacity-[0.7] animate-pulse w-full h-full"></div>
     <div class="flex justify-center gap-1">
         <span class="block w-3 h-3 rounded-full bg-cyan-300 animate-bounce animate-ping"></span>

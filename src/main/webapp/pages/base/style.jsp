@@ -57,18 +57,23 @@
     }
     // Check Loading and Check Notice
     // UI Loading DOM pushing before check ???
-    document.addEventListener('readystatechange', (e)=>{
+
+    // Enough files and signal
+    document.addEventListener('readystatechange', (e)=> {
+
         if (document.readyState === 'interactive' || document.readyState === 'loading') {
-            console.log('loading')
             // still loading, wait for the event
             document.addEventListener('DOMContentLoaded', () => {
                 let loading = document.getElementById('loading')
-                loading.classList.remove('hidden')
+                if (loading.className.includes('translate-x-full'))
+                    loading.classList.remove('translate-x-full')
             });
         } else {
+            //
             setTimeout(()=>{
                 let loading = document.getElementById('loading')
-                loading.classList.add('hidden')
+                if (!loading.className.includes('translate-x-full'))
+                    loading.classList.add('translate-x-full')
             }, (subDomain.value===''?3000:1000))
             setTimeout(()=>{
                 let loadingSuccess = document.getElementById('toast-success')
@@ -81,91 +86,8 @@
                 loadingDanger.classList.add('hidden')
                 animateSR('toast-danger', 'bottom', 3000, 0)
             }, 4000)
-
-        }
-    })
-
-    window.addEventListener('load', () => {
-        // Route
-        // Loading Ui
-        animateSR('loading-component',"bottom", 500, 0)
-        // Notice UI
-        animateSR('toast-success', 'bottom', 3000, 0)
-        animateSR('toast-danger', 'bottom', 3000, 0)
-
-        // Section Home
-        animateSR("items-1");
-        animateSR("items-2");
-        animateSR("sec2-title", "top");
-        animateSR("sec1-title", "top");
-        animateSR("product-text", "top");
-        animateSR("slide-products"); // if exist, els if no effect
-
-
-        document.addEventListener('readystatechange', (e)=> {
-
-            if (document.readyState === 'interactive' || document.readyState === 'loading') {
-                console.log('loading')
-                // still loading, wait for the event
-                document.addEventListener('DOMContentLoaded', () => {
-                    let loading = document.getElementById('loading')
-                    loading.classList.remove('hidden')
-                });
-            } else {
-                //
-                let loading = document.getElementById('loading')
-                loading.classList.add('hidden')
-                // Loading Ui
-                animateSR('loading-component',"bottom", 500, 0)
-                // Notice UI
-                animateSR('toast-success', 'bottom', 3000, 0)
-                animateSR('toast-danger', 'bottom', 3000, 0)
-
-                // Section Home: /
-                animateSR("items-1");
-                animateSR("items-2");
-                animateSR("sec2-title", "top");
-                animateSR("sec1-title", "top");
-                animateSR("product-text", "top");
-
-
-
-                animateSR("slide-products");  // Slide products: waiting for jsp render.
-                // /product
-                // animateSR("cart-item", "bottom", 1000, 300, "100%", false);
-                //
-                //
-                document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-                    anchor.addEventListener('click', function (e) {
-                        e.preventDefault();
-
-                        document.querySelector(this.getAttribute('href')).scrollIntoView({
-                            behavior: 'smooth',
-                            duration: 1000,
-                        });
-                    });
-                });
-
-            }
-        })
-
-    })
-    // Enough files and signal
-    document.addEventListener('readystatechange', (e)=> {
-
-        if (document.readyState === 'interactive' || document.readyState === 'loading') {
-            console.log('loading')
-            // still loading, wait for the event
-            document.addEventListener('DOMContentLoaded', () => {
-                let loading = document.getElementById('loading')
-                loading.classList.remove('hidden')
-            });
-        } else {
-            //
-            let loading = document.getElementById('loading')
-            loading.classList.add('hidden')
             // Loading Ui
-            animateSR('loading-component',"bottom", 500, 0)
+            // animateSR('loading-component',"bottom", 500, 0)
             // Notice UI
             animateSR('toast-success', 'bottom', 3000, 0)
             animateSR('toast-danger', 'bottom', 3000, 0)
@@ -192,11 +114,20 @@
                 });
             });
 
+            // Header
             if (!settingAvatar.className.includes('translate-x-full')){
                 // Show toggle header
                 settingAvatar.classList.add('translate-x-full')
                 settingAvatar.classList.add('opacity-0')
             }
+
+            // Login, Sign Up:
+            let effectLazy = document.getElementById('effect-lazy');
+            effectLazy.addEventListener('click', () => {
+                let loading = document.getElementById('loading')
+                if (loading.className.includes('translate-x-full'))
+                    loading.classList.remove('translate-x-full')
+            })
         }
     })
 </script>

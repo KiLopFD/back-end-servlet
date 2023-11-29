@@ -37,9 +37,11 @@ public class CartServlet extends HttpServlet {
                     if (cartServices.getTotalAmount(user).compareTo(myWallet) == -1) {
                         req.getSession().setAttribute("money", myWallet.subtract(cartServices.getTotalAmount(user)));
                         cartServices.checkoutall(user, "paid");
+                        req.getSession().setAttribute("notice", "success");
                     }
                     else {
                         cartServices.checkoutall(user, "pending");
+                        req.getSession().setAttribute("notice", "success");
                     }
                     resp.sendRedirect(domain+"/cart");
                     return;
@@ -49,8 +51,10 @@ public class CartServlet extends HttpServlet {
                     ProductDAO productDAO = new ProductDAO();
                     Product product = productDAO.get(productId);
                     Integer quantity = Integer.parseInt(req.getParameter("quantity"));
-                    if (product != null && quantity > 0)
+                    if (product != null && quantity > 0) {
                         cartServices.updateItemQuantity(user, product, quantity);
+                        req.getSession().setAttribute("notice", "success");
+                    }
                     resp.sendRedirect(domain+"/cart");
                     return;
                 }
@@ -59,6 +63,7 @@ public class CartServlet extends HttpServlet {
                     ProductDAO productDAO = new ProductDAO();
                     Product product = productDAO.get(productId);
                     cartServices.removeItem(user, product);
+                    req.getSession().setAttribute("notice", "success");
                     resp.sendRedirect(domain+"/cart");
                     return;
                 }
@@ -85,9 +90,11 @@ public class CartServlet extends HttpServlet {
                         if (totalPriceIdx.compareTo(myWallet) == -1) {
                             req.getSession().setAttribute("money", myWallet.subtract(totalPriceIdx));
                             cartServices.checkoutidx(user, listIdx,"paid");
+                            req.getSession().setAttribute("notice", "success");
                         }
                         else {
                             cartServices.checkoutidx(user, listIdx,"pending");
+                            req.getSession().setAttribute("notice", "success");
                         }
                         resp.sendRedirect(domain+"/cart");
                         return;
@@ -106,7 +113,7 @@ public class CartServlet extends HttpServlet {
             Utility.forwardToPage("./pages/cart.jsp", req, resp);
         }
         catch (Exception error) {
-            System.out.println(error);
+            req.getSession().setAttribute("notice", "danger");
             resp.sendRedirect(domain + "/"); // Back to home if error.
         }
 
